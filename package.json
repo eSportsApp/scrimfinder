@@ -1,0 +1,24 @@
+{
+  "name": "scrimfinder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "echo Please note you need to have nodemon installed to use the dev command && nodemon",
+    "setup": "npm install",
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.10.2",
+    "cowsay": "^1.6.0",
+    "discord.js": "^14.14.1",
+    "djs-commander": "^0.0.50",
+    "dotenv": "^16.4.5",
+    "path": "^0.12.7",
+    "prisma": "^5.10.2"
+  }
+}
