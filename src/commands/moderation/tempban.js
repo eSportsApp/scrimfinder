@@ -32,7 +32,7 @@ module.exports = {
           reason: reason,
         },
       });
-//tim
+//time
 const time = interaction.options.getString("time");
 const duration = ms(time);
 
