@@ -2,7 +2,10 @@ const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, PermissionsBitField, Butto
 const { db } = require("../../lib/db");
 
 module.exports =  async (guild) => {
-        //Embeds
+
+
+//Embeds Used in the command
+
 //Response for Banned Users
 const banned = new EmbedBuilder()
 .setTitle("Sry you are banned from the Bot!")
@@ -26,6 +29,7 @@ const registerd = new EmbedBuilder()
 .setDescription("Successfully registered your server! Have fun using this bot :). \n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)")
 .setColor("#ff7700")
 .setTimestamp();
+
 //Buttons
 const docs = new ActionRowBuilder()
 .addComponents(
@@ -53,7 +57,7 @@ new ButtonBuilder()
             .setDescription('Hello! I am Scrimfinder. I am here to help you find scrims for your server. To get started, click the button below to register your server.')
             .setFooter({ text: 'Feel free to contact us if you have any questions or need help.' })
             .setColor('#ff7700')
-            .setThumbnail('https://cdn.discordapp.com/emojis/1173655743606567035.webp?size=96&quality=lossless')
+            .setThumbnail('https://maierfabian.de/images/hipingu.png')
 
             const sendChannel = await guild.channels.cache.get(channelId);
             var msg = await sendChannel.send({embeds: [embed], components: [button]});
@@ -78,13 +82,14 @@ new ButtonBuilder()
             var channelFetch = await guild.channels.fetch();
             if (!channelFetch) return;
 
-            await channelFetch.forEach(async channek => {
+            await channelFetch.forEach(async channel => {
                 if (channelFetch.permissionsFor(guild.roles.everyone).has(PermissionsBitField.Flags.SendMessages) && channel.type == ChannelType.GuildText){
                     goodChannels.push(channel.id);
                 }else if (channel.type == ChannelType.GuildText){
                     badChannels.push(channel.id);
                 } else {
                     return;
+                    console.log("No Channels found")
                 }
             });
 
