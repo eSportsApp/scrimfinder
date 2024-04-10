@@ -3,13 +3,22 @@ const{ SlashCommandBuilder, ButtonStyle, EmbedBuilder, ActionRowBuilder, ButtonB
 module.exports = {
 
     run: async ({ interaction }) => {
-        const embed = new EmbedBuilder()
-        .setTitle("Invite Scrimfinder to your Server")
-        .setURL("https://docs.scrimfinder.de")
-        .setDescription("Hey you like the Bot?\nInvite it to your Server!")
-        .setThumbnail("https://maierfabian.de/images/lovepingu.png")
-        .setColor("#ff7700")
-        .setTimestamp();
+      const embed = new EmbedBuilder()
+      .setAuthor({
+        name: "Scrimfinder",
+      })
+      .setTitle("Invite Scrimfinder to your Server")
+      .setURL("\"https://scrimfinder.de\"")
+      .addFields(
+        {
+          name: "Hey do you like the scrimfinder bot?",
+          value: "then why not invite him to your server",
+          inline: true
+        },
+      )
+      .setImage("https://maierfabian.de/images/lovepingu.png")
+      .setColor("#ff7700")
+      .setTimestamp();
 
   const row = new ActionRowBuilder()
   .addComponents(
