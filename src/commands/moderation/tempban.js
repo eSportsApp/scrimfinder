@@ -40,7 +40,7 @@ module.exports = {
 const bantime = 0;
 if (!time) {
 } else if (time === "1"){
-  bantime = 1000; // 24 hours in milliseconds
+  bantime = 60 * 1000; // 24 hours in milliseconds
   //return bantime;
 } else if (time === "3"){
   bantime = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds

@@ -17,13 +17,14 @@ module.exports = {
       if(!bannedUser) {
         await interaction.reply("This user isn't banned.");
       }
-
+      
       const unbanUser = await db.bannedUsers.delete({
         where: {
           userId: userId
+      
         }
       })
-
+      console.log(`${userId} got unbanned ${interaction.user} `)
       await interaction.reply({content: `Successfully unbanned <@${userId}>!`, ephemeral: true})
     } catch (err) {
       console.log(err)

@@ -31,7 +31,7 @@ module.exports = {
           reason: reason,
         },
       });
-
+      console.log(`${userId} got banned by ${interaction.user}! Reason: ${reason}`);
       // Send ban confirmation
       const banEmbed = new EmbedBuilder()
         .setTitle("User banned!")
@@ -39,6 +39,7 @@ module.exports = {
         .addFields({ name: "**Reason:**", value: `${reason}` })
         .setColor("Red");
       await interaction.reply({ embeds: [banEmbed], ephemeral: true });
+      
     } catch (err) {
       // Console log the error
       console.log(`🛑OOPS, there was an error!🛑\n${err}`);
