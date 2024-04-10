@@ -1,9 +1,13 @@
 const { SlashCommandBuilder, PermissionsBitField, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const { db } = require("../lib/db");
+//const {banned} = require("../lib/embeds");
+
 
 module.exports = {
   run: async ({ interaction }) => {
-//Embeds
+
+
+//Embeds declaration
 
 //no permissions
 const noperm = new EmbedBuilder()
@@ -36,6 +40,7 @@ const success = new EmbedBuilder()
 .setDescription("Successfully set up the channel for the game. You are ready to use me now.\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)\n\nTo get started just try /findscrim")
 .setColor("#ff7700")
 .setTimestamp();
+
 //Buttons
 const invite = new ActionRowBuilder()
 .addComponents(
@@ -49,14 +54,9 @@ const invite = new ActionRowBuilder()
         .setStyle(ButtonStyle.Link),
 )
 
-
-
-
-
 //code
     const channel = interaction.options.getChannel("channel");
     const game = interaction.options.getString("game");
-    const style = interaction.options.getString("style");
     const guildId = interaction.guildId;
 
     try {
@@ -243,52 +243,6 @@ const invite = new ActionRowBuilder()
       } else {
         await interaction.reply("Please run `/register-server` first.")
       }
-      /*/Style
-      if (style == "default") {
-          
-        const checkDB = await db.guilds.findFirst({
-          where: {
-            style: "default"
-          }
-        })
-
-       
-
-        const newStyleDB = await db.guilds.update({
-          where: {
-            guildId: guildId
-          },
-          data: {
-            style: style
-          }
-        })
-
-        await interaction.reply({ 
-          embeds: [success]})
-
-      } else if (style == "detailed") {
-          
-        const checkDB = await db.guilds.findFirst({
-          where: {
-            style: "detailed"
-          }
-        })
-
-       
-
-        const newStyleDB = await db.guilds.update({
-          where: {
-            guildId: guildId
-          },
-          data: {
-            style: "detailed"
-          }
-        })
-
-        await interaction.reply({ 
-          embeds: [success]})
-
-      }*/
     } catch (err) {
       console.log(err);
     }
@@ -310,15 +264,5 @@ const invite = new ActionRowBuilder()
         )
         .addChoices({ name: "Rainbow Six Siege", value: "rss" })
         .setRequired(true)
-    )
-    /*.addStringOption((option) =>
-    option
-        .setName("style")
-        .setDescription(
-          "Change the style of the message."
-        )
-        .addChoices({ name: "default (compact)", value: "default" })
-        .addChoices({ name: "Detailed (bigger message but the infos are the same)", value: "detailed" })
-        .setRequired(true)
-    ),*/
+    ),
 };
