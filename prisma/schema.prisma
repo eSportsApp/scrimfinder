@@ -23,6 +23,8 @@ model guilds {
   cs2ChannelId String?
   rssChannelId String?
   rsscChannelId String?
+  //Warmup Searches
+  warmuprssChannelId String?
 }
 
 model tempban {

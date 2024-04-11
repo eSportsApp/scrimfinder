@@ -17,7 +17,7 @@ module.exports = {
       .setColor("#ff7700")
       .setTimestamp()
       .setFooter({
-        text: "Bot",
+        text: "Find more information on our website!",
         iconURL: "https://maierfabian.de/images/lovepingu.png",
       })
       
