@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
 const { db } = require("../../lib/db");
+const Twit = require('twit');
 
 module.exports = {
   
@@ -21,8 +22,14 @@ const banned = new EmbedBuilder()
     const teamname = interaction.options.getString("team-name");
     let extrainfo = interaction.options.getString("extra-info");
 
-    
-
+  
+// Initialize Twitter client
+const T = new Twit({
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token: process.env.TWITTER_ACCESS_TOKEN,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+});
 
 
 
@@ -86,6 +93,12 @@ const banned = new EmbedBuilder()
             }
           });
           
+          
+          /* Tweet the scrim
+          const tweetContent = `📅 ${date} ${time} CET 🎮 ${rank} 🏆 Bo${bestof} \n\nExtra Informations: ${extrainfo} \n\n🎮 ${game} \n\n🔗 https://scrimfinder	.de`;
+          await T.post('statuses/update', { status: tweetContent });
+          console.log(`Tweeted: ${tweetContent}`);
+          */
         } else {
           await interaction.reply({content: "Hmm. Seems like the selected game doesn't exit.", ephemeral: true})
         }
