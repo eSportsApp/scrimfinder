@@ -33,8 +33,14 @@ module.exports = {
           reason: reason,
         },
       });
+
+      
       const duration = ms(time);
-      //time to unban the user
+      console.log('Start');
+      setTimeout(() => {
+        console.log('End');
+      }, 5000);
+      console.log(`Duration: ${duration}`);
       setTimeout(async () => {
         console.log(`Opened timeout function`);
         try {
@@ -93,10 +99,10 @@ module.exports = {
       option
         .setName("time")
         .setDescription("How long should the ban last?")
-        .addChoices({ name: "1 Day", value: "10s" })
-        .addChoices({ name: "3 Days", value: "3" })
-        .addChoices({ name: "7 Days", value: "7" })
-        .addChoices({ name: "30 Days", value: "30" })
+        .addChoices({ name: "1 Day", value: "1 Day" })
+        .addChoices({ name: "3 Days", value: "3 Days" })
+        .addChoices({ name: "7 Days", value: "7 Days" })
+        .addChoices({ name: "30 Days", value: "30 Days" })
         .setRequired(true)
     ),
 };
