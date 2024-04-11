@@ -1,5 +1,5 @@
 const { db } = require("../../lib/db");
-const ms = require("ms");
+const {ms} = require("../../lib/ms");
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 module.exports = {
 // Bannt den nutzer entbannt ihn jedoch nichtmehr. Error müsste in der Timeout funktion liegen
@@ -35,9 +35,10 @@ module.exports = {
       });
 
       //time to unban the user
-      const bantime = 5000; // 1 hour in milliseconds
+      const bantime = 5000;
       if (!time) {
       } else if (time === "1") {
+        // 1 day in milliseconds (for development purposes, set to 5 seconds)
         setTimeout(async () => {
           console.log(`Opened timeout function`);
           try {
@@ -63,13 +64,13 @@ module.exports = {
             console.log(`🛑OOPS, there was an error while removing the ban!🛑\n${err}`);
           }
         }, bantime);      
-      
+      //every if statements in here are not usable jet. Will add them when i got the timeout function working
       } else if (time === "3") {
-        bantime = ms("20s"); // 3 days in milliseconds
+        // 3 days in milliseconds
       } else if (time === "7") {
-        bantime = ms("1h"); // 7 days in milliseconds
+        // 7 days in milliseconds
       } else if (time === "30") {
-        bantime = ms("1h"); // 30 days in milliseconds
+         // 30 days in milliseconds
       }
       // Wait for the specified ban time
       //await new Promise((resolve) => setTimeout(resolve, bantime));
@@ -104,7 +105,7 @@ module.exports = {
       option
         .setName("time")
         .setDescription("How long should the ban last?")
-        .addChoices({ name: "1 Hour", value: "1" })
+        .addChoices({ name: "1 Day", value: "1" })
         .addChoices({ name: "3 Days", value: "3" })
         .addChoices({ name: "7 Days", value: "7" })
         .addChoices({ name: "30 Days", value: "30" })
