@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionsBitField, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
-const { db } = require("../lib/db");
+const { db } = require("../../lib/db");
 //const {banned} = require("../lib/embeds");
 
 

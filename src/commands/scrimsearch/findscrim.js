@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
-const { db } = require("../lib/db");
+const { db } = require("../../lib/db");
 
 module.exports = {
   
@@ -66,14 +66,15 @@ const banned = new EmbedBuilder()
   .setAuthor({
     name: `${interaction.user.displayName} ${teamname} is LFS`,
     iconURL: `http://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}`,
+    url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
     
   })
   .setDescription(`📅 **${date} ${time} CET**    🎮 **${rank}**    🏆 **Bo${bestof}**`)
   
   .setColor("#ff7700")
   .setFooter({
-    text: `Scrimfinder (scrimfinder.de) | ${interaction.user.id}`,
-    iconURL: "https://docs.scrimfinder.de/favicon.ico",
+    text: `Scrimfinder.de  | ${interaction.user.id}`,
+    iconURL: "https://maierfabian.de/images/happypingu.png",
   })
   .setTimestamp();
    
@@ -137,6 +138,7 @@ const banned = new EmbedBuilder()
   .setAuthor({
     name: `${interaction.user.displayName} ${teamname} is LFS`,
     iconURL: `http://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}`,
+    url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
   })
   .setDescription(`📅${date} ${time} CET  🎮 ${rank}  🏆Bo${bestof}`)
   .addFields(
@@ -149,7 +151,7 @@ const banned = new EmbedBuilder()
   .setColor("#ff7700")
   .setFooter({
     text: `Scrimfinder (scrimfinder.de) | ${interaction.user.id}`,
-    iconURL: "https://docs.scrimfinder.de/favicon.ico",
+    iconURL: "https://maierfabian.de/images/happypingu.png",
   })
   .setTimestamp();
        
