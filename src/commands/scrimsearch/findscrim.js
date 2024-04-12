@@ -31,7 +31,18 @@ const T = new Twit({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
-
+const send = new EmbedBuilder()
+  .setTitle("Scrimsearch started!")
+  .setURL("https://docs.scrimfinder/invite")
+  .setDescription("Have fun and make sure that your DM's are open.\nIf you haven't already consider to invite me to your Server!")
+  .setColor("#ff7700")
+  .setFooter({
+    text: "Scrimfinder.de | Finding Scrims was never that easy",
+    iconURL: "https://maierfabian.de/images/lovepingu.png",
+  })
+  .setTimestamp();
+  const invitebtn = new ButtonBuilder().setLabel(`Invite Me`).setStyle(ButtonStyle.Link).setURL('https://docs.scrimfinder.de/invite').setEmoji('1173655743606567035');
+  const inv = new ActionRowBuilder().addComponents(invitebtn)
 
 
     //mainfunction
@@ -104,7 +115,7 @@ const T = new Twit({
         }
   
         await interaction.reply({
-          content: "Scrimsearch started! Have fun and make sure that your DM's are open ;).",
+          embeds: [send], components: [inv],
           ephemeral: true
         });
       } catch (err) {
@@ -180,7 +191,7 @@ const T = new Twit({
       }
 
       await interaction.reply({
-        content: "Scrimsearch started! Have fun and make sure that your DM's are open ;).",
+        embeds: [send], components: [inv],
         ephemeral: true
       });
     } catch (err) {
