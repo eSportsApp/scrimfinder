@@ -25,17 +25,17 @@ module.exports = {
   
   //Response for already registered Servers
   const notfound = new EmbedBuilder()
-  .setTitle("This Channel is already set up!")
+  .setTitle("Channel is not registered!")
   .setURL("https://scrimfinder.de")
-  .setDescription("It seems like this channel is already set up. Please try another one!\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)\n\nTo get started just try /findscrim")
+  .setDescription("This channel seems not to be registered.!\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)\n\nTo get started just try /findscrim")
   .setColor("#ff7700")
   .setTimestamp();
   
   //Response for successfully registered Servers
   const success = new EmbedBuilder()
-  .setTitle("Successfully set up the channel!")
+  .setTitle("You have successfully unregistered the channel!")
   .setURL("https://scrimfinder.de")
-  .setDescription("Successfully set up the channel for the game. You are ready to use me now.\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)\n\nTo get started just try /findscrim")
+  .setDescription("You have successfully unregistered the channel for the game.\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)\n\nTo get started just try /findscrim")
   .setColor("#ff7700")
   .setTimestamp();
   
