@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { db } = require("../../lib/db");
 
 module.exports = {
-  botOwnerOnly: true,
+  staffonly: true,
   run: async ({ interaction }) => {
     // Get options input
     const userId = interaction.options.getString("userid");

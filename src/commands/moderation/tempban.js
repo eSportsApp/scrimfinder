@@ -3,7 +3,7 @@ const ms = require('../../lib/ms');
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 module.exports = {
 // Bannt den nutzer entbannt ihn jedoch nichtmehr. Error müsste in der Timeout funktion liegen
-  botOwnerOnly: true,
+  staffonly: true,
   run: async ({ interaction }) => {
     // Get options input
     const userId = interaction.options.getString("userid");

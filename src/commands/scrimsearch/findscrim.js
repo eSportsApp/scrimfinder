@@ -31,6 +31,9 @@ const T = new Twit({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
+
+console.log(game, rank, date, time, bestof, teamname, extrainfo);
+
 const send = new EmbedBuilder()
   .setTitle("Scrimsearch started!")
   .setURL("https://docs.scrimfinder/invite")
@@ -45,9 +48,9 @@ const send = new EmbedBuilder()
   const inv = new ActionRowBuilder().addComponents(invitebtn)
 
 
+
     //mainfunction
     if (extrainfo == null) {
-      extrainfo = "No extra information provided.";
       try {
         // Check if user is banned
         const userBanned = await db.bannedUsers.findFirst({
@@ -87,7 +90,7 @@ const send = new EmbedBuilder()
     url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
     
   })
-  .setDescription(`📅 **${date} ${time} CET**    🎮 **${rank}**    🏆 **Bo${bestof}**`)
+  .setDescription(`📅 **${date} ${time} CET**    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`)
   
   .setColor("#ff7700")
   .setFooter({
@@ -164,7 +167,7 @@ const send = new EmbedBuilder()
     iconURL: `http://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}`,
     url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
   })
-  .setDescription(`📅${date} ${time} CET  🎮 ${rank}  🏆Bo${bestof}`)
+  .setDescription(`📅 **${date} ${time} CET**    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`)
   .addFields(
           {
             name: "Extra Informations",
@@ -211,7 +214,10 @@ const send = new EmbedBuilder()
     .addStringOption((option) =>
       option
         .setName("rank")
-        .setDescription("Your rank.")
+        .setDescription("Your Class")
+        .addChoices({ name: "Class I", value: "I" })
+        .addChoices({ name: "Class H", value: "H" })
+        .addChoices({ name: "Class G", value: "G" })
         .setRequired(true))
     
     .addStringOption((option) =>
@@ -237,5 +243,5 @@ const send = new EmbedBuilder()
     .addStringOption(option =>
       option
         .setName("extra-info")
-        .setDescription("Extra information on how to ")),
+        .setDescription("Extra information about the scrim.")),
 };
