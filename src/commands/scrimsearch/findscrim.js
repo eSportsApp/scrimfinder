@@ -32,11 +32,10 @@ const T = new Twit({
 });
 
 
-
+console.log(game, rank, date, time, bestof, teamname, extrainfo);
 
     //mainfunction
     if (extrainfo == null) {
-      extrainfo = "No extra information provided.";
       try {
         // Check if user is banned
         const userBanned = await db.bannedUsers.findFirst({
@@ -76,7 +75,7 @@ const T = new Twit({
     url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
     
   })
-  .setDescription(`📅 **${date} ${time} CET**    🎮 **${rank}**    🏆 **Bo${bestof}**`)
+  .setDescription(`📅 **${date} ${time} CET**    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`)
   
   .setColor("#ff7700")
   .setFooter({
@@ -153,7 +152,7 @@ const T = new Twit({
     iconURL: `http://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}`,
     url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
   })
-  .setDescription(`📅${date} ${time} CET  🎮 ${rank}  🏆Bo${bestof}`)
+  .setDescription(`📅 **${date} ${time} CET**    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`)
   .addFields(
           {
             name: "Extra Informations",
@@ -200,7 +199,10 @@ const T = new Twit({
     .addStringOption((option) =>
       option
         .setName("rank")
-        .setDescription("Your rank.")
+        .setDescription("Your Class")
+        .addChoices({ name: "Class I", value: "I" })
+        .addChoices({ name: "Class H", value: "H" })
+        .addChoices({ name: "Class G", value: "G" })
         .setRequired(true))
     
     .addStringOption((option) =>
@@ -226,5 +228,5 @@ const T = new Twit({
     .addStringOption(option =>
       option
         .setName("extra-info")
-        .setDescription("Extra information on how to ")),
+        .setDescription("Extra information about the scrim.")),
 };
