@@ -15,7 +15,7 @@ const banned = new EmbedBuilder()
 .setTimestamp();
     // Get the selected option
     const game = interaction.options.getString("game");
-    const rank = interaction.options.getString("rank");
+    const rank = interaction.options.getString("class");
     const date = interaction.options.getString("date");
     const time = interaction.options.getString("time");
     const bestof = interaction.options.getString("best-of");
@@ -198,8 +198,8 @@ console.log(game, rank, date, time, bestof, teamname, extrainfo);
     )
     .addStringOption((option) =>
       option
-        .setName("rank")
-        .setDescription("Your Class")
+        .setName("class")
+        .setDescription("Class, the class range you are LFS for")
         .addChoices({ name: "Class I", value: "I" })
         .addChoices({ name: "Class H", value: "H" })
         .addChoices({ name: "Class G", value: "G" })

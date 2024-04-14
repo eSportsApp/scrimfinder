@@ -5,7 +5,7 @@ module.exports = {
     run: async ({ interaction }) => {
       const embed = new EmbedBuilder()
       .setTitle("What are classes?")
-      .setURL("https://scrimfinder.de/guides/what-are-classes")
+      .setURL("https://docs.scrimfinder.de/guides/whatareclasses")
       .setDescription("Classes are a way to categorize players based on their skill level. This makes it easier to find players with a similar skill level to play with. \n\n Your class is managed by the [Rainbow Six Siege Class System](https://discord.gg/fVGMy6ekfk). To get you class changed please go there.")
       .addFields({
         name: "Class I",
@@ -29,7 +29,7 @@ module.exports = {
   const row = new ActionRowBuilder()
   .addComponents(
     new ButtonBuilder()
-          .setURL('https://docs.scrimfinder.de/guide/what-are-classes')
+          .setURL('https://docs.scrimfinder.de/guides/whatareclasses')
           .setLabel('More about Classes')
           .setStyle(ButtonStyle.Link),
        
