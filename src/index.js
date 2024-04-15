@@ -1,4 +1,4 @@
-// Imports
+/* Imports 
 const { Client, IntentsBitField } = require('discord.js');
 const { CommandHandler } = require('djs-commander');
 const path = require('path');
@@ -25,4 +25,4 @@ new CommandHandler({
 // Bot login
 (async () => {
     client.login(process.env.TOKEN);
-})();
+})(); */

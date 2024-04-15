@@ -64,6 +64,7 @@ const send = new EmbedBuilder()
           await interaction.reply({embeds: [banned]}.ephemeral = true);
           return;
         } 
+        
   
         const btn = new ButtonBuilder().setLabel("📬Contact📬").setCustomId('contact').setStyle(ButtonStyle.Primary)
         const test = new ButtonBuilder().setLabel("Direkt Message").setStyle(ButtonStyle.Link).setURL(`discord://-/users/${interaction.user.id}`)
