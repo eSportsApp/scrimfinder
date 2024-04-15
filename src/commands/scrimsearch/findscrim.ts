@@ -1,4 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
+import { SlashCommandBuilder } from "discord.js";
+import { EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } from "discord.js";
 const { db } = require("../../lib/db");
 const Twit = require('twit');
 
@@ -20,6 +21,7 @@ const banned = new EmbedBuilder()
     const time = interaction.options.getString("time");
     const bestof = interaction.options.getString("best-of");
     const teamname = interaction.options.getString("team-name");
+    const type = interaction.options.getString("six_plus_six");
     let extrainfo = interaction.options.getString("extra-info");
 
   
@@ -53,20 +55,7 @@ const send = new EmbedBuilder()
     if (extrainfo == null) {
       try {
         // Check if user is banned
-        const userBanned = await db.bannedUsers.findFirst({
-          where: {
-            userId: interaction.user.id,
-          },
-        });
-  
-        if (userBanned) {
-          await interaction.reply({embeds: [banned]}.ephemeral = true);
-          return;
-        } 
-  
-        const btn = new ButtonBuilder().setLabel("📬Contact📬").setCustomId('contact').setStyle(ButtonStyle.Primary)
-        const test = new ButtonBuilder().setLabel("Direkt Message").setStyle(ButtonStyle.Link).setURL(`discord://-/users/${interaction.user.id}`)
-        const contactRow = new ActionRowBuilder().addComponents(btn, test)
+        await interaction.reply({ embeds: [banned], ephemeral: true });
         
   
         
@@ -99,6 +88,9 @@ const send = new EmbedBuilder()
   })
   .setTimestamp();
    
+  const btn = new ButtonBuilder().setLabel("📬Contact📬").setCustomId('contact').setStyle(ButtonStyle.Primary)
+  const test = new ButtonBuilder().setLabel("Direkt Message").setStyle(ButtonStyle.Link).setURL(`discord://-/users/${interaction.user.id}`)
+  const contactRow = new ActionRowBuilder().addComponents(btn, test)
   
           channel.forEach((c) => {
             const channelToSend = client.channels.cache.get(c);
@@ -138,7 +130,7 @@ const send = new EmbedBuilder()
       });
 
       if (userBanned) {
-        await interaction.reply({embeds: [banned]}.ephemeral = true);
+        await interaction.reply({ embeds: [banned], ephemeral: true });
         return;
       } 
 
@@ -202,46 +194,55 @@ const send = new EmbedBuilder()
     }}
   },
   data: new SlashCommandBuilder()
-    .setName("findscrim")
-    .setDescription("Find a scrim.")
-    .addStringOption((option) =>
-      option
-        .setName("game")
-        .setDescription("The game you want to find a scrim for.")
-        .addChoices({ name: "Rainbow Six Siege", value: "rss" })
-        .setRequired(true)
-    )
-    .addStringOption((option) =>
-      option
-        .setName("class")
-        .setDescription("Class, the class range you are LFS for")
-        .addChoices({ name: "Class I", value: "I" },
-        { name: "Class H", value: "H" },
-        { name: "Class G", value: "G" })
+  .setName("findscrim")
+  .setDescription("Find a scrim.")
+  .addStringOption((option) =>
+    option
+      .setName("game")
+      .setDescription("The game you want to find a scrim for.")
+      .addChoices({ name: "Rainbow Six Siege", value: "rss" })
+      .setRequired(true)
+  )
+  .addStringOption((option) =>
+    option
+      .setName("class")
+      .setDescription("Class, the class range you are LFS for")
+      .addChoices({ name: "Class I", value: "I" },
+      { name: "Class H", value: "H" },
+      { name: "Class G", value: "G" })
+      .setRequired(true))
+  
+  .addStringOption((option) =>
+    option
+      .setName("team-name")
+      .setDescription("The name of your team.")
+      .setRequired(true))
+  .addStringOption(option =>
+    option
+      .setName("best-of")
+      .setDescription("Best of.")
+      .setRequired(true))
+  .addStringOption(option =>
+    option
+      .setName("date")
+      .setDescription("The date you want to find a scrim for.")
+      .setRequired(true))
+  .addStringOption(option =>
+    option
+      .setName("time")
+        .setDescription("The time you want to scrim.")
         .setRequired(true))
-    
-    .addStringOption((option) =>
-      option
-        .setName("team-name")
-        .setDescription("The name of your team.")
-        .setRequired(true))
-    .addStringOption(option =>
-      option
-        .setName("best-of")
-        .setDescription("Best of.")
-        .setRequired(true))
-    .addStringOption(option =>
-      option
-        .setName("date")
-        .setDescription("The date you want to find a scrim for.")
-        .setRequired(true))
-    .addStringOption(option =>
-      option
-        .setName("time")
-          .setDescription("The time you want to scrim.")
-          .setRequired(true))
-    .addStringOption(option =>
-      option
-        .setName("extra-info")
-        .setDescription("Extra information about the scrim.")),
+  .addStringOption(option =>
+    option
+      .setName("extra-info")
+      .setDescription("Extra information about the scrim."))
+
+  /*.addStringOption(option =>
+    option
+    .setName('six_plus_six')
+    .setDescription("Do you want to search a 6+6?")
+    .addChoices(
+      { name: "Search 6+6", value: "1" },
+      { name: "No", value: "2" }
+    ))*/
 };
