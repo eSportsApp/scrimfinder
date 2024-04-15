@@ -13,17 +13,48 @@ const banned = new EmbedBuilder()
 .setDescription("It seems like you are banned from the bot. If you think this is a mistake, please contact us.")
 .setColor("#ff7700")
 .setTimestamp();
+////////////////////////////////////////////////////////////////////////////////////////
     // Get the selected option
     const game = interaction.options.getString("game");
-    const rank = interaction.options.getString("class");
     const date = interaction.options.getString("date");
     const time = interaction.options.getString("time");
     const bestof = interaction.options.getString("best-of");
     const teamname = interaction.options.getString("team-name");
     const type = interaction.options.getString("six_plus_six");
     let extrainfo = interaction.options.getString("extra-info");
+    try {
+      // Check if user is banned
+      const userBanned = await db.bannedUsers.findFirst({
+        where: {
+          userId: interaction.user.id,
+        },
+      });
 
-  
+      if (userBanned) {
+        await interaction.reply({embeds: [banned]}.ephemeral = true);
+        return;
+      } 
+      const userInDB = await db.users.findFirst({
+        where: {
+          userId: userId,
+        },
+      });
+      if (!userInDB) {
+        await db.users.create({
+          data: {
+            userId: userId,
+            username: interaction.user.username,
+            rssclass: "I",
+          },
+        });
+        const rank = "I";
+      }else {
+        const rank = userInDB.rssclass;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+//////////////////////////////////////////////////////////////////////////////////////// 
 // Initialize Twitter client
 const T = new Twit({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -64,8 +95,24 @@ const send = new EmbedBuilder()
           await interaction.reply({embeds: [banned]}.ephemeral = true);
           return;
         } 
-        
-  
+        const userInDB = await db.users.findFirst({
+          where: {
+            userId: userId,
+          },
+        });
+        if (!userInDB) {
+          await db.users.create({
+            data: {
+              userId: userId,
+              username: interaction.user.username,
+              rssclass: "I",
+            },
+          });
+          const rank = "I";
+        }else {
+          const rank = userInDB.rssclass;
+        }
+
         const btn = new ButtonBuilder().setLabel("📬Contact📬").setCustomId('contact').setStyle(ButtonStyle.Primary)
         const test = new ButtonBuilder().setLabel("Direkt Message").setStyle(ButtonStyle.Link).setURL(`discord://-/users/${interaction.user.id}`)
         const contactRow = new ActionRowBuilder().addComponents(btn, test)
