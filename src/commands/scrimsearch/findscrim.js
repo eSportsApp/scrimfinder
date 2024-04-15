@@ -90,7 +90,7 @@ const send = new EmbedBuilder()
     url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
     
   })
-  .setDescription(`📅 **${date} ${time} CET**    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`)
+  .setDescription(`📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`)
   
   .setColor("#ff7700")
   .setFooter({
@@ -167,7 +167,7 @@ const send = new EmbedBuilder()
     iconURL: `http://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}`,
     url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
   })
-  .setDescription(`📅 **${date} ${time} CET**    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`)
+  .setDescription(`📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`)
   .addFields(
           {
             name: "Extra Informations",
