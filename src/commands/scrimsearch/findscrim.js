@@ -215,9 +215,9 @@ const send = new EmbedBuilder()
       option
         .setName("class")
         .setDescription("Class, the class range you are LFS for")
-        .addChoices({ name: "Class I", value: "I" })
-        .addChoices({ name: "Class H", value: "H" })
-        .addChoices({ name: "Class G", value: "G" })
+        .addChoices({ name: "Class I", value: "I" },
+        { name: "Class H", value: "H" },
+        { name: "Class G", value: "G" })
         .setRequired(true))
     
     .addStringOption((option) =>
