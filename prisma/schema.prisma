@@ -37,8 +37,10 @@ model tempban {
 model users {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String @unique
+  username String?
   rssClan String?
-  rssRank String?
+  rssclass String?
+  
   
 }
 //New thing added run 
