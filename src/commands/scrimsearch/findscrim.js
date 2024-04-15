@@ -1,5 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
-import { EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } from "discord.js";
+const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
 const { db } = require("../../lib/db");
 const Twit = require('twit');
 
@@ -55,7 +54,20 @@ const send = new EmbedBuilder()
     if (extrainfo == null) {
       try {
         // Check if user is banned
-        await interaction.reply({ embeds: [banned], ephemeral: true });
+        const userBanned = await db.bannedUsers.findFirst({
+          where: {
+            userId: interaction.user.id,
+          },
+        });
+  
+        if (userBanned) {
+          await interaction.reply({embeds: [banned]}.ephemeral = true);
+          return;
+        } 
+  
+        const btn = new ButtonBuilder().setLabel("📬Contact📬").setCustomId('contact').setStyle(ButtonStyle.Primary)
+        const test = new ButtonBuilder().setLabel("Direkt Message").setStyle(ButtonStyle.Link).setURL(`discord://-/users/${interaction.user.id}`)
+        const contactRow = new ActionRowBuilder().addComponents(btn, test)
         
   
         
@@ -88,9 +100,6 @@ const send = new EmbedBuilder()
   })
   .setTimestamp();
    
-  const btn = new ButtonBuilder().setLabel("📬Contact📬").setCustomId('contact').setStyle(ButtonStyle.Primary)
-  const test = new ButtonBuilder().setLabel("Direkt Message").setStyle(ButtonStyle.Link).setURL(`discord://-/users/${interaction.user.id}`)
-  const contactRow = new ActionRowBuilder().addComponents(btn, test)
   
           channel.forEach((c) => {
             const channelToSend = client.channels.cache.get(c);
@@ -130,7 +139,7 @@ const send = new EmbedBuilder()
       });
 
       if (userBanned) {
-        await interaction.reply({ embeds: [banned], ephemeral: true });
+        await interaction.reply({embeds: [banned]}.ephemeral = true);
         return;
       } 
 
@@ -237,12 +246,12 @@ const send = new EmbedBuilder()
       .setName("extra-info")
       .setDescription("Extra information about the scrim."))
 
-  /*.addStringOption(option =>
+  .addStringOption(option =>
     option
     .setName('six_plus_six')
     .setDescription("Do you want to search a 6+6?")
     .addChoices(
       { name: "Search 6+6", value: "1" },
       { name: "No", value: "2" }
-    ))*/
+    ))
 };
