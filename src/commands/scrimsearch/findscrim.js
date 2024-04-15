@@ -15,11 +15,12 @@ const banned = new EmbedBuilder()
 .setTimestamp();
     // Get the selected option
     const game = interaction.options.getString("game");
-    const rank = interaction.options.getString("rank");
+    const rank = interaction.options.getString("class");
     const date = interaction.options.getString("date");
     const time = interaction.options.getString("time");
     const bestof = interaction.options.getString("best-of");
     const teamname = interaction.options.getString("team-name");
+    const type = interaction.options.getString("six_plus_six");
     let extrainfo = interaction.options.getString("extra-info");
 
   
@@ -90,7 +91,7 @@ const send = new EmbedBuilder()
     url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
     
   })
-  .setDescription(`📅 **${date} ${time} CET**    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`)
+  .setDescription(`📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`)
   
   .setColor("#ff7700")
   .setFooter({
@@ -167,7 +168,7 @@ const send = new EmbedBuilder()
     iconURL: `http://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}`,
     url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
   })
-  .setDescription(`📅 **${date} ${time} CET**    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`)
+  .setDescription(`📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`)
   .addFields(
           {
             name: "Extra Informations",
@@ -202,46 +203,55 @@ const send = new EmbedBuilder()
     }}
   },
   data: new SlashCommandBuilder()
-    .setName("findscrim")
-    .setDescription("Find a scrim.")
-    .addStringOption((option) =>
-      option
-        .setName("game")
-        .setDescription("The game you want to find a scrim for.")
-        .addChoices({ name: "Rainbow Six Siege", value: "rss" })
-        .setRequired(true)
-    )
-    .addStringOption((option) =>
-      option
-        .setName("rank")
-        .setDescription("Your Class")
-        .addChoices({ name: "Class I", value: "I" })
-        .addChoices({ name: "Class H", value: "H" })
-        .addChoices({ name: "Class G", value: "G" })
+  .setName("findscrim")
+  .setDescription("Find a scrim.")
+  .addStringOption((option) =>
+    option
+      .setName("game")
+      .setDescription("The game you want to find a scrim for.")
+      .addChoices({ name: "Rainbow Six Siege", value: "rss" })
+      .setRequired(true)
+  )
+  .addStringOption((option) =>
+    option
+      .setName("class")
+      .setDescription("Class, the class range you are LFS for")
+      .addChoices({ name: "Class I", value: "I" },
+      { name: "Class H", value: "H" },
+      { name: "Class G", value: "G" })
+      .setRequired(true))
+  
+  .addStringOption((option) =>
+    option
+      .setName("team-name")
+      .setDescription("The name of your team.")
+      .setRequired(true))
+  .addStringOption(option =>
+    option
+      .setName("best-of")
+      .setDescription("Best of.")
+      .setRequired(true))
+  .addStringOption(option =>
+    option
+      .setName("date")
+      .setDescription("The date you want to find a scrim for.")
+      .setRequired(true))
+  .addStringOption(option =>
+    option
+      .setName("time")
+        .setDescription("The time you want to scrim.")
         .setRequired(true))
-    
-    .addStringOption((option) =>
-      option
-        .setName("team-name")
-        .setDescription("The name of your team.")
-        .setRequired(true))
-    .addStringOption(option =>
-      option
-        .setName("best-of")
-        .setDescription("Best of.")
-        .setRequired(true))
-    .addStringOption(option =>
-      option
-        .setName("date")
-        .setDescription("The date you want to find a scrim for.")
-        .setRequired(true))
-    .addStringOption(option =>
-      option
-        .setName("time")
-          .setDescription("The time you want to scrim.")
-          .setRequired(true))
-    .addStringOption(option =>
-      option
-        .setName("extra-info")
-        .setDescription("Extra information about the scrim.")),
+  .addStringOption(option =>
+    option
+      .setName("extra-info")
+      .setDescription("Extra information about the scrim."))
+
+  .addStringOption(option =>
+    option
+    .setName('six_plus_six')
+    .setDescription("Do you want to search a 6+6?")
+    .addChoices(
+      { name: "Search 6+6", value: "1" },
+      { name: "No", value: "2" }
+    ))
 };

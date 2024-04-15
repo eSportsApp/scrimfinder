@@ -30,7 +30,7 @@ module.exports = {
           .setStyle(ButtonStyle.Link),
        
     new ButtonBuilder()
-          .setURL('https://scrimfinder.de/invite')
+          .setURL('https://scrimfinder.de/')
           .setLabel('My Website')
           .setStyle(ButtonStyle.Link),
           

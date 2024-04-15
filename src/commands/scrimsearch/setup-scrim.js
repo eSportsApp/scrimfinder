@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, PermissionsBitField, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const { db } = require("../../lib/db");
+const { set } = require("mongoose");
 //const {banned} = require("../lib/embeds");
 
 
@@ -41,6 +42,14 @@ const success = new EmbedBuilder()
 .setColor("#ff7700")
 .setTimestamp();
 
+//Response for successfully set up channel
+const setchannel = new EmbedBuilder()
+.setTitle("Successfully set up the channel!")
+.setURL("https://scrimfinder.de")
+.setDescription("You successfully setted up the channel. Feel free to serch a scrim using /findscrim\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)")
+.setColor("#ff7700")
+.setTimestamp();
+
 //Buttons
 const invite = new ActionRowBuilder()
 .addComponents(
@@ -60,12 +69,11 @@ const invite = new ActionRowBuilder()
     const guildId = interaction.guildId;
 
     try {
-      const guildDB = await db.guilds.findFirst({
-        where: {
-          guildId: guildId
-        }
-      })
-
+let guildDB = await db.guilds.findFirst({
+  where: {
+    guildId: guildId
+  } 
+});
       if(guildDB) {
         if (
           !interaction.member.permissions.has(
@@ -89,6 +97,11 @@ const invite = new ActionRowBuilder()
           return;
         }
   
+        const guildDB = await db.guilds.findFirst({
+          where: {
+            guildId: guildId
+          }
+        })
         if (game == "valo") {
   
           const checkDB = await db.guilds.findFirst({
@@ -135,9 +148,19 @@ const invite = new ActionRowBuilder()
               rssChannelId: channel.id
             }
           })
-  
-          await interaction.reply({ 
-            embeds: [success]})
+  const setupChannel = await interaction.guild.channels.cache.get(channel.id);
+  try {
+    await setupChannel.send({ 
+      embeds: [setchannel]
+    });
+    await interaction.reply({ 
+      embeds: [success]
+    });
+  } catch (error) {
+    await interaction.reply({ 
+      content: "Missing permissions to send messages in the specified channel."
+    });
+  }
   
         } else if (game == "lol") {
             
