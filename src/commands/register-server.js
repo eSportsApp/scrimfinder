@@ -69,7 +69,7 @@ const registerd = new EmbedBuilder()
                 await interaction.reply({ 
                     embeds: [alreadyregistered], 
                     components: [docs] })
-            }
+            }else {
 
             const newDBGuild = await db.guilds.create({
                 data: {
@@ -79,7 +79,7 @@ const registerd = new EmbedBuilder()
 
             await interaction.reply({ 
                 embeds: [registerd], 
-                components: [docs] })
+                components: [docs] })}
 
         } catch (err) {
             console.log(err)

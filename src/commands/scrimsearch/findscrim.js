@@ -245,13 +245,4 @@ const send = new EmbedBuilder()
     option
       .setName("extra-info")
       .setDescription("Extra information about the scrim."))
-
-  .addStringOption(option =>
-    option
-    .setName('six_plus_six')
-    .setDescription("Do you want to search a 6+6?")
-    .addChoices(
-      { name: "Search 6+6", value: "1" },
-      { name: "No", value: "2" }
-    ))
 };
