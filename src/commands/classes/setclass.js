@@ -6,7 +6,7 @@ staffonly: true,
 module.exports = {
     run: async ({ interaction }) => {
    
-        const userId = interaction.options.getString("userID");
+        const userId = interaction.options.getString("userid");
         const newclass = interaction.options.getString("newclass");
         const e404 = new EmbedBuilder()
         .setTitle("User not found!")
@@ -49,7 +49,9 @@ module.exports = {
                     rssclass: newclass,
                     },
                 });
-                await interaction.reply({embeds: [success]}.ephemeral = true);
+//this is the reply to the user idk why it doesn't work with the embed
+let replyContent = `Class from <@${userID}> updated to ${newclass}`; 
+interaction.reply(replyContent);
               } 
         } catch (err) {
             console.log(err);
@@ -75,11 +77,13 @@ module.exports = {
           { name: "B", value: "B" },
           { name: "A", value: "A" }
         )
+        .setRequired(true)
     )
     .addStringOption(option =>
         option
-        .setName('userID')
-        .setDescription("The Id of the User you want to give the class to"))
+        .setName('userid')
+        .setDescription("The Id of the User you want to give the class to")
+        .setRequired(true))
 };
 
 

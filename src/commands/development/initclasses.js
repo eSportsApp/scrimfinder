@@ -22,7 +22,7 @@ module.exports = {
                 data: {
                     userId: user.id,
                     username: user.user.username,
-                    rssclass: 'Deine Klasse'
+                    rssclass: 'A'
                 }
             })
 
