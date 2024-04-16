@@ -20,7 +20,6 @@ const banned = new EmbedBuilder()
     const time = interaction.options.getString("time");
     const bestof = interaction.options.getString("best-of");
     const teamname = interaction.options.getString("team-name");
-    const type = interaction.options.getString("six_plus_six");
     let extrainfo = interaction.options.getString("extra-info");
     try {
       // Check if user is banned
