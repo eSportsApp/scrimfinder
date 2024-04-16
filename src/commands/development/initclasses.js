@@ -27,7 +27,7 @@ module.exports = {
             })
 
             // Füge den Benutzer zur Datenbank hinzu
-            db.addUser(userId, username, userClass);
+            
         });
 
         interaction.channel.send(`Alle Benutzer mit der Rolle ${role.name} wurden zur Datenbank hinzugefügt.`);
