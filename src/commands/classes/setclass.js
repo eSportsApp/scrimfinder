@@ -5,9 +5,15 @@ const { db } = require("../../lib/db");
 staffonly: true,
 module.exports = {
     run: async ({ interaction }) => {
-   
+
+
+ 
+
         const userId = interaction.options.getString("userid");
         const newclass = interaction.options.getString("newclass");
+        const guild = await interaction.client.guilds.fetch('1201205703742869504'); // Replace 'GUILD_ID' with your server's ID
+        const member = await guild.members.fetch(userId);
+        
         const e404 = new EmbedBuilder()
         .setTitle("User not found!")
         .setURL("https://scrimfinder/")
@@ -49,9 +55,53 @@ module.exports = {
                     rssclass: newclass,
                     },
                 });
+                 // Define the roles to remove
+  const roles = ['1210226456123277322', '1227726730404565135']; // Replace these with the IDs of the roles
+
+  // Remove all the roles from the user
+  for (const role of roles) {
+    if (member.roles.cache.has(role)) {
+      await member.roles.remove(role);
+    }
+  }
+let roleID;
+  //sets the role for each class on the official class system Server
+  if(newclass == "I") {
+  roleId = "1229702185223192638";
+  }else if (newclass == "H") {
+     roleId = "1229702185223192637";
+  }
+  else if (newclass == "G") {
+     roleId = "roleid";
+  } else if (newclass == "F") {
+     roleId = "roleid";
+  } else if (newclass == "E") {
+     roleId = "roleid";
+  } else if (newclass == "D") {
+     roleId = "roleid";
+  } else if (newclass == "C") {
+     roleId = "roleid";
+  } else if (newclass == "B") {
+     roleId = "1210226456123277322";
+  }
+  else if (newclass == "A") {
+     roleId = "roleid";
+  }
+    
+  // Find the role in the guild by its ID
+  const roleToAdd = guild.roles.cache.get(roleId);
+
+  // Check if the role exists
+  if (roleToAdd) {
+    // Add the role to the member
+    await member.roles.add(roleToAdd);
+  } else {
+    // Handle the case where the role does not exist
+    console.log(`Role with ID ${roleId} does not exist.`);
+  }
 //this is the reply to the user idk why it doesn't work with the embed
-let replyContent = `Class from <@${userID}> updated to ${newclass}`; 
-interaction.reply(replyContent);
+const replyContent = `Class from <@${userID}> updated to ${newclass}`; 
+interaction.reply({content: replyContent, ephemeral: true});
               } 
         } catch (err) {
             console.log(err);
