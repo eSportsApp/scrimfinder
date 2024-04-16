@@ -100,7 +100,7 @@ let roleID;
     console.log(`Role with ID ${roleId} does not exist.`);
   }
 //this is the reply to the user idk why it doesn't work with the embed
-const replyContent = `Class from <@${userID}> updated to ${newclass}`; 
+const replyContent = `Class from <@${userId}> updated to ${newclass}`; 
 interaction.reply({content: replyContent, ephemeral: true});
               } 
         } catch (err) {
