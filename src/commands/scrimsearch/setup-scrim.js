@@ -6,7 +6,22 @@ const { set } = require("mongoose");
 
 module.exports = {
   run: async ({ interaction }) => {
-
+ // Check if user is in the database
+ const userInDB = await db.users.findFirst({
+  where: {
+    userId: interaction.user.id,
+  },
+});
+if (!userInDB) {
+  // Create user in the database if not exists
+  await db.users.create({
+    data: {
+      userId: interaction.user.id,
+      username: interaction.user.username,
+      rssclass: "I",
+    },
+  });
+}
 
 //Embeds declaration
 

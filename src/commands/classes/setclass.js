@@ -108,7 +108,7 @@ Class I 685202104897503240
     await member.roles.add(roleToAdd);
   } else {
     // Handle the case where the role does not exist
-    console.log(`Role with ID ${roleId} does not exist.`);
+    console.log(`Role with ID ${roleID} does not exist.`);
   }
 //this is the reply to the user idk why it doesn't work with the embed
 const replyContent = `Class from <@${userId}> updated to ${newclass}`; 
