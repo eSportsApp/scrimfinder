@@ -16,29 +16,19 @@ model bannedUsers {
 model guilds {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   guildId String @unique
-  style String?
-  valoChannelId String?
-  lolChannelId String?
-  rlChannelId String?
-  cs2ChannelId String?
   rssChannelId String?
-  rsscChannelId String?
   //Warmup Searches
   warmuprssChannelId String?
 }
 
-model tempban {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @unique
-  reason String?
-  time String?
-}
 
 model users {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String @unique
+  username String?
   rssClan String?
-  rssRank String?
+  rssclass String?
+  
   
 }
 //New thing added run 
