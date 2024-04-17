@@ -56,7 +56,7 @@ module.exports = {
                     },
                 });
                  // Define the roles to remove
-  const roles = ['1210226456123277322', '1227726730404565135']; // Replace these with the IDs of the roles
+  const roles = ['638375833928466433', '637337720779309056', '638038928837836800', '637338342869958659', '792776430312357958', '719907815434616893', '1066713175795445850', '637972946551570432', '685202104897503240']; // Replace these with the IDs of the roles
 
   // Remove all the roles from the user
   for (const role of roles) {
@@ -66,30 +66,41 @@ module.exports = {
   }
 let roleID;
   //sets the role for each class on the official class system Server
+  /*
+  Class A 638375833928466433
+Class B 637337720779309056
+Class C 638038928837836800
+Class D 637338342869958659
+Class E 792776430312357958
+Class F 719907815434616893
+Class G 1066713175795445850
+Class H 637972946551570432
+Class I 685202104897503240
+  */
   if(newclass == "I") {
-  roleId = "1229702185223192638";
+  roleID = "685202104897503240";
   }else if (newclass == "H") {
-     roleId = "1229702185223192637";
+     roleID = "1229702185223192637";
   }
   else if (newclass == "G") {
-     roleId = "roleid";
+     roleID = "637972946551570432";
   } else if (newclass == "F") {
-     roleId = "roleid";
+     roleID = "719907815434616893";
   } else if (newclass == "E") {
-     roleId = "roleid";
+     roleID = "792776430312357958";
   } else if (newclass == "D") {
-     roleId = "roleid";
+     roleID = "637338342869958659";
   } else if (newclass == "C") {
-     roleId = "roleid";
+     roleID = "638038928837836800";
   } else if (newclass == "B") {
-     roleId = "1210226456123277322";
+     roleID = "637337720779309056";
   }
   else if (newclass == "A") {
-     roleId = "roleid";
+     roleID = "638375833928466433";
   }
     
   // Find the role in the guild by its ID
-  const roleToAdd = guild.roles.cache.get(roleId);
+  const roleToAdd = guild.roles.cache.get(roleID);
 
   // Check if the role exists
   if (roleToAdd) {

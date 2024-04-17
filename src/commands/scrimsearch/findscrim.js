@@ -26,7 +26,7 @@ module.exports = {
     const date = interaction.options.getString("date");
     const time = interaction.options.getString("time");
     const bestof = interaction.options.getString("best-of");
-    const teamname = interaction.options.getString("team-name");
+    let teamname = interaction.options.getString("team-name");
     let extrainfo = interaction.options.getString("extra-info");
     let rank;
     try {
@@ -93,7 +93,8 @@ module.exports = {
       .setURL("https://docs.scrimfinder.de/invite")
       .setEmoji("1173655743606567035");
     const inv = new ActionRowBuilder().addComponents(invitebtn);
-
+      if (teamname = null) {
+      teamname = ``}
     //mainfunction
     if (extrainfo == null) {
       try {
@@ -151,7 +152,7 @@ module.exports = {
           //scrimsearchEmbed
           const scrimsearchEmbed = new EmbedBuilder()
             .setAuthor({
-              name: `${interaction.user.displayName} ${teamname} is LFS`,
+              name: `${interaction.user.displayName} is LFS`,
               iconURL: `http://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}`,
               url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
             })
@@ -237,7 +238,7 @@ module.exports = {
 
           const scrimsearchEmbed = new EmbedBuilder()
             .setAuthor({
-              name: `${interaction.user.displayName} ${teamname} is LFS`,
+              name: `${interaction.user.displayName} is LFS`,
               iconURL: `http://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}`,
               url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
             })
@@ -294,12 +295,6 @@ module.exports = {
     )
 
     .addStringOption((option) =>
-      option
-        .setName("team-name")
-        .setDescription("The name of your team.")
-        .setRequired(true)
-    )
-    .addStringOption((option) =>
       option.setName("best-of").setDescription("Best of.").setRequired(true)
     )
     .addStringOption((option) =>
@@ -318,5 +313,6 @@ module.exports = {
       option
         .setName("extra-info")
         .setDescription("Extra information about the scrim.")
-    ),
+    )
+    
 };
