@@ -260,10 +260,12 @@ module.exports = {
           channel.forEach((c) => {
             const channelToSend = client.channels.cache.get(c);
             if (channelToSend) {
+              try {
               channelToSend.send({
                 embeds: [scrimsearchEmbed],
                 components: [contactRow],
-              });
+              });} catch (err) {
+                console.log(err)}
             }
           });
         } else {
