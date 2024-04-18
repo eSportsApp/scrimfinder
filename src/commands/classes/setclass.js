@@ -11,7 +11,7 @@ module.exports = {
 
         const userId = interaction.options.getString("userid");
         const newclass = interaction.options.getString("newclass");
-        const guild = await interaction.client.guilds.fetch('1201205703742869504'); // Replace 'GUILD_ID' with your server's ID
+        const guild = await interaction.client.guilds.fetch('637333042301632535'); // Replace 'GUILD_ID' with your server's ID
         const member = await guild.members.fetch(userId);
         
         const e404 = new EmbedBuilder()
