@@ -1,4 +1,5 @@
 module.exports = async (interaction, client) => {
+  const { db } = require("../../lib/db");
   if (!interaction.isButton()) return;
 
   const userId = interaction.message.embeds[0].footer.text
