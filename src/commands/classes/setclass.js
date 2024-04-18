@@ -80,10 +80,10 @@ Class I 685202104897503240
   if(newclass == "I") {
   roleID = "685202104897503240";
   }else if (newclass == "H") {
-     roleID = "1229702185223192637";
+     roleID = "637972946551570432";
   }
   else if (newclass == "G") {
-     roleID = "637972946551570432";
+     roleID = "1066713175795445850";
   } else if (newclass == "F") {
      roleID = "719907815434616893";
   } else if (newclass == "E") {
