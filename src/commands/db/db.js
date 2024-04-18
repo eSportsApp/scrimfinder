@@ -23,8 +23,8 @@ module.exports = {
                 value: `${guilds.map((g) => `\n- ${g.guildId}`)}`,
               },
               {
-                name: "__**Invite Links:**__",
-                value: `${guilds.map((g) => `\n- ${g.inviteLink}`)}`,
+                name: "__**Total guilds:**__",
+                value: `${guilds.length}`,
               }
             )
             .setColor("#ff7700");
