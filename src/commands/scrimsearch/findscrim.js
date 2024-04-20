@@ -73,6 +73,32 @@ module.exports = {
       access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
     });
 
+    /*
+    // Check if any word in date, time, or extrainfo is in the badwordsdb
+    const badWords = await db.badwords.findMany();
+    const dateWords = date.split(" ");
+    const timeWords = time.split(" ");
+    const extrainfoWords = extrainfo.split(" ");
+
+    const containsBadWord = async (words) => {
+      for (const word of words) {
+        if (badWords.some((badWord) => word.toLowerCase().includes(badWord.word.toLowerCase()))) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    if (containsBadWord(dateWords) || containsBadWord(timeWords) || containsBadWord(extrainfoWords)) {
+      await interaction.reply("Your input contains inappropriate words. You have been banned from the bot.");
+      const newBannedUser = await db.bannedUsers.create({
+        data: {
+          userId: interaction.user.id,
+          reason: "Inappropriate words in the input.",
+        },
+      });
+      return;
+    }*/
     console.log(game, rank, date, time, bestof, teamname, extrainfo);
 
     const send = new EmbedBuilder()

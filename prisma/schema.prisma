@@ -31,5 +31,10 @@ model users {
   
   
 }
+
+model badwords{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  Word String @unique
+}
 //New thing added run 
 //npx prisma generate
