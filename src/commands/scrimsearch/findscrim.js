@@ -40,7 +40,7 @@ module.exports = {
       if (userBanned) {
         await interaction.reply(({ embeds: [banned] }.ephemeral = true));
         return;
-      }
+      }else {
       // Check if user is in the database
       const userInDB = await db.users.findFirst({
         where: {
@@ -61,8 +61,6 @@ module.exports = {
         // Get the rank of the user
         rank = userInDB.rssclass;
       }
-    } catch (err) {
-      console.log(err);
     }
     ////////////////////////////////////////////////////////////////////////////////////////
     // Initialize Twitter client
@@ -310,7 +308,10 @@ module.exports = {
         console.log(err);
       }
     }
-  },
+  }catch (err) {
+    console.log(err);
+  }
+},
   data: new SlashCommandBuilder()
     .setName("findscrim")
     .setDescription("Find a scrim. Your class will automaticly get set")
