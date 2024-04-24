@@ -69,6 +69,16 @@ module.exports = {
       } else {
         // Get the rank of the user
         rank = userInDB.rssclass;
+        if (userInDB.username != interaction.user.username) {
+          await db.users.update({
+            where: {
+              userId: interaction.user.id,
+            },
+            data: {
+              username: interaction.user.username,
+            },
+          });
+        }
       }
     }
     ////////////////////////////////////////////////////////////////////////////////////////
