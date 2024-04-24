@@ -6,7 +6,7 @@ module.exports = async (guild, client) => {
     
 
     const embed = new EmbedBuilder()
-        .setTitle('Server Information')
+        .setTitle(`Joined a new Server! ${guild.name}`)
         .setThumbnail(guild.iconURL())
         .setDescription(serverInfo)
         .setColor('#ff7700')
