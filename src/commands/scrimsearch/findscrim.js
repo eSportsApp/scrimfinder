@@ -12,14 +12,7 @@ module.exports = {
   run: async ({ client, interaction }) => {
     //Embeds
     //Response for Banned Users
-    const banned = new EmbedBuilder()
-      .setTitle("Sry you are banned from the Bot!")
-      .setURL("https://scrimfinder.de")
-      .setDescription(
-        "It seems like you are banned from the bot. If you think this is a mistake, please contact us."
-      )
-      .setColor("#ff7700")
-      .setTimestamp();
+    
     ////////////////////////////////////////////////////////////////////////////////////////
     // Get the selected option
     const game = interaction.options.getString("game");
@@ -38,7 +31,23 @@ module.exports = {
       });
 
       if (userBanned) {
-        await interaction.reply(({ embeds: [banned] }.ephemeral = true));
+        if (userBanned.reason == null) {
+          userBanned.reason = "No reason provided.";
+        }
+        const banned = new EmbedBuilder()
+      .setTitle("Sry you are banned from the Bot!")
+      .setURL("https://scrimfinder.de")
+      .setDescription(
+        "It seems like you are banned from the bot. If you think this is a mistake, please contact us."
+      )
+      .setFields({
+        name: "Reason",
+        value: userBanned.reason,
+        inline: false,
+      })
+      .setColor("#ff7700")
+      .setTimestamp();
+        await interaction.reply(({ embeds: [banned], ephemeral: true}));
         return;
       }else {
       // Check if user is in the database
