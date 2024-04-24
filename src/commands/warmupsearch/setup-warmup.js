@@ -264,5 +264,6 @@ const invite = new ActionRowBuilder()
         )
         .addChoices({ name: "Rainbow Six Siege", value: "rss" })
         .setRequired(true)
+        
     ),
 };

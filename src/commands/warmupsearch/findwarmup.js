@@ -192,5 +192,6 @@ const banned = new EmbedBuilder()
     .addStringOption(option =>
       option
         .setName("extra-info")
-        .setDescription("Extra information if needed ")),
+        .setDescription("Extra information if needed "))
+        .setDMPermission(false),
 };

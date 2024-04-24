@@ -161,5 +161,6 @@ data: new SlashCommandBuilder()
         .setDescription("The channel you want to unregister.")
         .setRequired(true)
     )
+    .setDMPermission(false)
     
     };

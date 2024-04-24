@@ -352,5 +352,6 @@ module.exports = {
         .setName("extra-info")
         .setDescription("Extra information about the scrim.")
     )
+    .setDMPermission(false)
     
 };

@@ -85,5 +85,6 @@ const registerd = new EmbedBuilder()
             console.log(err)
         }
     },
-    data: new SlashCommandBuilder().setName("register").setDescription("Register your server to use Scrimfinder. This is necessary to use this bot.")
+    data: new SlashCommandBuilder().setName("register").setDescription("Register your server to use Scrimfinder. This is necessary to use this bot.").setDMPermission(false)
+
 }

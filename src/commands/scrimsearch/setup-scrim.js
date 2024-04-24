@@ -302,5 +302,6 @@ let guildDB = await db.guilds.findFirst({
         )
         .addChoices({ name: "Rainbow Six Siege", value: "rss" })
         .setRequired(true)
+        
     ),
 };
