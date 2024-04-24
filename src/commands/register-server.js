@@ -16,7 +16,7 @@ module.exports = {
         const alreadyregistered = new EmbedBuilder()
         .setTitle("Your Server is already registered!")
         .setURL("https://scrimfinder.de")
-        .setDescription("It seems like your server is already registered. You are ready to set up the channels now :).")
+        .setDescription("It seems like your server is already registered. You didn't register don't worry the bot did this by himself. You are ready to set up the channels now :).")
         .setColor("#ff7700")
         .setTimestamp();
 

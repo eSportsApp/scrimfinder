@@ -36,5 +36,11 @@ model badwords{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   Word String @unique
 }
+
+model blGuilds {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  guildId String @unique
+  reason String?
+}
 //New thing added run 
 //npx prisma generate
