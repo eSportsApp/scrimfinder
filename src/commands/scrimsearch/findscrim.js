@@ -187,7 +187,7 @@ module.exports = {
             .setAuthor({
               name: `${interaction.user.displayName} is LFS`,
               iconURL: `http://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}`,
-              url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
+              url: `https://discordapp.com/users/${interaction.user.id}/`, //eventually trying to add a direct link to the user profile in the future.
             })
             .setDescription(
               `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`
@@ -273,7 +273,7 @@ module.exports = {
             .setAuthor({
               name: `${interaction.user.displayName} is LFS`,
               iconURL: `http://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}`,
-              url: `https://scrimfinder.de`, //eventually trying to add a direct link to the user profile in the future.
+              url: `https://discordapp.com/users/${interaction.user.id}/`, //eventually trying to add a direct link to the user profile in the future.
             })
             .setDescription(
               `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`
