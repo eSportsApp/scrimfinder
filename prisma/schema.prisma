@@ -42,5 +42,14 @@ model blGuilds {
   guildId String @unique
   reason String?
 }
+
+model datas {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+  Scrimsserched Int?
+  averagemapecount Int?
+  allmapecount Int?
+
+}
 //New thing added run 
 //npx prisma generate

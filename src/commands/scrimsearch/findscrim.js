@@ -18,7 +18,7 @@ module.exports = {
     const game = interaction.options.getString("game");
     const date = interaction.options.getString("date");
     const time = interaction.options.getString("time");
-    const bestof = interaction.options.getString("best-of");
+    const bestof = interaction.options.getInteger('best-of');
     let teamname = interaction.options.getString("team-name");
     let extrainfo = interaction.options.getString("extra-info");
     let rank;
@@ -117,6 +117,36 @@ module.exports = {
       return;
     }*/
     console.log(game, rank, date, time, bestof, teamname, extrainfo);
+
+    const stats = await db.datas.findFirst({
+      where: {
+        name: "stats",
+      },
+    });
+
+    if (stats) {
+      await db.datas.update({
+        where: {
+          name: "stats",
+        },
+        data: {
+          Scrimsserched: stats.Scrimsserched + 1,
+          averagemapecount: (stats.allmapecount + bestof) / stats.scrimsearches + 1,
+          allmapecount: stats.allmapecount + bestof,
+        },
+      });
+    } else {
+      await db.datas.create({
+        data: {
+          name: "stats",
+          Scrimsserched: 1,
+          allmapecount: bestof,
+          averagemapecount: bestof,
+        },
+      })
+    }
+
+
 
     const send = new EmbedBuilder()
       .setTitle("Scrimsearch started!")
@@ -342,7 +372,7 @@ module.exports = {
         .setRequired(true)
     )
 
-    .addStringOption((option) =>
+    .addIntegerOption((option) =>
       option.setName("best-of").setDescription("Best of.").setRequired(true)
     )
     .addStringOption((option) =>
