@@ -13,6 +13,7 @@ const client = new Client({
         IntentsBitField.Flags.DirectMessages,
         IntentsBitField.Flags.DirectMessageReactions,
         IntentsBitField.Flags.GuildInvites,
+        intentsBitField.Flags
     ]
 });
 
