@@ -18,6 +18,7 @@ model guilds {
   guildId String @unique
   rssChannelId String?
   rssGtoIid String[]
+  rssDtoFid String[]
   //Warmup Searches
   warmuprssChannelId String?
 }

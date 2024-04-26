@@ -81,6 +81,7 @@ const invite = new ActionRowBuilder()
 //code
     const channel = interaction.options.getChannel("channel");
     const game = interaction.options.getString("game");
+    const range = interaction.options.getString("range");
     const guildId = interaction.guildId;
 
     try {
@@ -117,171 +118,111 @@ let guildDB = await db.guilds.findFirst({
             guildId: guildId
           }
         })
-        if (game == "valo") {
-  
-          const checkDB = await db.guilds.findFirst({
+        if (game == "rss") {
+          if (range == "default") {
+          const guildDB = await db.guilds.findFirst({
             where: {
-              valoChannelId: channel.id
+              guildId: guildId
             }
           })
-  
-          if(checkDB) {
+        
+          if(guildDB && guildDB.rssGtoIid && guildDB.rssGtoIid.includes(channel.id)) {
             await interaction.reply({ 
-              embeds: [alreadyregistered]})
+              embeds: [alreadyregistered]
+            });
+            return;
           }
-  
+        
+          let rssGtoIid = guildDB && guildDB.rssGtoIid ? [...guildDB.rssGtoIid, channel.id] : [channel.id];
+        
           const newChannelDB = await db.guilds.update({
             where: {
               guildId: guildId
             },
             data: {
-              valoChannelId: channel.id
+              rssGtoIid: rssGtoIid
             }
           })
-  
-          await interaction.reply({ 
-            embeds: [success]})
-  
-        } else if (game == "rss") {
+        
+          const setupChannel = await interaction.guild.channels.cache.get(channel.id);
+          try {
+            await setupChannel.send({ 
+              embeds: [setchannel]
+            });
+            await interaction.reply({ 
+              embeds: [success]
+            });
+          } catch (error) {
+            await interaction.reply({ 
+              content: "Missing permissions to send messages in the specified channel."
+            });
+          }
+          //
+        }  else if (range == "df") {
+          let userInDB2 = await db.users.findFirst({
+            where: {
+              userId: interaction.user.id,
+            },
+          });
+          if (!userInDB2) {
+            // Create user in the database if not exists
+            userInDB2 = await db.users.create({
+              data: {
+                userId: interaction.user.id,
+                username: interaction.user.username,
+                rssclass: "I",
+              },
+            });
+          }
           
-          const checkDB = await db.guilds.findFirst({
+          const rssClass = userInDB2.rssclass;
+          
+          
+          if (rssClass === "I" || rssClass === "H" || rssClass === "G") {
+            await interaction.reply("You are not allowed to set up a channel for this class range.");
+            return;
+          }
+          const guildDB = await db.guilds.findFirst({
             where: {
-              rssChannelId: channel.id
+              guildId: guildId
             }
           })
-  
-          if(checkDB) {
+        
+          if(guildDB && guildDB.rssDtoFid && guildDB.rssDtoFid.includes(channel.id)) {
             await interaction.reply({ 
-              embeds: [alreadyregistered]})
+              embeds: [alreadyregistered]
+            });
+            return;
           }
-  
+        
+          let rssDtoFid = guildDB && guildDB.rssDtoFid ? [...guildDB.rssDtoFid, channel.id] : [channel.id];
+        
           const newChannelDB = await db.guilds.update({
             where: {
               guildId: guildId
             },
             data: {
-              rssChannelId: channel.id
+              rssDtoFid: rssDtoFid
             }
           })
-  const setupChannel = await interaction.guild.channels.cache.get(channel.id);
-  try {
-    await setupChannel.send({ 
-      embeds: [setchannel]
-    });
-    await interaction.reply({ 
-      embeds: [success]
-    });
-  } catch (error) {
-    await interaction.reply({ 
-      content: "Missing permissions to send messages in the specified channel."
-    });
-  }
-  
-        } else if (game == "lol") {
+        
+          const setupChannel = await interaction.guild.channels.cache.get(channel.id);
+          try {
+            await setupChannel.send({ 
+              embeds: [setchannel]
+            });
+            await interaction.reply({ 
+              embeds: [success]
+            });
+          } catch (error) {
+            await interaction.reply({ 
+              content: "Missing permissions to send messages in the specified channel."
+            });
             
-          const checkDB = await db.guilds.findFirst({
-            where: {
-              lolChannelId: channel.id
-            }
-          })
-  
-          if(checkDB) {
-            await interaction.reply({ 
-              embeds: [alreadyregistered]})
           }
-  
-          const newChannelDB = await db.guilds.update({
-            where: {
-              guildId: guildId
-            },
-            data: {
-              lolChannelId: channel.id
-            }
-          })
-  
-          await interaction.reply({ 
-            embeds: [success]})
-  
-        } else if (game == "rl") {
-          
-          const checkDB = await db.guilds.findFirst({
-            where: {
-              rlChannelId: channel.id
-            }
-          })
-  
-          if(checkDB) {
-            await interaction.reply({ 
-              embeds: [alreadyregistered]})
-          }
-  
-          const newChannelDB = await db.guilds.update({
-            where: {
-              guildId: guildId
-            },
-            data: {
-              rlChannelId: channel.id
-            }
-          })
-  
-          await interaction.reply({ 
-            embeds: [success]})
-  
-        } else if (game == "cs2") {
-          
-          const checkDB = await db.guilds.findFirst({
-            where: {
-              cs2ChannelId: channel.id
-            }
-          })
-  
-          if(checkDB) {
-            await interaction.reply({ 
-              embeds: [alreadyregistered]})
-          }
-  
-          const newChannelDB = await db.guilds.update({
-            where: {
-              guildId: guildId
-            },
-            data: {
-              cs2ChannelId: channel.id
-            }
-          })
-  
-          await interaction.reply({ 
-            embeds: [success]})
-  
-        } else if (game == "rssc") {
-          
-          const checkDB = await db.guilds.findFirst({
-            where: {
-              rsscChannelId: channel.id
-            }
-          })
-  
-          if(checkDB) {
-            await interaction.reply({ 
-              embeds: [alreadyregistered]})
-          }
-  
-          const newChannelDB = await db.guilds.update({
-            where: {
-              guildId: guildId
-            },
-            data: {
-              rsscChannelId: channel.id
-            }
-          })
-  
-          await interaction.reply({ 
-            embeds: [success]})
-  
-        } 
-      } else {
-        await interaction.reply("Please run `/register-server` first.")
-      }
-    } catch (err) {
+        }
+    }
+    }} catch (err) {
       console.log(err);
     }
   },
@@ -301,6 +242,17 @@ let guildDB = await db.guilds.findFirst({
           "The game you want to get notifications for in the channel."
         )
         .addChoices({ name: "Rainbow Six Siege", value: "rss" })
+        .setRequired(true)
+        
+    )
+    .addStringOption((option) =>
+      option
+        .setName("range")
+        .setDescription(
+          "The class range you want to see in the channel."
+        )
+        .addChoices({ name: "G-I", value: "default" })
+        .addChoices({ name: "D-F", value: "df" })
         .setRequired(true)
         
     ),
