@@ -4,7 +4,7 @@
 Find Scrims faster and easier than ever before!
 
 
-![Logo](https://maierfabian.de/images/hipingu.png)
+
 
 ## Color Reference
 
@@ -31,31 +31,6 @@ Find Scrims faster and easier than ever before!
 
 
 
-## API Reference (not usable now but will be added in the Future)
-
-#### Get all items
-
-```http
-  GET /api/items
-```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
-
-#### Get item
-
-```http
-  GET /api/items/${id}
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
-
-
-
-
 ## Deployment
 
 To deploy the bot please add an .env file & follow the instructions given when buying an API key.
@@ -77,10 +52,6 @@ You want to try the Bot invite it if you don't have it already!
 
 [Invite](https://scrimfinder.de)
 
-## Features
 
-- Scrimsearching
-- Is Moderated
-- Active Development
 
 
