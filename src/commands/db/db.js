@@ -12,22 +12,31 @@ module.exports = {
       // Check which command is used.
       if (group == "list") {
         if (cmd == "guilds") {
-          const guilds = await db.guilds.findMany();
 
-          const guildsEmbed = new EmbedBuilder()
-            .setTitle("Guilds")
-            .setDescription("A list with all the guilds the bot is on.")
-            .addFields(
-              {
-                name: "__**All guild id's:**__",
-                value: `${guilds.map((g) => `\n- ${g.guildId}`)}`,
-              },
-              {
-                name: "__**Total guilds:**__",
-                value: `${guilds.length}`,
-              }
-            )
-            .setColor("#ff7700");
+// For each guild, transform rssChannelId into an array and update the record
+
+const guilds = await db.guilds.findMany();
+
+// For each guild, add rssChannelId to rssGtoIid and create or update the record
+for (const guild of guilds) {
+  if (guild.rssChannelId) {
+    let rssChannelId = [guild.rssChannelId];
+    let rssGtoIid = guild.rssGtoIid ? [...guild.rssGtoIid, ...rssChannelId] : rssChannelId;
+
+    // Update the guild record
+    await db.guilds.update({
+      where: { id: guild.id },
+      data: { rssGtoIid: rssGtoIid },
+    });
+  }
+}
+
+const guildsEmbed = new EmbedBuilder()
+  .setTitle("Guilds")
+  .setDescription("A list with all the guilds the bot is on.");
+          
+
+          
           await interaction.reply({ embeds: [guildsEmbed], ephemeral: true });
         }
       } else {

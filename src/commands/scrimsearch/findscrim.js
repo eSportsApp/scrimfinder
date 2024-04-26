@@ -18,10 +18,15 @@ module.exports = {
     const game = interaction.options.getString("game");
     const date = interaction.options.getString("date");
     const time = interaction.options.getString("time");
-    const bestof = interaction.options.getInteger('best-of');
+    const bestof = interaction.options.getString('best-of');
     let teamname = interaction.options.getString("team-name");
     let extrainfo = interaction.options.getString("extra-info");
     let rank;
+    try {
+      maps = parseInt(interaction.options.getString('best-of'));
+    }catch (err) {
+      console.log(err);
+    }
     try {
       // Check if user is banned
       const userBanned = await db.bannedUsers.findFirst({
@@ -117,34 +122,36 @@ module.exports = {
       return;
     }*/
     console.log(game, rank, date, time, bestof, teamname, extrainfo);
-
-    const stats = await db.datas.findFirst({
-      where: {
-        name: "stats",
-      },
-    });
-
-    if (stats) {
-      await db.datas.update({
+    if (maps) {
+      const stats = await db.datas.findFirst({
         where: {
           name: "stats",
         },
-        data: {
-          Scrimsserched: stats.Scrimsserched + 1,
-          averagemapecount: (stats.allmapecount + bestof) / stats.scrimsearches + 1,
-          allmapecount: stats.allmapecount + bestof,
-        },
       });
-    } else {
-      await db.datas.create({
-        data: {
-          name: "stats",
-          Scrimsserched: 1,
-          allmapecount: bestof,
-          averagemapecount: bestof,
-        },
-      })
+  
+      if (stats) {
+        await db.datas.update({
+          where: {
+            name: "stats",
+          },
+          data: {
+            Scrimsserched: stats.Scrimsserched + 1,
+            averagemapecount: (stats.allmapecount + maps) / (stats.Scrimsserched),
+            allmapecount: stats.allmapecount + maps,
+          },
+        });
+      } else {
+        await db.datas.create({
+          data: {
+            name: "stats",
+            Scrimsserched: 1,
+            allmapecount: maps,
+            averagemapecount: maps,
+          },
+        })
+      }
     }
+    
 
 
 
@@ -372,7 +379,7 @@ module.exports = {
         .setRequired(true)
     )
 
-    .addIntegerOption((option) =>
+    .addStringOption((option) =>
       option.setName("best-of").setDescription("Best of.").setRequired(true)
     )
     .addStringOption((option) =>

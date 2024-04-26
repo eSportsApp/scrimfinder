@@ -17,6 +17,7 @@ model guilds {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   guildId String @unique
   rssChannelId String?
+  rssGtoIid String[]
   //Warmup Searches
   warmuprssChannelId String?
 }
