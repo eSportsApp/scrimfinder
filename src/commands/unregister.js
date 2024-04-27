@@ -155,6 +155,17 @@ data: new SlashCommandBuilder()
       .addChoices({ name: "Rainbow Six Siege", value: "rss" })
         .setRequired(true)
   )
+  .addStringOption((option) =>
+    option
+      .setName("range")
+      .setDescription(
+        "The range you want to unregister the channel for."
+      )
+      .addChoices({ name: "G to I", value: "gi" })
+      .addChoices({ name: "F to F", value: "df" })
+        .setRequired(true)
+  )
+
     .addChannelOption((option) =>
         option
         .setName("channel")

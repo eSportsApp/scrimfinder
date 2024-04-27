@@ -23,6 +23,9 @@ module.exports = {
     let extrainfo = interaction.options.getString("extra-info");
     let shareranges = interaction.options.getString("shareit-everywhere");
     let rank;
+    const sentMessageIds = [];
+const sentChannelIds = [];
+const sentGuildIds = [];
     try {
       maps = parseInt(interaction.options.getString('best-of'));
     }catch (err) {
@@ -35,6 +38,7 @@ module.exports = {
           userId: interaction.user.id,
         },
       });
+      
 
       if (userBanned) {
         if (userBanned.reason == null) {
@@ -154,7 +158,7 @@ module.exports = {
     }
     
 
-
+    await interaction.deferReply({ ephemeral: true });
 
     const send = new EmbedBuilder()
       .setTitle("Scrimsearch started!")
@@ -247,15 +251,20 @@ module.exports = {
             })
             .setTimestamp();
         
-          channels.forEach((c) => {
-            const channelToSend = client.channels.cache.get(c);
-            if (channelToSend) {
-              channelToSend.send({
-                embeds: [scrimsearchEmbed],
-                components: [contactRow],
-              });
+            for (const c of channels) {
+              const channelToSend = client.channels.cache.get(c);
+              if (channelToSend) {
+                const message = await channelToSend.send({
+                  embeds: [scrimsearchEmbed],
+                  components: [contactRow],
+                });
+            
+                // Store the sent message ID, channel ID, and guild ID
+                sentMessageIds.push(message.id);
+                sentChannelIds.push(c);
+                sentGuildIds.push(interaction.guild.id);
+              }
             }
-          });
 
           /* Tweet the scrim
           const tweetContent = `📅 ${date} ${time} CET 🎮 ${rank} 🏆 Bo${bestof} \n\nExtra Informations: ${extrainfo} \n\n🎮 ${game} \n\n🔗 https://scrimfinder	.de`;
@@ -263,8 +272,20 @@ module.exports = {
           console.log(`Tweeted: ${tweetContent}`);
           */
          
-
-        await interaction.reply({
+          await db.message.create({
+            data: {
+              content: `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`,
+              messageIds: sentMessageIds,
+              channelIds: sentChannelIds,
+              guildIds: sentGuildIds,
+              user: {
+                connect: {
+                  userId: interaction.user.id,
+                },
+              },
+            },
+          });
+        await interaction.editReply({
           embeds: [send],
           components: [inv],
           ephemeral: true,
@@ -334,16 +355,20 @@ module.exports = {
             })
             .setTimestamp();
         
-          channels.forEach((c) => {
-            const channelToSend = client.channels.cache.get(c);
-            if (channelToSend) {
-              channelToSend.send({
-                embeds: [scrimsearchEmbed],
-                components: [contactRow],
-              });
-            } 
-          });
-
+            for (const c of channels) {
+              const channelToSend = client.channels.cache.get(c);
+              if (channelToSend) {
+                const message = await channelToSend.send({
+                  embeds: [scrimsearchEmbed],
+                  components: [contactRow],
+                });
+            
+                // Store the sent message ID, channel ID, and guild ID
+                sentMessageIds.push(message.id);
+                sentChannelIds.push(c);
+                sentGuildIds.push(interaction.guild.id);
+              }
+            }
           /* Tweet the scrim
           const tweetContent = `📅 ${date} ${time} CET 🎮 ${rank} 🏆 Bo${bestof} \n\nExtra Informations: ${extrainfo} \n\n🎮 ${game} \n\n🔗 https://scrimfinder	.de`;
           await T.post('statuses/update', { status: tweetContent });
@@ -352,7 +377,20 @@ module.exports = {
       
 
       }
-      await interaction.reply({
+      await db.message.create({
+        data: {
+          content: `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`,
+          messageIds: sentMessageIds,
+          channelIds: sentChannelIds,
+          guildIds: sentGuildIds,
+          user: {
+            connect: {
+              userId: interaction.user.id,
+            },
+          },
+        },
+      });
+      await interaction.editReply({
         embeds: [send],
         components: [inv],
         ephemeral: true,
@@ -372,7 +410,7 @@ module.exports = {
         });
 
         if (userBanned) {
-          await interaction.reply(({ embeds: [banned] }.ephemeral = true));
+          await interaction.editReply(({ embeds: [banned] }.ephemeral = true));
           return;
         }
         const userInDB = await db.users.findFirst({
@@ -437,15 +475,20 @@ module.exports = {
             })
             .setTimestamp();
         
-          channels.forEach((c) => {
-            const channelToSend = client.channels.cache.get(c);
-            if (channelToSend) {
-              channelToSend.send({
-                embeds: [scrimsearchEmbed],
-                components: [contactRow],
-              });
+            for (const c of channels) {
+              const channelToSend = client.channels.cache.get(c);
+              if (channelToSend) {
+                const message = await channelToSend.send({
+                  embeds: [scrimsearchEmbed],
+                  components: [contactRow],
+                });
+            
+                // Store the sent message ID, channel ID, and guild ID
+                sentMessageIds.push(message.id);
+                sentChannelIds.push(c);
+                sentGuildIds.push(interaction.guild.id);
+              }
             }
-          });
 
           /* Tweet the scrim
           const tweetContent = `📅 ${date} ${time} CET 🎮 ${rank} 🏆 Bo${bestof} \n\nExtra Informations: ${extrainfo} \n\n🎮 ${game} \n\n🔗 https://scrimfinder	.de`;
@@ -453,8 +496,20 @@ module.exports = {
           console.log(`Tweeted: ${tweetContent}`);
           */
          
-
-        await interaction.reply({
+          await db.message.create({
+            data: {
+              content: `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`,
+              messageIds: sentMessageIds,
+              channelIds: sentChannelIds,
+              guildIds: sentGuildIds,
+              user: {
+                connect: {
+                  userId: interaction.user.id,
+                },
+              },
+            },
+          });
+        await interaction.editReply({
           embeds: [send],
           components: [inv],
           ephemeral: true,
@@ -492,15 +547,20 @@ module.exports = {
             })
             .setTimestamp();
         
-          channels.forEach((c) => {
-            const channelToSend = client.channels.cache.get(c);
-            if (channelToSend) {
-              channelToSend.send({
-                embeds: [scrimsearchEmbed],
-                components: [contactRow],
-              });
+            for (const c of channels) {
+              const channelToSend = client.channels.cache.get(c);
+              if (channelToSend) {
+                const message = await channelToSend.send({
+                  embeds: [scrimsearchEmbed],
+                  components: [contactRow],
+                });
+            
+                // Store the sent message ID, channel ID, and guild ID
+                sentMessageIds.push(message.id);
+                sentChannelIds.push(c);
+                sentGuildIds.push(interaction.guild.id);
+              }
             }
-          });
           if (shareranges == "yes") {
             const guilds = await db.guilds.findMany();
         
@@ -534,15 +594,20 @@ module.exports = {
             })
             .setTimestamp();
         
-          channels.forEach((c) => {
-            const channelToSend = client.channels.cache.get(c);
-            if (channelToSend) {
-              channelToSend.send({
-                embeds: [scrimsearchEmbed],
-                components: [contactRow],
-              });
-            } 
-          });
+            for (const c of channels) {
+              const channelToSend = client.channels.cache.get(c);
+              if (channelToSend) {
+                const message = await channelToSend.send({
+                  embeds: [scrimsearchEmbed],
+                  components: [contactRow],
+                });
+            
+                // Store the sent message ID, channel ID, and guild ID
+                sentMessageIds.push(message.id);
+                sentChannelIds.push(c);
+                sentGuildIds.push(interaction.guild.id);
+              }
+            }
 
           /* Tweet the scrim
           const tweetContent = `📅 ${date} ${time} CET 🎮 ${rank} 🏆 Bo${bestof} \n\nExtra Informations: ${extrainfo} \n\n🎮 ${game} \n\n🔗 https://scrimfinder	.de`;
@@ -552,7 +617,20 @@ module.exports = {
       
 
       }
-      await interaction.reply({
+      await db.message.create({
+        data: {
+          content: `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`,
+          messageIds: sentMessageIds,
+          channelIds: sentChannelIds,
+          guildIds: sentGuildIds,
+          user: {
+            connect: {
+              userId: interaction.user.id,
+            },
+          },
+        },
+      });
+      await interaction.editReply({
         embeds: [send],
         components: [inv],
         ephemeral: true,

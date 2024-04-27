@@ -30,8 +30,7 @@ model users {
   username String?
   rssClan String?
   rssclass String?
-  
-  
+  messages message[]
 }
 
 model badwords{
@@ -52,6 +51,17 @@ model datas {
   averagemapecount Int?
   allmapecount Int?
 
+}
+
+model message {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  content String?
+  messageIds String[]
+  channelIds String[]
+  guildIds String[]
+  createdAt DateTime @default(now())
+  usersId String @map("user_id") @db.ObjectId
+  user users @relation(fields: [usersId], references: [id])
 }
 //New thing added run 
 //npx prisma generate
