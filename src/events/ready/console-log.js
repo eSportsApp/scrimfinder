@@ -14,16 +14,20 @@ module.exports = ( client ) => {
   //  type: ActivityType.Listening
  // })
 
-      setInterval(() => {
-        const states = [`Searching Scrims for ${client.guilds.cache.reduce((a,b) => a+b.memberCount, 0)} Members.`, `Searching Scrims on ${client.guilds.cache.size} Guilds.`,`Need Help? Run the /help Command!`]; // Define the predefined states
-        let currentStateIndex = 0; // Initialize the index of the current state
-
-          client.user.setPresence({
-            activities: [{
-              type: ActivityType.Custom,
-              name: "irrelevant",
-              state: states[currentStateIndex] // Set the next state
-            }]
-          });
-        }, 30000);}
+ const states = [`Searching Scrims for ${client.guilds.cache.reduce((a,b) => a+b.memberCount, 0)} Members.`, `Searching Scrims on ${client.guilds.cache.size} Guilds.`,`scrimfinder.gg`, `Find Scrims easier with /findscrim`]; // Define the predefined states
+ let currentStateIndex = 0; // Initialize the index of the current state
+ 
+ setInterval(() => {
+     client.user.setPresence({
+         activities: [{
+             type: ActivityType.Custom,
+             name: "irrelevant",
+             state: states[currentStateIndex] // Set the next state
+         }]
+     });
+ 
+     // Increment the index of the current state
+     currentStateIndex = (currentStateIndex + 1) % states.length;
+ }, 900000);
+}
 

@@ -1,7 +1,10 @@
 module.exports = async (interaction, client) => {
   const { db } = require("../../lib/db");
   if (!interaction.isButton()) return;
-
+  if (!interaction.message.embeds[0] || !interaction.message.embeds[0].footer) {
+    
+    return;
+  }
   const userId = interaction.message.embeds[0].footer.text
     .split("|")
     .slice(1)
@@ -33,4 +36,6 @@ module.exports = async (interaction, client) => {
       ephemeral: true,
     });
   }
+
+  
 };

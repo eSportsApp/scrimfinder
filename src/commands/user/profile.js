@@ -44,7 +44,8 @@ module.exports = {
       .setURL("https://scrimfinder.de/")
       .setDescription(`**Username:** ${username}\n**User ID:** ${userId}\n**Class:** ${rank}`)
       .setColor("#ff7700")
-      .setThumbnail(interaction.user.avatarURL());
+      .setThumbnail(interaction.user.avatarURL())
+
     
     // Add active searches to the embed
     if (userInDB && userInDB.messages) {
@@ -58,30 +59,42 @@ module.exports = {
     }
 
 
-        
+    const deleteButton = new ButtonBuilder()
+    .setCustomId('delete_scrims')
+    .setLabel('Delete All Scrims')
+    .setStyle(ButtonStyle.Danger);
 
-        if (interaction.customId == "wu") {
-            if (userId == interaction.user.id) {
-              await db.users.update({
-                where: {
-                  userId: interaction.user.id,
-                },
-                data: {
-                  username: interaction.user.username,
-                },
-              });
-            }else {
-                await interaction.reply({
-                    content: "You can't update the username of another user",
-                    ephemeral: true,
-                });
-            }
-          }
+  // Create an action row
+  const row = new ActionRowBuilder()
+    .addComponents(deleteButton);
 
-        await interaction.reply({
-            embeds: [profile]
-            
-          });
+  await interaction.reply({
+    embeds: [profile],
+    components: [row]
+  });
+  interaction.client.on('interactionCreate', async (buttonInteraction) => {
+    if (!buttonInteraction.isButton()) return;
+    if (buttonInteraction.customId === 'delete_scrims') {
+      if (buttonInteraction.user.id !== interaction.user.id) {
+        return buttonInteraction.reply({ content: 'You cannot delete someone else\'s scrims!', ephemeral: true });
+      }
+  
+      // Delete all scrims of the user
+      await db.users.update({
+        where: {
+          userId: interaction.user.id,
+        },
+        data: {
+          messages: {
+            deleteMany: {},
+          },
+        },
+      });
+  
+      await buttonInteraction.reply({ content: 'All your scrims have been deleted!', ephemeral: true });
+    }
+  });
+  
     },
     data: new SlashCommandBuilder()
     .setName("myprofile")
