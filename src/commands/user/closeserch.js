@@ -43,8 +43,13 @@ for (let i = 0; i < searchMessage.messageIds.length; i++) {
         console.error(`Channel ${channelId} not found`);
         continue;
     }
-    const discordMessage = await channel.messages.fetch(searchMessage.messageIds[i]);
-    
+    let discordMessage;
+try {
+    discordMessage = await channel.messages.fetch(searchMessage.messageIds[i]);
+} catch (error) {
+    console.error(`Message ${searchMessage.messageIds[i]} not found`);
+    continue;
+}
     // Edit the message in Discord
     const embed = new EmbedBuilder()
     .setAuthor({
@@ -80,6 +85,16 @@ await db.message.delete({
 });
 // Edit the reply to the interaction
 await interaction.editReply({content: 'Search closed', ephemeral: true});
+setTimeout(async () => {
+    try {
+        // Fetch the message that was replied to
+        const message = await interaction.fetchReply();
+        // Delete the message
+        await message.delete();
+    } catch (error) {
+        console.error(`Failed to delete message: ${error}`);
+    }
+}, 60000);
             }
         }
     },
