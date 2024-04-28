@@ -73,6 +73,7 @@ module.exports = {
     components: [row]
   });
   interaction.client.on('interactionCreate', async (buttonInteraction) => {
+    try {
     if (!buttonInteraction.isButton()) return;
     if (buttonInteraction.customId === 'delete_scrims') {
       if (buttonInteraction.user.id !== interaction.user.id) {
@@ -93,6 +94,10 @@ module.exports = {
   
       await buttonInteraction.reply({ content: 'All your scrims have been deleted!', ephemeral: true });
     }
+  } catch (error) {
+    console.error(error);
+    await buttonInteraction.reply({ content: 'Please run /myprofile again to use this function', ephemeral: true });
+  }
   });
   
     },
