@@ -1,5 +1,4 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
-const { MessageActionRow, MessageButton, MessageEmbed, MessageButtonStyles } = require('discord.js');
 const { db } = require("../../lib/db");
 module.exports = {
     run: async ({ interaction }) => {
@@ -40,7 +39,7 @@ module.exports = {
       });
 
       const profile = new EmbedBuilder()
-      .setTitle("Youser Profile of " + interaction.user.username)
+      .setTitle("User Profile of " + interaction.user.username)
       .setURL("https://scrimfinder.de/")
       .setDescription(`**Username:** ${username}\n**User ID:** ${userId}\n**Class:** ${rank}`)
       .setColor("#ff7700")

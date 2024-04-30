@@ -61,7 +61,7 @@ const success = new EmbedBuilder()
 const setchannel = new EmbedBuilder()
 .setTitle("Successfully set up the channel!")
 .setURL("https://scrimfinder.de")
-.setDescription("You successfully setted up the channel. Feel free to serch a scrim using /findscrim\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)")
+.setDescription("You successfully set up the channel. Feel free to serch a scrim using /findscrim\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)")
 .setColor("#ff7700")
 .setTimestamp();
 
