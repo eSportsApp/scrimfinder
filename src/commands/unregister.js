@@ -10,7 +10,7 @@ module.exports = {
   //no permissions
   const noperm = new EmbedBuilder()
   .setTitle("You don't have the permissions to use this command!")
-  .setURL("https://scrimfinder.de")
+  .setURL("https://scrimfinder.gg")
   .setDescription("You don't have the permissions to use this command. You can [Invite me](https://docs.scrimfinder.de/invite) to your server to use this command. If you think this is a mistake, please contact us.")
   .setColor("#ff7700")
   .setTimestamp();
@@ -18,7 +18,7 @@ module.exports = {
   //Response for Banned Users
   const banned = new EmbedBuilder()
   .setTitle("Sry you are banned from the Bot!")
-  .setURL("https://scrimfinder.de")
+  .setURL("https://scrimfinder.gg")
   .setDescription("It seems like you are banned from the bot. If you think this is a mistake, please contact us.")
   .setColor("#ff7700")
   .setTimestamp();
@@ -26,7 +26,7 @@ module.exports = {
   //Response for already registered Servers
   const notfound = new EmbedBuilder()
   .setTitle("Channel is not registered!")
-  .setURL("https://scrimfinder.de")
+  .setURL("https://scrimfinder.gg")
   .setDescription("This channel seems not to be registered.!\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)\n\nTo get started just try /findscrim")
   .setColor("#ff7700")
   .setTimestamp();
@@ -34,7 +34,7 @@ module.exports = {
   //Response for successfully registered Servers
   const success = new EmbedBuilder()
   .setTitle("You have successfully unregistered the channel!")
-  .setURL("https://scrimfinder.de")
+  .setURL("https://scrimfinder.gg")
   .setDescription("You have successfully unregistered the channel for the game.\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)\n\nTo get started just try /findscrim")
   .setColor("#ff7700")
   .setTimestamp();

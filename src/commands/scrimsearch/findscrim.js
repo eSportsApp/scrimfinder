@@ -46,7 +46,7 @@ const sentGuildIds = [];
         }
         const banned = new EmbedBuilder()
       .setTitle("Sry you are banned from the Bot!")
-      .setURL("https://scrimfinder.de")
+      .setURL("https://scrimfinder.gg")
       .setDescription(
         "It seems like you are banned from the bot. If you think this is a mistake, please contact us."
       )
@@ -168,7 +168,7 @@ const sentGuildIds = [];
       )
       .setColor("#ff7700")
       .setFooter({
-        text: "Scrimfinder.de | Finding Scrims was never that easy",
+        text: "scrimfinder.gg | Finding Scrims was never that easy",
         iconURL: "https://maierfabian.de/images/lovepingu.png",
       })
       .setTimestamp();
@@ -242,11 +242,11 @@ const sentGuildIds = [];
               url: `https://discordapp.com/users/${interaction.user.id}/`,
             })
             .setDescription(
-              `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`
+              ` **${date} ${time} **     **Class ${rank}**     **${bestof} Maps**`
             )
             .setColor("#ff7700")
             .setFooter({
-              text: `Scrimfinder.de  | ${interaction.user.id}`,
+              text: `Scrimfinder.gg  | ${interaction.user.id}`,
               iconURL: "https://maierfabian.de/images/happypingu.png",
             })
             .setTimestamp();
@@ -274,7 +274,7 @@ const sentGuildIds = [];
          
           await db.message.create({
             data: {
-              content: `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`,
+              content: ` **${date} ${time} **     **Class ${rank}**     **${bestof} Maps**`,
               messageIds: sentMessageIds,
               channelIds: sentChannelIds,
               guildIds: sentGuildIds,
@@ -309,11 +309,11 @@ const sentGuildIds = [];
               url: `https://discordapp.com/users/${interaction.user.id}/`,
             })
             .setDescription(
-              `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`
+              ` **${date} ${time} **     **Class ${rank}**     **${bestof} Maps**`
             )
             .setColor("#ff7700")
             .setFooter({
-              text: `Scrimfinder.de  | ${interaction.user.id}`,
+              text: `Scrimfinder.gg  | ${interaction.user.id}`,
               iconURL: "https://maierfabian.de/images/happypingu.png",
             })
             .setTimestamp();
@@ -346,11 +346,11 @@ const sentGuildIds = [];
               url: `https://discordapp.com/users/${interaction.user.id}/`,
             })
             .setDescription(
-              `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`
+              ` **${date} ${time} **     **Class ${rank}**     **${bestof} Maps**`
             )
             .setColor("#ff7700")
             .setFooter({
-              text: `Scrimfinder.de  | ${interaction.user.id}`,
+              text: `Scrimfinder.gg  | ${interaction.user.id}`,
               iconURL: "https://maierfabian.de/images/happypingu.png",
             })
             .setTimestamp();
@@ -379,7 +379,7 @@ const sentGuildIds = [];
       }
       await db.message.create({
         data: {
-          content: `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`,
+          content: ` **${date} ${time} **     **Class ${rank}**     **${bestof} Maps**`,
           messageIds: sentMessageIds,
           channelIds: sentChannelIds,
           guildIds: sentGuildIds,
@@ -461,7 +461,7 @@ const sentGuildIds = [];
               url: `https://discordapp.com/users/${interaction.user.id}/`, //eventually trying to add a direct link to the user profile in the future.
             })
             .setDescription(
-              `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`
+              ` **${date} ${time} **     **Class ${rank}**     **${bestof} Maps**`
             )
             .addFields({
               name: "Extra Informations",
@@ -470,7 +470,7 @@ const sentGuildIds = [];
             })
             .setColor("#ff7700")
             .setFooter({
-              text: `Scrimfinder (scrimfinder.de) | ${interaction.user.id}`,
+              text: `Scrimfinder (scrimfinder.gg) | ${interaction.user.id}`,
               iconURL: "https://maierfabian.de/images/happypingu.png",
             })
             .setTimestamp();
@@ -498,7 +498,7 @@ const sentGuildIds = [];
          
           await db.message.create({
             data: {
-              content: `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`,
+              content: ` **${date} ${time} **     **Class ${rank}**     **${bestof} Maps**`,
               messageIds: sentMessageIds,
               channelIds: sentChannelIds,
               guildIds: sentGuildIds,
@@ -533,7 +533,7 @@ const sentGuildIds = [];
               url: `https://discordapp.com/users/${interaction.user.id}/`, //eventually trying to add a direct link to the user profile in the future.
             })
             .setDescription(
-              `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`
+              ` **${date} ${time} **     **Class ${rank}**     **${bestof} Maps**`
             )
             .addFields({
               name: "Extra Informations",
@@ -542,7 +542,7 @@ const sentGuildIds = [];
             })
             .setColor("#ff7700")
             .setFooter({
-              text: `Scrimfinder (scrimfinder.de) | ${interaction.user.id}`,
+              text: `Scrimfinder (scrimfinder.gg) | ${interaction.user.id}`,
               iconURL: "https://maierfabian.de/images/happypingu.png",
             })
             .setTimestamp();
@@ -580,7 +580,7 @@ const sentGuildIds = [];
               url: `https://discordapp.com/users/${interaction.user.id}/`, //eventually trying to add a direct link to the user profile in the future.
             })
             .setDescription(
-              `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`
+              ` **${date} ${time} **     **Class ${rank}**     **${bestof} Maps**`
             )
             .addFields({
               name: "Extra Informations",
@@ -589,7 +589,7 @@ const sentGuildIds = [];
             })
             .setColor("#ff7700")
             .setFooter({
-              text: `Scrimfinder (scrimfinder.de) | ${interaction.user.id}`,
+              text: `Scrimfinder (scrimfinder.gg) | ${interaction.user.id}`,
               iconURL: "https://maierfabian.de/images/happypingu.png",
             })
             .setTimestamp();
@@ -619,7 +619,7 @@ const sentGuildIds = [];
       }
       await db.message.create({
         data: {
-          content: `📅 **${date} ${time} **    🎮 **Class ${rank}**    🏆 **Bo${bestof}**`,
+          content: ` **${date} ${time} **     **Class ${rank}**     **${bestof} Maps**`,
           messageIds: sentMessageIds,
           channelIds: sentChannelIds,
           guildIds: sentGuildIds,

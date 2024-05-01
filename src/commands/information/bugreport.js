@@ -5,7 +5,7 @@ module.exports = {
     run: async ({ interaction }) => {
         const embed = new EmbedBuilder()
         .setTitle("Submit a Bug to the Admins")
-        .setURL("https://scrimfinder.de")
+        .setURL("https://scrimfinder.gg")
         .setDescription("You found a Bug?\nSubmit it to the Admins!")
         .setColor("#ff7700")
         .setTimestamp();

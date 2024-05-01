@@ -7,7 +7,7 @@ module.exports = {
 //Response for Banned Users
         const banned = new EmbedBuilder()
         .setTitle("Sry you are banned from the Bot!")
-        .setURL("https://scrimfinder.de")
+        .setURL("https://scrimfinder.gg")
         .setDescription("It seems like you are banned from the bot. If you think this is a mistake, please contact us.")
         .setColor("#ff7700")
         .setTimestamp();
@@ -15,7 +15,7 @@ module.exports = {
 //Response for already registered Servers
         const alreadyregistered = new EmbedBuilder()
         .setTitle("Your Server is already registered!")
-        .setURL("https://scrimfinder.de")
+        .setURL("https://scrimfinder.gg")
         .setDescription("It seems like your server is already registered. You didn't register don't worry the bot did this by himself. You are ready to set up the channels now :).")
         .setColor("#ff7700")
         .setTimestamp();
@@ -23,7 +23,7 @@ module.exports = {
 //Response for successfully registered Servers
 const registerd = new EmbedBuilder()
         .setTitle("Your Server is now registered!")
-        .setURL("https://scrimfinder.de")
+        .setURL("https://scrimfinder.gg")
         .setDescription("Successfully registered your server! Have fun using this bot :). \n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)")
         .setColor("#ff7700")
         .setTimestamp();

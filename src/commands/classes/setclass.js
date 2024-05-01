@@ -20,7 +20,7 @@ module.exports = {
         .setDescription("The User you are looking for is not in the Database \n\n The user has to interact with the bot first to be in the Database")
         .setColor("#ff7700")
         .setFooter({
-          text: "Scrimfinder.de | Finding Scrims was never that easy",
+          text: "scrimfinder.gg | Finding Scrims was never that easy",
           iconURL: "https://maierfabian.de/images/lovepingu.png",
         })
         .setTimestamp();
@@ -30,7 +30,7 @@ module.exports = {
         .setDescription(`The class of the user with the ID ${userId} has been successfully set to ${newclass}`)
         .setColor("#ff7700")
         .setFooter({
-          text: "Scrimfinder.de | Finding Scrims was never that easy",
+          text: "scrimfinder.gg | Finding Scrims was never that easy",
           iconURL: "https://maierfabian.de/images/lovepingu.png",
         })
         .setTimestamp();

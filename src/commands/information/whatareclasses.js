@@ -21,7 +21,7 @@ module.exports = {
       })
       .setColor("#ff7700")
       .setFooter({
-        text: "Please note, that providing the wrong class can lead to a ban! | Scrimfinder (scrimfinder.de)",
+        text: "Please note, that providing the wrong class can lead to a ban! | Scrimfinder (scrimfinder.gg)",
         iconURL: "https://maierfabian.de/images/lovepingu.png",
       })
       

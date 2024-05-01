@@ -5,7 +5,7 @@ module.exports = {
     run: async ({ interaction }) => {
         const embed = new EmbedBuilder()
         .setTitle("Scrimfinder Help Menu")
-        .setURL("https://scrimfinder.de")
+        .setURL("https://scrimfinder.gg")
         .setDescription("Hey you have trouble getting started?\nUser /register to register your Guild. \nAfter you successfully registerd use /setup-scrim \nNow you are ready to go!")
         .setColor("#ff7700")
         .setTimestamp();

@@ -50,7 +50,7 @@ To start the Bot use:
 
 You want to try the Bot invite it if you don't have it already! 
 
-[Invite](https://scrimfinder.de)
+[Invite](https://scrimfinder.gg)
 
 
 

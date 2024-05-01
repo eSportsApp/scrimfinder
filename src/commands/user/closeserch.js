@@ -62,7 +62,7 @@ try {
       )
       .setColor("#ff7700")
       .setFooter({
-        text: `Scrimfinder.de  | ${interaction.user.id}`,
+        text: `scrimfinder.gg  | ${interaction.user.id}`,
         iconURL: "https://maierfabian.de/images/happypingu.png",
       })
       .setTimestamp();

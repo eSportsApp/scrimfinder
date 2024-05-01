@@ -6,7 +6,7 @@ module.exports = {
       const embed = new EmbedBuilder()
       .setAuthor({name: "Scrimfinder"})
       .setTitle("Invite Scrimfinder to your Server")
-      .setURL("https://scrimfinder.de/")
+      .setURL("https://scrimfinder.gg/")
       .addFields(
         {
           name: "Hey do you like the scrimfinder bot?",
@@ -30,7 +30,7 @@ module.exports = {
           .setStyle(ButtonStyle.Link),
        
     new ButtonBuilder()
-          .setURL('https://scrimfinder.de/')
+          .setURL('https://scrimfinder.gg/')
           .setLabel('My Website')
           .setStyle(ButtonStyle.Link),
           

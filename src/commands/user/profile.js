@@ -40,7 +40,7 @@ module.exports = {
 
       const profile = new EmbedBuilder()
       .setTitle("User Profile of " + interaction.user.username)
-      .setURL("https://scrimfinder.de/")
+      .setURL("https://scrimfinder.gg/")
       .setDescription(`**Username:** ${username}\n**User ID:** ${userId}\n**Class:** ${rank}`)
       .setColor("#ff7700")
       .setThumbnail(interaction.user.avatarURL())

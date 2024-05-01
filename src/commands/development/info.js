@@ -22,7 +22,7 @@ module.exports = {
         const infoEmbed = new EmbedBuilder()
         .setColor("#ff7700")
         .setTitle('> Scrimfinder Devtools')
-        .setURL('https://scrimfinder.de')
+        .setURL('https://scrimfinder.gg')
         .setFooter({ text: `Scrimfinder devtools.`, 
         iconURL: `https://maierfabian.de/images/lovepingu.png`})
         .setThumbnail('https://maierfabian.de/images/lovepingu.png')

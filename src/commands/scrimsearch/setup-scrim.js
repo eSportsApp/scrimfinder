@@ -28,7 +28,7 @@ if (!userInDB) {
 //no permissions
 const noperm = new EmbedBuilder()
 .setTitle("You don't have the permissions to use this command!")
-.setURL("https://scrimfinder.de")
+.setURL("https://scrimfinder.gg")
 .setDescription("You don't have the permissions to use this command. You can [Invite me](https://docs.scrimfinder.de/invite) to your server to use this command. If you think this is a mistake, please contact us.")
 .setColor("#ff7700")
 .setTimestamp();
@@ -36,7 +36,7 @@ const noperm = new EmbedBuilder()
 //Response for Banned Users
 const banned = new EmbedBuilder()
 .setTitle("Sry you are banned from the Bot!")
-.setURL("https://scrimfinder.de")
+.setURL("https://scrimfinder.gg")
 .setDescription("It seems like you are banned from the bot. If you think this is a mistake, please contact us.")
 .setColor("#ff7700")
 .setTimestamp();
@@ -44,7 +44,7 @@ const banned = new EmbedBuilder()
 //Response for already registered Servers
 const alreadyregistered = new EmbedBuilder()
 .setTitle("This Channel is already set up!")
-.setURL("https://scrimfinder.de")
+.setURL("https://scrimfinder.gg")
 .setDescription("It seems like this channel is already set up. Please try another one!\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)\n\nTo get started just try /findscrim")
 .setColor("#ff7700")
 .setTimestamp();
@@ -52,7 +52,7 @@ const alreadyregistered = new EmbedBuilder()
 //Response for successfully registered Servers
 const success = new EmbedBuilder()
 .setTitle("Successfully set up the channel!")
-.setURL("https://scrimfinder.de")
+.setURL("https://scrimfinder.gg")
 .setDescription("Successfully set up the channel for the game. You are ready to use me now.\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)\n\nTo get started just try /findscrim")
 .setColor("#ff7700")
 .setTimestamp();
@@ -60,7 +60,7 @@ const success = new EmbedBuilder()
 //Response for successfully set up channel
 const setchannel = new EmbedBuilder()
 .setTitle("Successfully set up the channel!")
-.setURL("https://scrimfinder.de")
+.setURL("https://scrimfinder.gg")
 .setDescription("You successfully set up the channel. Feel free to serch a scrim using /findscrim\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)")
 .setColor("#ff7700")
 .setTimestamp();
