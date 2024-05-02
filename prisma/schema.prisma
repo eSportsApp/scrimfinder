@@ -63,5 +63,12 @@ model message {
   usersId String @map("user_id") @db.ObjectId
   user users @relation(fields: [usersId], references: [id])
 }
+
+model giveaway{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  guildId String @unique
+  userId String @unique
+
+}
 //New thing added run 
 //npx prisma generate

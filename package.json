@@ -29,5 +29,8 @@
     "type": "individual",
     "url": "https://ko-fi.com/fabi98_6"
   },
-  "homepage": "https://scrimfinder.gg"
+  "homepage": "https://scrimfinder.gg",
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
 }
