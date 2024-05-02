@@ -17,6 +17,7 @@ const client = new Client({
     ]
 });
 
+
 async function deleteOldMessages() {
     // Get the current date and time
     const now = new Date();
