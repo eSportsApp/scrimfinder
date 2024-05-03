@@ -18,6 +18,16 @@ module.exports = {
         if (existingEntry) {
             return i.reply('You are already participating in the giveaway!');
         }
+
+        // Check if the user account is older than 6 months
+const accountCreationDate = i.user.createdAt;
+const currentDate = new Date();
+const sixMonthsAgo = new Date(currentDate.setMonth(currentDate.getMonth() - 6));
+
+if (accountCreationDate > sixMonthsAgo) {
+    return i.reply({content:'Your account must be older than 6 months to participate in the giveaway!', ephemeral: true});
+}
+
         if (!i.guild) {
             return i.reply('This command can only be used in a server!');
         }
@@ -31,12 +41,12 @@ const guild = await db.guilds.findUnique({
 
 // Check if the user is the owner of the server
 if (i.guild.ownerId !== i.user.id) {
-    return i.reply('You do not own this server!');
+    return i.reply({content: 'You do not own this server!', ephemeral: true});
 }
 
 // Check if at least one of the rssGtoIid or rssDtoFid arrays exists and is not empty
 if (!guild || (!guild.rssGtoIid.length && !guild.rssDtoFid.length)) {
-    return i.reply('A channel needs to be set up first!');
+    return i.reply({content: 'A channel needs to be set up first!', ephemeral: true});
 }
 
         
@@ -48,10 +58,44 @@ if (!guild || (!guild.rssGtoIid.length && !guild.rssDtoFid.length)) {
                 guildId: i.guild.id,
             },
         });
+
+
+
+        const dm = new EmbedBuilder()
+    .setColor('#ff7700')
+    .setTitle('Hey, thanks for participating in the giveaway!')
+    .setDescription(`If you haven't all ready, try using /findscrim for your next Scrimsearch!`);
+
+// Send a DM to the user
+await i.user.send({ embeds: [dm] });
+
+
+const funFacts = [
+    "Did you know that the first-ever recorded giveaway was in 1763? Crazy, right?",
+    "There was an early alpha version of me back in 2023 that was never actively released to the public!",
+    "One of the first Servers I was in after I got published was a server called 'ExMortis eSport'!",
+    "Since I was announced at rcs I now have grown to over 100 Servers!",
+    "My github repo gets usual 2-5 commits a day!",
+    "currently are 13 Things on my todo list!",
+    "The docs page is getting translated into 3 languages by some awesome volunteers!",
+    "I am currently in over 100 Servers!",
+    "The first ever command I had was /findscrim!",
+    "The average maps searched are 2",
+    "The average time to find a scrim is well idk but it's fast!",
+    "There is a 1 in 1000 chance that you get a beta invite from me if you use /findscrim!",
+    "Everybody wants a multisearch feature but I don't have ideas how to implement it! Maybe you have an idea?",
+
+];
+
+// Select a random fun fact
+const funFact = funFacts[Math.floor(Math.random() * funFacts.length)];
+
+
+
         const infoEmbed = new EmbedBuilder()
         .setColor('#4CBD49')
         .setTitle('Giveaway')
-        .setDescription('You have successfully entered the giveaway!');
+        .setDescription(`You have successfully entered the giveaway!\n\nAnyways, here's a fun fact: ${funFact}`);
         await i.reply({ embeds: [infoEmbed]});
     }
 }}
