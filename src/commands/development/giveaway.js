@@ -31,6 +31,15 @@ if (accountCreationDate > sixMonthsAgo) {
         if (!i.guild) {
             return i.reply('This command can only be used in a server!');
         }
+        const members = await i.guild.members.fetch();
+
+// Filter out the bots
+const nonBotMembers = members.filter(member => !member.user.bot);
+
+// Check if there are more than 5 non-bot members
+if (nonBotMembers.size <= 5) {
+    return i.reply({content: 'There must be more than 5 non-bot members in the server to participate in the giveaway!', ephemeral: true});
+}
         if(!existingEntry){
        // Check if the guild has a g-i or d-f channel
 const guild = await db.guilds.findUnique({
@@ -80,10 +89,12 @@ const funFacts = [
     "The docs page is getting translated into 3 languages by some awesome volunteers!",
     "I am currently in over 100 Servers!",
     "The first ever command I had was /findscrim!",
-    "The average maps searched are 2",
+    "The average maps searched are 2. Its interesting but I don't know why!",
     "The average time to find a scrim is well idk but it's fast!",
     "There is a 1 in 1000 chance that you get a beta invite from me if you use /findscrim!",
     "Everybody wants a multisearch feature but I don't have ideas how to implement it! Maybe you have an idea?",
+    "In rcs there are 9 classes but class C is the one with the least amount of teams!",
+    "The penguin you see everywhere does not have a name yet! Maybe you can help me with that?"
 
 ];
 
