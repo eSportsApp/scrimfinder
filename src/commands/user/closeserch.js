@@ -15,17 +15,17 @@ module.exports = {
         const searchId = interaction.options.getString('search');
 
         if (!userInDB || !userInDB.messages || userInDB.messages.length === 0) {
-            await interaction.reply('No active searches');
+            await interaction.reply({content:'No active searches', ephemeral: true});
         } else {
             const searchIndex = parseInt(searchId) - 1;
 
             if (searchIndex < 0 || searchIndex >= userInDB.messages.length) {
-                await interaction.reply('No search found with the given ID');
+                await interaction.reply({content: 'No search found with the given ID', ephemeral: true});
             } else {
                 const searchMessage = userInDB.messages[searchIndex];
 
                 // Reply to the interaction immediately with a loading message
-const reply = await interaction.reply('Closing search...', { fetchReply: true , ephemeral: true});
+const reply = await interaction.reply({content: 'Closing search...',  fetchReply: true , ephemeral: true});
 
 // Edit every message in the chosen message
 for (let i = 0; i < searchMessage.messageIds.length; i++) {

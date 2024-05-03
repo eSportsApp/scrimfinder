@@ -69,7 +69,7 @@ module.exports = {
 
   await interaction.reply({
     embeds: [profile]
-  });
+  , ephermal: true});
 
   
     },
