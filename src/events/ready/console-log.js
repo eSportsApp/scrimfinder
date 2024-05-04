@@ -5,7 +5,8 @@ module.exports = ( client ) => {
   console.log(`✅Logged in as ${client.user.tag}.`);
   console.log(`Bot is in ${client.guilds.cache.size} guilds.`);
   console.log(`Bot is serving ${client.guilds.cache.reduce((a,b) => a+b.memberCount, 0)} users.`);
-
+  let members = 0;
+  let guilds = 0;
                                                                                  
                                                                                  
 
@@ -14,8 +15,8 @@ module.exports = ( client ) => {
   //  type: ActivityType.Listening
  // })
 async function stats(){
-const members = client.guilds.cache.reduce((a,b) => a+b.memberCount, 0);
-const guilds = client.guilds.cache.size;
+members = client.guilds.cache.reduce((a,b) => a+b.memberCount, 0);
+guilds = client.guilds.cache.size;
 }
 setInterval(stats, 60 * 60 * 1000);
  const states = [`Searching Scrims for ${members} Members.`, `Searching Scrims on ${guilds} Guilds.`,`scrimfinder.gg`, `Find Scrims easier with /findscrim`]; // Define the predefined states
