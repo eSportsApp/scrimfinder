@@ -31,6 +31,23 @@ model users {
   rssClan String?
   rssclass String?
   messages message[]
+  drafts UserDraft[]
+}
+
+model Draft {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  time   String?
+  maps String?
+  extraInfo String?
+  users     UserDraft[]
+}
+
+model UserDraft {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  userId  String @db.ObjectId
+  draftId String @db.ObjectId
+  users   users   @relation(fields: [userId], references: [id])
+  draft   Draft   @relation(fields: [draftId], references: [id])
 }
 
 model badwords{
