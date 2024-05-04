@@ -13,8 +13,12 @@ module.exports = ( client ) => {
   //  name: "/findscrim",
   //  type: ActivityType.Listening
  // })
-
- const states = [`Searching Scrims for ${client.guilds.cache.reduce((a,b) => a+b.memberCount, 0)} Members.`, `Searching Scrims on ${client.guilds.cache.size} Guilds.`,`scrimfinder.gg`, `Find Scrims easier with /findscrim`]; // Define the predefined states
+async function stats(){
+const members = client.guilds.cache.reduce((a,b) => a+b.memberCount, 0);
+const guilds = client.guilds.cache.size;
+}
+setInterval(stats, 60 * 60 * 1000);
+ const states = [`Searching Scrims for ${members} Members.`, `Searching Scrims on ${guilds} Guilds.`,`scrimfinder.gg`, `Find Scrims easier with /findscrim`]; // Define the predefined states
  let currentStateIndex = 0; // Initialize the index of the current state
  
  setInterval(() => {
