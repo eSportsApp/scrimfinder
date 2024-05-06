@@ -5,8 +5,8 @@ module.exports = ( client ) => {
   console.log(`✅Logged in as ${client.user.tag}.`);
   console.log(`Bot is in ${client.guilds.cache.size} guilds.`);
   console.log(`Bot is serving ${client.guilds.cache.reduce((a,b) => a+b.memberCount, 0)} users.`);
-  let members = 0;
-  let guilds = 0;
+  let members = client.guilds.cache.reduce((a,b) => a+b.memberCount, 0);
+  let guilds = client.guilds.cache.size;
                                                                                  
                                                                                  
 
