@@ -69,7 +69,7 @@ try {
       const row = new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
-                .setCustomId('findscrim')
+            .setCustomId('findscrim')
                 .setLabel('This search is closed use /findscrim to find a new one.')
                 .setStyle('Danger')
                 .setDisabled(true),
