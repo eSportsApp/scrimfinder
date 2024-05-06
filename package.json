@@ -1,6 +1,6 @@
 {
   "name": "scrimfinder",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "A bot that helps you find scrims for your team",
   "main": "src/index.js",
   "scripts": {
