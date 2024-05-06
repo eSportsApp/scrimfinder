@@ -98,9 +98,13 @@ try{
 
             for (const c of channels) {
               const message = await sendMessageToChannel(client, c, scrimsearchEmbed, contactRow);
-              sentMessageIds.push(message.id);
-              sentChannelIds.push(c);
-              sentGuildIds.push(interaction.guild.id);
+if (message) {
+  sentMessageIds.push(message.id);
+  sentChannelIds.push(c);
+  if (interaction.guild) {
+    sentGuildIds.push(interaction.guild.id);
+  }
+}
             }
           }
         } else {
@@ -111,9 +115,13 @@ try{
 
             for (const c of channels) {
               const message = await sendMessageToChannel(client, c, scrimsearchEmbed, contactRow);
-              sentMessageIds.push(message.id);
-              sentChannelIds.push(c);
-              sentGuildIds.push(interaction.guild.id);
+              if (message) {
+                sentMessageIds.push(message.id);
+                sentChannelIds.push(c);
+                if (interaction.guild) {
+                  sentGuildIds.push(interaction.guild.id);
+                }
+              }
             }
           }
         }
@@ -198,7 +206,7 @@ try{
 
 async function sendMessageToChannel(client, channelId, embed, components) {
   const channelToSend = client.channels.cache.get(channelId);
-  if (channelToSend) {
+  if (channelToSend && channelToSend.isText()) {
     return await channelToSend.send({ embeds: [embed], components: [components] });
   }
 }
