@@ -51,6 +51,27 @@ module.exports = {
           },
         });
         rank = "I";
+        const welcome = new EmbedBuilder()
+          .setTitle("Welcome to Scrimfinder!")
+          .setDescription("Welcome in the Scrimfinder Family! \n\nYou can now start finding scrims with the command /findscrim\n\nIf you have any questions feel free to ask in our [Discord](https://discord.gg/nrbwf929rK) or visit our [Website](https://scrimfinder.gg)")
+          .addFields(
+            {
+              name: "What are Classes?",
+              value: "Scrimfinder uses Classes to determine the skill level of the players. \n\n**Class I** is the lowest class and **Class A** is the highest class. \n\nYour class gets determined by your teams achivements in leagues and tournaments. Check out our discord for more information.",
+              inline: true,
+            },
+          )
+          .setColor("#ff7700")
+          .setThumbnail("https://maierfabian.de/images/hipingu.png")
+          .setFooter({
+            text: "scrimfinder.gg | Finding Scrims was never that easy",
+            iconURL: "https://maierfabian.de/images/lovepingu.png",
+          })
+        try {
+          await interaction.user.send({embeds: [welcome]});
+        } catch (err) {
+          console.log(`Failed to send DM to user: ${interaction.user.id}. Error: ${err.message}`);
+        }
       } else {
         rank = userInDB.rssclass;
         if (userInDB.username !== interaction.user.username) {
@@ -206,8 +227,15 @@ if (message) {
 
 async function sendMessageToChannel(client, channelId, embed, components) {
   const channelToSend = client.channels.cache.get(channelId);
-  if (channelToSend && channelToSend.isText()) {
-    return await channelToSend.send({ embeds: [embed], components: [components] });
+  if (channelToSend) {
+    try {
+      return await channelToSend.send({ embeds: [embed], components: [components] });
+    } catch (err) {
+      console.log(`Failed to send message to channel: ${channelId}. Error: ${err.message}`);
+    }
+  }else{
+    console.log(`Channel ${channelId} not found`);
+  
   }
 }
 
