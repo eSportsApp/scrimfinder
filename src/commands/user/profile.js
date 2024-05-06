@@ -77,4 +77,4 @@ module.exports = {
     .setName("myprofile")
     .setDescription("Shows your profile, like your class and more in some comming updates"),
 };
-//Acton row does not work
+//Action row does not work
