@@ -6,8 +6,6 @@ const {
   ActionRowBuilder,
 } = require("discord.js");
 const { db } = require("../../lib/db");
-const Twit = require("twit");
-
 const { BANNED_USER_MESSAGE } = require("../../constants/banned");
 
 module.exports = {
