@@ -1,5 +1,5 @@
 // Konstante für die Nachricht an gebannte Benutzer
-const { MessageEmbed, EmbedBuilder } = require('discord.js');
+const {EmbedBuilder } = require('discord.js');
 
 const BANNED_USER_MESSAGE = new EmbedBuilder()
     .setTitle('You are banned from using the bot')
