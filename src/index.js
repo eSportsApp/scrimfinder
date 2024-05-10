@@ -38,36 +38,7 @@ async function deleteOldMessages() {
 // Run the deleteOldMessages function every hour
 setInterval(deleteOldMessages, 60 * 60 * 1000);
 
-const schedule = require('node-schedule');
 
-// Schedule a job to run at 10:00 on May 11
-let date = new Date(2023, 4, 11, 10, 0, 0); // Note: JavaScript counts months from 0 (January) to 11 (December)
-
-let job = schedule.scheduleJob(date, async function() {
-    // Fetch all giveaways from the database
-    let giveaways = await db.giveaway.findMany();
-
-    // Select a random giveaway
-    let randomGiveaway = giveaways[Math.floor(Math.random() * giveaways.length)];
-
-    // Fetch the guild
-    let guild = client.guilds.cache.get('637333042301632535'); // replace 'guild-id' with your actual guild ID
-
-    if (!guild) {
-        console.log('Guild not found');
-        return;
-    }
-
-    // Fetch the channel
-    let channel = guild.channels.cache.get('1229170409933508690'); // replace 'channel-id' with your actual channel ID
-
-    // Send the message
-    if (channel) {
-        channel.send(`Congratulations <@${randomGiveaway.userId}>! You are the winner of the giveaway!\nPlease contact <@516206348568887316> in the next 24 hours to claim your prize.`);
-    } else {
-        console.log('Channel not found');
-    }
-});
 // Create CommandHandler
 new CommandHandler({
     client,
