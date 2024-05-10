@@ -39,7 +39,6 @@ async function deleteOldMessages() {
 setInterval(deleteOldMessages, 60 * 60 * 1000);
 
 const schedule = require('node-schedule');
-const db = require('./path/to/your/database'); // replace with your actual path
 
 // Schedule a job to run at 10:00 on May 11
 let date = new Date(2023, 4, 11, 10, 0, 0); // Note: JavaScript counts months from 0 (January) to 11 (December)
