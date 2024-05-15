@@ -1,5 +1,5 @@
  //Imports 
-const { Client, IntentsBitField } = require('discord.js');
+const { Client, IntentsBitField, EmbedBuilder } = require('discord.js');
 const { CommandHandler } = require('djs-commander');
 const { db } = require("./lib/db");
 const path = require('path');
