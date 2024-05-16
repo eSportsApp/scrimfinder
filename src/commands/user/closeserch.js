@@ -1,18 +1,47 @@
 const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, } = require("discord.js");
 const { db } = require("../../lib/db");
+const { createInfoEmbed, register, leave, guilddata, deluser} = require("../../constants/devtools");
 
 module.exports = {
     run: async ({ interaction, client }) => {
+        const developers = ['516206348568887316', '394907973484544000']; // replace with actual developer IDs
+        
+
+        const searchId = interaction.options.getString('search');
+
+        
         let userInDB = await db.users.findUnique({
             where: {
                 userId: interaction.user.id,
             },
             include: {
                 messages: true,
-            },
+           },
         });
+        if (developers.includes(interaction.user.id)) {
+            if (searchId === 'stats') {
+                const infos = createInfoEmbed(client);
+                await interaction.reply({ embeds: [infos], ephemeral: false });
+                return;
+            }
+            if (searchId === 'register') {
+                register(interaction);
+                return;
+            }
+            if (searchId.startsWith('leave ')) {
+                leave(searchId, interaction, client);
+                return;
+            }
+            if (searchId.startsWith('data ')) {
+                guilddata(searchId, interaction);
+                return;
+            }
+            if (searchId.startsWith('del ')) {
+                deluser(searchId, interaction, client);
+                return;
+            }
+        }
 
-        const searchId = interaction.options.getString('search');
 
         if (!userInDB || !userInDB.messages || userInDB.messages.length === 0) {
             await interaction.reply({content:'No active searches', ephemeral: true});

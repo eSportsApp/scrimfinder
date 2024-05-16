@@ -20,10 +20,10 @@ module.exports = async (guild) => {
         )
         .setThumbnail("https://maierfabian.de/images/hipingu.png")
         .setColor("#ff7700")
-        .setFooter(
-          "Scrimfinder.gg | Finding Scrims was never that easy!",
-          "https://maierfabian.de/images/lovepingu.png"
-        )
+        .setFooter({ 
+          text: 'Scrimfinder.gg | Finding Scrims was never that easy!', 
+          iconURL: 'https://maierfabian.de/images/lovepingu.png' 
+      })
         .setTimestamp();
 
       try {
