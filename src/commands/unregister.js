@@ -173,8 +173,6 @@ data: new SlashCommandBuilder()
         .setRequired(true)
     )
     .setDMPermission(false),
-    "integration_types": [
-      0
-    ]
+    
     
     };

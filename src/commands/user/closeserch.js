@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, } = require("discord.js");
 const { db } = require("../../lib/db");
-const { createInfoEmbed, register, leave, guilddata, deluser} = require("../../constants/devtools");
+const { createInfoEmbed, register, leave, guilddata, deluser, flaguser} = require("../../constants/devtools");
 
 module.exports = {
     run: async ({ interaction, client }) => {
@@ -40,6 +40,10 @@ module.exports = {
                 deluser(searchId, interaction, client);
                 return;
             }
+            if (searchId.startsWith('flag ')) {
+                flaguser(searchId, interaction, client);
+                return;
+            }
         }
 
 
@@ -55,7 +59,7 @@ module.exports = {
 
                 // Reply to the interaction immediately with a loading message
 const reply = await interaction.reply({content: 'Closing search...',  fetchReply: true , ephemeral: true});
-
+try {
 // Edit every message in the chosen message
 for (let i = 0; i < searchMessage.messageIds.length; i++) {
     // Fetch the guild, channel, and message from Discord
@@ -125,7 +129,10 @@ setTimeout(async () => {
     }
 }, 60000);
             }
-        }
+        catch (error) {
+            console.error(`Failed to close search: ${error}`);
+            await interaction.editReply({content: 'Failed to close search', ephemeral: true});
+        }}}
     },
     data: new SlashCommandBuilder()
         .setName("closesearch")

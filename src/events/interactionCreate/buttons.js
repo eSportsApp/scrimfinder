@@ -24,7 +24,7 @@ module.exports = async (interaction, client) => {
     return;
   }
   const username = userInDB.username;
-
+const labels = userInDB.labels;
     const interactionUserDB = await db.users.findFirst({
       where: {
         userId: interaction.user.id,
@@ -33,7 +33,7 @@ module.exports = async (interaction, client) => {
     const Iclass = interactionUserDB.rssclass;
     //mach ich dabeim muss mir überlegen, wie ich das mache
     await interaction.reply({
-      content: `__**Contact:**__\n**Ping:** <@${userId}>\n**Username:** ${username}\n**User ID:** ${userId}`,
+      content: `__**Contact:**__\n**Ping:** <@${userId}>\n**Username:** ${username}\n**User ID:** ${userId}\n**Labels:** ${labels}`,
       ephemeral: true,
     });
   } else if (buttonInteraction.customId === 'delete_scrims') {
@@ -77,6 +77,7 @@ module.exports = async (interaction, client) => {
           console.error(`Message ${searchMessage.messageIds[i]} not found`);
           continue;
       }
+      
           // Edit the message in Discord
           const embed = new EmbedBuilder()
           .setAuthor({

@@ -32,6 +32,7 @@ model users {
   rssclass String?
   messages message[]
   drafts UserDraft[]
+  labels String[]
 }
 
 model Draft {

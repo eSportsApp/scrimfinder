@@ -194,6 +194,30 @@ async function deluser (searchId, interaction, client){
     return;
 
 }
+
+async function flaguser (searchId, interaction, client){
+    const userId = searchId.split(' ')[1];
+    const user = await db.users.findUnique({
+        where: {
+            userId: userId,
+        },
+    });
+    if (user) {
+        await interaction.deferReply({ ephemeral: true });
+        await db.users.update({
+            where: {
+                userId: userId,
+            },
+            data: {
+                labels: [...user.labels, '❌Hatespeach']
+            },
+        });
+        }
+        await interaction.editReply({content: 'Search closed', ephemeral: true});
+    
+    return;
+}
+
 module.exports = {
     sayHello: sayHello,
     createInfoEmbed: createInfoEmbed,
@@ -201,4 +225,5 @@ module.exports = {
     leave: leave,
     guilddata: guilddata,
     deluser: deluser,
+    flaguser: flaguser
 };
