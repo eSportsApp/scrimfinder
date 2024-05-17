@@ -1,6 +1,7 @@
 const {SlashCommandBuilder,EmbedBuilder,ButtonBuilder,ButtonStyle,ActionRowBuilder,} = require("discord.js");
 const { db } = require("../../lib/db");
 const { BANNED_USER_MESSAGE } = require("../../constants/banned");
+const redis = require("../../lib/redis");
 
 module.exports = {
   run: async ({ client, interaction }) => {
@@ -283,45 +284,67 @@ async function sendMessageToChannel(client, channelId, embed, components) {
 }
 
 async function getChannelsForScrim(rank) {
-  const guilds = await db.guilds.findMany();
-  const channels = [];
+  const key = `scrim:${rank}`;
 
-  guilds.forEach((guild) => {
-    if (guild.rssGtoIid && (rank === "I" || rank === "H" || rank === "G")) {
-      channels.push(...guild.rssGtoIid);
-    } else if (
-      guild.rssDtoFid &&
-      rank !== "I" &&
-      rank !== "H" &&
-      rank !== "G"
-    ) {
-      channels.push(...guild.rssDtoFid);
-    }
+  return new Promise((resolve, reject) => {
+    redis.get(key, async (err, result) => {
+      if (result) {
+        resolve(JSON.parse(result));
+      } else {
+        const guilds = await db.guilds.findMany();
+        const channels = [];
+
+        guilds.forEach((guild) => {
+          if (guild.rssGtoIid && (rank === "I" || rank === "H" || rank === "G")) {
+            channels.push(...guild.rssGtoIid);
+          } else if (
+            guild.rssDtoFid &&
+            rank !== "I" &&
+            rank !== "H" &&
+            rank !== "G"
+          ) {
+            channels.push(...guild.rssDtoFid);
+          }
+        });
+
+        redis.set(key, JSON.stringify(channels));
+        resolve(channels);
+      }
+    });
   });
-
-  return channels;
 }
 
 async function getChannelsForSharedScrim(rank) {
-  const guilds = await db.guilds.findMany();
-  const channels = [];
+  const key = `sharedScrim:${rank}`;
 
-  guilds.forEach((guild) => {
-    if (rank === "I" || rank === "H" || rank === "G") {
-      if (guild.rssGtoIid) {
-        channels.push(...guild.rssGtoIid);
+  return new Promise((resolve, reject) => {
+    redis.get(key, async (err, result) => {
+      if (result) {
+        resolve(JSON.parse(result));
+      } else {
+        const guilds = await db.guilds.findMany();
+        const channels = [];
+
+        guilds.forEach((guild) => {
+          if (rank === "I" || rank === "H" || rank === "G") {
+            if (guild.rssGtoIid) {
+              channels.push(...guild.rssGtoIid);
+            }
+            if (guild.rssDtoFid) {
+              channels.push(...guild.rssDtoFid);
+            }
+          } else if (rank !== "I" && rank !== "H" && rank !== "G") {
+            if (guild.rssGtoIid) {
+              channels.push(...guild.rssGtoIid);
+            }
+          }
+        });
+
+        redis.set(key, JSON.stringify(channels));
+        resolve(channels);
       }
-      if (guild.rssDtoFid) {
-        channels.push(...guild.rssDtoFid);
-      }
-    } else if (rank !== "I" && rank !== "H" && rank !== "G") {
-      if (guild.rssGtoIid) {
-        channels.push(...guild.rssGtoIid);
-      }
-    }
+    });
   });
-
-  return channels;
 }
 
 function constructInviteButton() {
