@@ -209,7 +209,7 @@ async function flaguser (searchId, interaction, client){
                 userId: userId,
             },
             data: {
-                labels: [...user.labels, '❌Hatespeach']
+                labels: [...user.labels, 'Developer']
             },
         });
         }
