@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const { db } = require("../../lib/db");
-
+const { BANNED_USER_MESSAGE } = require("../../constants/banned");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("searchdraft")
@@ -55,9 +55,11 @@ module.exports = {
             },
         });
         
+
         if (!userInDB) {
             await interaction.reply({content:'You are not yet registered on the bot. Search at least one Scrim to create drafts', ephemeral: true});
         } else {
+          const rank = userInDB.rssclass;
             await interaction.reply({ content: 'Building your Scrimsearch', ephemeral: true });
             const draftIndex = parseInt(draftNumber) - 1;
             if (userInDB.drafts[draftIndex]) {
@@ -68,8 +70,24 @@ module.exports = {
                 await interaction.reply({content: '404 Draft not found...', ephemeral: true});
             }
         }
+        try {
+          const userBanned = await db.bannedUsers.findFirst({
+            where: { userId: interaction.user.id },
+          });
+    
+          if (userBanned) {
+            await interaction.reply({
+              embeds: [BANNED_USER_MESSAGE],
+              ephemeral: true,
+            });
+            return;
+          }
+        } catch (err) {
+          console.log(err);
+        }
             // Send the draft to all channels set for the user's current class
             await interaction.editReply({ content: 'Sending your Scrimsearch ... ' });
+            
             const channels = await getChannelsForScrim(userInDB.rssclass);
             channels.forEach(async (channelId) => {
                 const embed = constructScrimsearchEmbed(
@@ -83,17 +101,20 @@ module.exports = {
                 const components = constructContactRow(interaction.user);
                 await sendMessageToChannel(client, channelId, embed, components);
                 try {
-                if (message) {
-                    sentMessageIds.push(message.id);
-                    sentChannelIds.push(c);
-                    if (interaction.guild) {
-                      sentGuildIds.push(interaction.guild.id);
-                    }
+                  if (message) {
+                      sentMessageIds.push(message.id);
+                      sentChannelIds.push(channelId);
+          
+                      // Fetch the channel to get the guild ID
+                      const channel = await client.channels.fetch(channelId);
+                      if (channel.guild) {
+                          sentGuildIds.push(channel.guild.id);
+                      }
                   }
-                } catch (err) {
-                    console.log(`Failed to save message from channel: ${channelId}. Error: ${err.message}`);
-                    }
-            });
+              } catch (err) {
+                  console.log(`Failed to save message from channel: ${channelId}. Error: ${err.message}`);
+              }
+          });
             try {
                 await interaction.editReply({ content: 'Saving your Search for you!' });
                 await db.message.create({
@@ -136,41 +157,69 @@ async function sendMessageToChannel(client, channelId, embed, components) {
   }
   
   async function getChannelsForScrim(rank) {
-    const guilds = await db.guilds.findMany();
-    const channels = [];
+    const key = `scrim:${rank}`;
   
-    guilds.forEach((guild) => {
-      if (guild.rssGtoIid && (rank === "I" || rank === "H" || rank === "G")) {
-        channels.push(...guild.rssGtoIid);
-      } else if (guild.rssDtoFid && (rank !== "I" && rank !== "H" && rank !== "G")) {
-        channels.push(...guild.rssDtoFid);
-      }
+    return new Promise((resolve, reject) => {
+      redis.get(key, async (err, result) => {
+        if (result) {
+          resolve(JSON.parse(result));
+        } else {
+          const guilds = await db.guilds.findMany();
+          const channels = [];
+  
+          guilds.forEach((guild) => {
+            if (guild.rssGtoIid && (rank === "I" || rank === "H" || rank === "G")) {
+              channels.push(...guild.rssGtoIid);
+            } else if (
+              guild.rssDtoFid &&
+              rank !== "I" &&
+              rank !== "H" &&
+              rank !== "G"
+            ) {
+              channels.push(...guild.rssDtoFid);
+            }
+          });
+  
+          redis.set(key, JSON.stringify(channels));
+          resolve(channels);
+        }
+      });
     });
-  
-    return channels;
   }
   
   async function getChannelsForSharedScrim(rank) {
-    const guilds = await db.guilds.findMany();
-    const channels = [];
+    const key = `sharedScrim:${rank}`;
   
-    guilds.forEach((guild) => {
-      if (rank === "I" || rank === "H" || rank === "G") {
-        if (guild.rssGtoIid) {
-          channels.push(...guild.rssGtoIid);
+    return new Promise((resolve, reject) => {
+      redis.get(key, async (err, result) => {
+        if (result) {
+          resolve(JSON.parse(result));
+        } else {
+          const guilds = await db.guilds.findMany();
+          const channels = [];
+  
+          guilds.forEach((guild) => {
+            if (rank === "I" || rank === "H" || rank === "G") {
+              if (guild.rssGtoIid) {
+                channels.push(...guild.rssGtoIid);
+              }
+              if (guild.rssDtoFid) {
+                channels.push(...guild.rssDtoFid);
+              }
+            } else if (rank !== "I" && rank !== "H" && rank !== "G") {
+              if (guild.rssGtoIid) {
+                channels.push(...guild.rssGtoIid);
+              }
+            }
+          });
+  
+          redis.set(key, JSON.stringify(channels));
+          resolve(channels);
         }
-        if (guild.rssDtoFid) {
-          channels.push(...guild.rssDtoFid);
-        }
-      } else if (rank !== "I" && rank !== "H" && rank !== "G") {
-        if (guild.rssGtoIid) {
-          channels.push(...guild.rssGtoIid);
-        }
-      }
+      });
     });
-  
-    return channels;
   }
+  
   
   function constructInviteButton() {
     const invitebtn = new ButtonBuilder()
