@@ -33,58 +33,36 @@ module.exports = {
               .setDescription("Share the scrim in every channel you have access to.")
           )
           .setDMPermission(false),
-    run: async ({ interaction, client }) => {
-        const sentMessageIds = [];
-        const sentChannelIds = [];
-        const sentGuildIds = [];
-        let shareranges = interaction.options.getString("shareit-everywhere");
-        const date = interaction.options.getString('date');
-        const extraInfo = interaction.options.getString('extrainfo');
-        const draftNumber = interaction.options.getString('draft');
-        let time, maps;
-        let userInDB = await db.users.findUnique({
-            where: {
-                userId: interaction.user.id,
-            },
-            include: {
-                drafts: {
-                    include: {
-                        draft: true
-                    }
-                },
-            },
-        });
-        
-
-        if (!userInDB) {
-            await interaction.reply({content:'You are not yet registered on the bot. Search at least one Scrim to create drafts', ephemeral: true});
-        } else {
-          const rank = userInDB.rssclass;
-            await interaction.reply({ content: 'Building your Scrimsearch', ephemeral: true });
-            const draftIndex = parseInt(draftNumber) - 1;
-            if (userInDB.drafts[draftIndex]) {
-                const draft = userInDB.drafts[draftIndex].draft;
-                time = draft.time;
-                maps = draft.maps;
+          run: async ({ interaction, client }) => {
+            const sentMessageIds = [];
+            const sentChannelIds = [];
+            const sentGuildIds = [];
+            let shareranges = interaction.options.getString("shareit-everywhere");
+            const date = interaction.options.getString('date');
+            const extraInfo = interaction.options.getString('extrainfo');
+            const draftNumber = interaction.options.getString('draft');
+            let time, maps;
+            let userInDB = await getUserFromDB(interaction.user.id);
+            
+            if (!userInDB) {
+                await interaction.reply({content:'You are not yet registered on the bot. Search at least one Scrim to create drafts', ephemeral: true});
             } else {
-                await interaction.reply({content: '404 Draft not found...', ephemeral: true});
+                const rank = userInDB.rssclass;
+                await interaction.reply({ content: 'Building your Scrimsearch', ephemeral: true });
+                const draftIndex = parseInt(draftNumber) - 1;
+                if (userInDB.drafts[draftIndex]) {
+                    const draft = userInDB.drafts[draftIndex].draft;
+                    time = draft.time;
+                    maps = draft.maps;
+                } else {
+                    await interaction.reply({content: '404 Draft not found...', ephemeral: true});
+                }
             }
-        }
-        try {
-          const userBanned = await db.bannedUsers.findFirst({
-            where: { userId: interaction.user.id },
-          });
-    
-          if (userBanned) {
-            await interaction.reply({
-              embeds: [BANNED_USER_MESSAGE],
-              ephemeral: true,
-            });
-            return;
-          }
-        } catch (err) {
-          console.log(err);
-        }
+            try {
+                await checkUserBanStatus(interaction);
+            } catch (err) {
+                console.log(err);
+            }
             // Send the draft to all channels set for the user's current class
             await interaction.editReply({ content: 'Sending your Scrimsearch ... ' });
             
@@ -101,45 +79,86 @@ module.exports = {
                 const components = constructContactRow(interaction.user);
                 await sendMessageToChannel(client, channelId, embed, components);
                 try {
-                  if (message) {
-                      sentMessageIds.push(message.id);
-                      sentChannelIds.push(channelId);
-          
-                      // Fetch the channel to get the guild ID
-                      const channel = await client.channels.fetch(channelId);
-                      if (channel.guild) {
-                          sentGuildIds.push(channel.guild.id);
-                      }
-                  }
-              } catch (err) {
-                  console.log(`Failed to save message from channel: ${channelId}. Error: ${err.message}`);
-              }
-          });
+                    if (message) {
+                        sentMessageIds.push(message.id);
+                        sentChannelIds.push(channelId);
+        
+                        // Fetch the channel to get the guild ID
+                        const channel = await client.channels.fetch(channelId);
+                        if (channel.guild) {
+                            sentGuildIds.push(channel.guild.id);
+                        }
+                    }
+                } catch (err) {
+                    console.log(`Failed to save message from channel: ${channelId}. Error: ${err.message}`);
+                }
+            });
             try {
                 await interaction.editReply({ content: 'Saving your Search for you!' });
-                await db.message.create({
-                  data: {
-                    content: ` **${date} ${time} **     **Class ${rank}**     **${bestof} Maps**`,
-                    messageIds: sentMessageIds,
-                    channelIds: sentChannelIds,
-                    guildIds: sentGuildIds,
-                    user: {
-                      connect: {
-                        userId: interaction.user.id,
-                      },
-                    },
-                  },
-                });
-              
-                
-              } catch (err) {
+                await saveSearchToDB(interaction, sentMessageIds, sentChannelIds, sentGuildIds);
+            } catch (err) {
                 console.log(err);
-                
-              }
+            }
             await interaction.editReply({ content: 'Scrimsearch successfully send have fun playing!' });
-    },
-};
-
+        },
+    };
+    
+    // Helper functions
+    
+    function createStringOption(name, description, required = false, choices = []) {
+        const option = new SlashCommandBuilder()
+            .setName(name)
+            .setDescription(description)
+            .setRequired(required);
+        choices.forEach(choice => option.addChoice(choice, choice));
+        return option;
+    }
+    
+    async function getUserFromDB(userId) {
+        return await db.users.findUnique({
+            where: {
+                userId: userId,
+            },
+            include: {
+                drafts: {
+                    include: {
+                        draft: true
+                    }
+                },
+            },
+        });
+    }
+    
+    async function checkUserBanStatus(interaction) {
+        const userBanned = await db.bannedUsers.findFirst({
+            where: { userId: interaction.user.id },
+        });
+    
+        if (userBanned) {
+            await interaction.reply({
+                embeds: [BANNED_USER_MESSAGE],
+                ephemeral: true,
+            });
+            return;
+        }
+    }
+    
+    async function saveSearchToDB(interaction, sentMessageIds, sentChannelIds, sentGuildIds) {
+        return await db.message.create({
+            data: {
+                content: ` **${date} ${time} **     **Class ${rank}**     **${bestof} Maps**`,
+                messageIds: sentMessageIds,
+                channelIds: sentChannelIds,
+                guildIds: sentGuildIds,
+                user: {
+                    connect: {
+                        userId: interaction.user.id,
+                    },
+                },
+            },
+        });
+    }
+    
 // Helper functions
 
 async function sendMessageToChannel(client, channelId, embed, components) {
@@ -157,13 +176,7 @@ async function sendMessageToChannel(client, channelId, embed, components) {
   }
   
   async function getChannelsForScrim(rank) {
-    const key = `scrim:${rank}`;
-  
-    return new Promise((resolve, reject) => {
-      redis.get(key, async (err, result) => {
-        if (result) {
-          resolve(JSON.parse(result));
-        } else {
+    
           const guilds = await db.guilds.findMany();
           const channels = [];
   
@@ -179,22 +192,10 @@ async function sendMessageToChannel(client, channelId, embed, components) {
               channels.push(...guild.rssDtoFid);
             }
           });
-  
-          redis.set(key, JSON.stringify(channels));
-          resolve(channels);
-        }
-      });
-    });
+          return channels;
   }
   
   async function getChannelsForSharedScrim(rank) {
-    const key = `sharedScrim:${rank}`;
-  
-    return new Promise((resolve, reject) => {
-      redis.get(key, async (err, result) => {
-        if (result) {
-          resolve(JSON.parse(result));
-        } else {
           const guilds = await db.guilds.findMany();
           const channels = [];
   
@@ -212,12 +213,7 @@ async function sendMessageToChannel(client, channelId, embed, components) {
               }
             }
           });
-  
-          redis.set(key, JSON.stringify(channels));
-          resolve(channels);
-        }
-      });
-    });
+          return channels;
   }
   
   

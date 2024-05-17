@@ -81,11 +81,9 @@ model message {
   user users @relation(fields: [usersId], references: [id])
 }
 
-model giveaway{
+model betatesters{
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  guildId String @unique
   userId String @unique
-
 }
 //New thing added run 
 //npx prisma generate

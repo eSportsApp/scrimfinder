@@ -1,6 +1,6 @@
  //Imports 
-const { Client, IntentsBitField, EmbedBuilder } = require('discord.js');
-const { CommandHandler } = require('djs-commander');
+const { Client, IntentsBitField, EmbedBuilder, SlashCommandBuilder } = require('discord.js');
+const { CommandKit } = require('commandkit');
 const { db } = require("./lib/db");
 const path = require('path');
 require('dotenv').config();
@@ -40,13 +40,14 @@ setInterval(deleteOldMessages, 60 * 60 * 1000);
 
 
 // Create CommandHandler
-new CommandHandler({
+new CommandKit({
     client,
     commandsPath: path.join(__dirname, 'commands'),
     eventsPath: path.join(__dirname, 'events'),
-    validationsPath: path.join(__dirname, 'validations')
+    validationsPath: path.join(__dirname, 'validations'),
+    devGuildIds: ['1201205703742869504'],
+    devUserIds:['516206348568887316', '394907973484544000'],
 });
-
 
 
 // Bot login

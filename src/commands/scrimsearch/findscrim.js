@@ -261,6 +261,10 @@ module.exports = {
         .setDescription("Share the scrim in every channel you have access to.")
     )
     .setDMPermission(false),
+    "integration_types": [
+      0,
+      1
+    ]
 };
 
 // Helper functions
@@ -307,7 +311,8 @@ async function getChannelsForScrim(rank) {
           }
         });
 
-        redis.set(key, JSON.stringify(channels));
+        // Setzen Sie den Schlüssel mit einem Ablaufzeitlimit von 60 Sekunden (1 Minute)
+        redis.set(key, JSON.stringify(channels), 'EX', 60);
         resolve(channels);
       }
     });
@@ -340,7 +345,8 @@ async function getChannelsForSharedScrim(rank) {
           }
         });
 
-        redis.set(key, JSON.stringify(channels));
+        // Setzen Sie den Schlüssel mit einem Ablaufzeitlimit von 60 Sekunden (1 Minute)
+        redis.set(key, JSON.stringify(channels), 'EX', 60);
         resolve(channels);
       }
     });

@@ -1,6 +1,6 @@
 const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { db } = require("../lib/db");
-
+const os = require("os");
 function createInfoEmbed(client) {
     let totalSecs = (client.uptime / 1000);
     let days = Math.floor(totalSecs / 86400);totalSecs %= 86400;
@@ -17,11 +17,17 @@ function createInfoEmbed(client) {
     iconURL: `https://maierfabian.de/images/lovepingu.png`})
     .setThumbnail('https://maierfabian.de/images/lovepingu.png')
     .setTimestamp()
-    .addFields({ name: `**🛠️ STATS**`, value: `Bots current stats`, inline: false})
-    .addFields({ name: `Server Count: `, value: `> **${client.guilds.cache.size}**`, inline: true})
-    .addFields({ name: `Member Count: `, value: `> **${client.guilds.cache.reduce((a,b) => a+b.memberCount, 0)}**`, inline: true})
-    .addFields({ name: `Latency: `, value: `> **${Math.round(client.ws.ping)}ms**`, inline: true})
-    .addFields({ name: `Uptime`, value: `> ${uptime}`, inline: true });
+    .addFields({ name: `**🛠️ STATS**`, value: `> Bots current stats`, inline: false})
+.addFields({ name: `Server Count: `, value: `> **${client.guilds.cache.size}**`, inline: true})
+.addFields({ name: `Member Count: `, value: `> **${client.guilds.cache.reduce((a,b) => a+b.memberCount, 0)}**`, inline: true})
+.addFields({ name: `Latency: `, value: `> **${Math.round(client.ws.ping)}ms**`, inline: true})
+.addFields({ name: `Uptime`, value: `> ${uptime}`, inline: true })
+.addFields({ name: `Platform: `, value: `> **${os.platform()}**`, inline: true})
+.addFields({ name: `OS Version: `, value: `> **${os.release()}**`, inline: true})
+.addFields({ name: `CPU: `, value: `> **${os.cpus()[0].model}**`, inline: true})
+.addFields({ name: `CPU Cores: `, value: `> **${os.cpus().length / 2}**`, inline: true})
+.addFields({ name: `Total RAM: `, value: `> **${(os.totalmem() / 1024 / 1024 / 1024).toFixed(2)} GB**`, inline: true})
+.addFields({ name: `Storage Used: `, value: `> **${((os.totalmem() - os.freemem()) / 1024 / 1024 / 1024).toFixed(2)} GB**`, inline: true});
 
     return infoEmbed;
 }
