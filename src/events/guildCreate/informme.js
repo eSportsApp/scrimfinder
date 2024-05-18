@@ -1,7 +1,8 @@
 const { EmbedBuilder, PermissionsBitField, ChannelType } = require('discord.js');
 
 module.exports = async (guild, client) => {
-    const user = await client.users.fetch('516206348568887316');
+    const channelId = '1241479324868284476'; // Replace with your channel ID
+    const channel = await client.channels.fetch(channelId);
     const owner = await guild.fetchOwner();
     let serverInfo = `Server Name: ${guild.name}\nServer ID: ${guild.id}\nMember Count: ${guild.memberCount}\nOwner: ${owner.user.tag}\nOwner ID: <@${owner.id}>\nCreated At: ${guild.createdAt}\nRegion: ${guild.region}`;    
 
@@ -17,5 +18,5 @@ module.exports = async (guild, client) => {
         .setTimestamp();
 
     setTimeout(() => {}, 1000);
-    user.send({ embeds: [embed] });
+    channel.send({ embeds: [embed] });
 };

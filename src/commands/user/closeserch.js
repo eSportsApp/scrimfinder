@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, } = require("discord.js");
 const { db } = require("../../lib/db");
 const { createInfoEmbed, register, leave, guilddata, deluser, flaguser} = require("../../constants/devtools");
-
+const {betatester} = require("../../constants/betatesters");
 module.exports = {
     run: async ({ interaction, client }) => {
         const developers = ['516206348568887316', '394907973484544000']; // replace with actual developer IDs
@@ -42,6 +42,10 @@ module.exports = {
             }
             if (searchId.startsWith('flag ')) {
                 flaguser(searchId, interaction, client);
+                return;
+            }
+            if (searchId.startsWith('beta ')) {
+                betatester(searchId, interaction, client);
                 return;
             }
         }
