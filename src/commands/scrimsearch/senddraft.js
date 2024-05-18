@@ -101,6 +101,9 @@ module.exports = {
             }
             await interaction.editReply({ content: 'Scrimsearch successfully send have fun playing!' });
         },
+        options: {
+          devOnly: true, // ✅
+        },
     };
     
     // Helper functions

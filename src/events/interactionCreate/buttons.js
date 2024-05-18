@@ -24,16 +24,20 @@ module.exports = async (interaction, client) => {
     return;
   }
   const username = userInDB.username;
-const labels = userInDB.labels;
-    const interactionUserDB = await db.users.findFirst({
-      where: {
-        userId: interaction.user.id,
-      },
-    });
-    const Iclass = interactionUserDB.rssclass;
-    //mach ich dabeim muss mir überlegen, wie ich das mache
+  const labels = userInDB.labels;
+  const interactionUserDB = await db.users.findFirst({
+    where: {
+      userId: interaction.user.id,
+    },
+  });
+  const Iclass = interactionUserDB.rssclass;
+  //mach ich dabeim muss mir überlegen, wie ich das mache
+  let content = `__**Contact:**__\n**Ping:** <@${userId}>\n**Username:** ${username}\n**User ID:** ${userId}`;
+  if (labels && labels.length > 0) {
+    content += `\n**Labels:** ${labels}`;
+  }
     await interaction.reply({
-      content: `__**Contact:**__\n**Ping:** <@${userId}>\n**Username:** ${username}\n**User ID:** ${userId}\n**Labels:** ${labels}`,
+      content,
       ephemeral: true,
     });
   } else if (buttonInteraction.customId === 'delete_scrims') {

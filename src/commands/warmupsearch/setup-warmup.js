@@ -266,4 +266,8 @@ const invite = new ActionRowBuilder()
         .setRequired(true)
         
     ),
+    options: {
+      userPermissions: ['Administrator'],
+      deleted: false,
+  },
 };

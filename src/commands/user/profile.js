@@ -76,5 +76,6 @@ module.exports = {
     data: new SlashCommandBuilder()
     .setName("myprofile")
     .setDescription("Shows your profile, like your class and more in some comming updates"),
+    
 };
 //Action row does not work

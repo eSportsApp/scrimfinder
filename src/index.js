@@ -47,6 +47,8 @@ new CommandKit({
     validationsPath: path.join(__dirname, 'validations'),
     devGuildIds: ['1201205703742869504'],
     devUserIds:['516206348568887316', '394907973484544000'],
+    bulkRegister: true,
+
 });
 
 

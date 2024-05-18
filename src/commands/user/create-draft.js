@@ -97,6 +97,9 @@ const maps = interaction.options.getString('maps');
                 .setName("maps")
                 .setDescription("How many Maps you want to play")
                 .setRequired(true)
-        )
+        ),
+        options: {
+            devOnly: true, // ✅
+          },
         
 };
