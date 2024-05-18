@@ -1,7 +1,6 @@
 const {SlashCommandBuilder,EmbedBuilder,ButtonBuilder,ButtonStyle,ActionRowBuilder,} = require("discord.js");
 const { db } = require("../../lib/db");
 const { BANNED_USER_MESSAGE } = require("../../constants/banned");
-const redis = require("../../lib/redis");
 const {sendMessageToChannel, getChannelsForScrim, getChannelsForSharedScrim, constructInviteButton, constructContactRow, constructScrimsearchEmbed, getChannelsForGSAScrim} = require('../../constants/scrimhelpers');
 module.exports = {
   run: async ({ client, interaction }) => {
