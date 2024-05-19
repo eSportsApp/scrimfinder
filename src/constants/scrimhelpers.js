@@ -24,69 +24,45 @@ async function sendMessageToChannel(client, channelId, embed, components) {
   }
   
   async function getChannelsForScrim(rank) {
-    const key = `scrim:${rank}`;
+    const guilds = await db.guilds.findMany();
+    const channels = [];
   
-    return new Promise((resolve, reject) => {
-      redis.get(key, async (err, result) => {
-        if (result) {
-          resolve(JSON.parse(result));
-        } else {
-          const guilds = await db.guilds.findMany();
-          const channels = [];
-  
-          guilds.forEach((guild) => {
-            if (guild.rssGtoIid && (rank === "I" || rank === "H" || rank === "G")) {
-              channels.push(...guild.rssGtoIid);
-            } else if (
-              guild.rssDtoFid &&
-              rank !== "I" &&
-              rank !== "H" &&
-              rank !== "G"
-            ) {
-              channels.push(...guild.rssDtoFid);
-            }
-          });
-  
-          // Setzen Sie den Schlüssel mit einem Ablaufzeitlimit von 60 Sekunden (1 Minute)
-          redis.set(key, JSON.stringify(channels), 'EX', 60);
-          resolve(channels);
-        }
-      });
+    guilds.forEach((guild) => {
+      if (guild.rssGtoIid && (rank === "I" || rank === "H" || rank === "G")) {
+        channels.push(...guild.rssGtoIid);
+      } else if (
+        guild.rssDtoFid &&
+        rank !== "I" &&
+        rank !== "H" &&
+        rank !== "G"
+      ) {
+        channels.push(...guild.rssDtoFid);
+      }
     });
+  
+    return channels;
   }
   
   async function getChannelsForSharedScrim(rank) {
-    const key = `sharedScrim:${rank}`;
+    const guilds = await db.guilds.findMany();
+    const channels = [];
   
-    return new Promise((resolve, reject) => {
-      redis.get(key, async (err, result) => {
-        if (result) {
-          resolve(JSON.parse(result));
-        } else {
-          const guilds = await db.guilds.findMany();
-          const channels = [];
-  
-          guilds.forEach((guild) => {
-            if (rank === "I" || rank === "H" || rank === "G") {
-              if (guild.rssGtoIid) {
-                channels.push(...guild.rssGtoIid);
-              }
-              if (guild.rssDtoFid) {
-                channels.push(...guild.rssDtoFid);
-              }
-            } else if (rank !== "I" && rank !== "H" && rank !== "G") {
-              if (guild.rssGtoIid) {
-                channels.push(...guild.rssGtoIid);
-              }
-            }
-          });
-  
-          // Setzen Sie den Schlüssel mit einem Ablaufzeitlimit von 60 Sekunden (1 Minute)
-          redis.set(key, JSON.stringify(channels), 'EX', 60);
-          resolve(channels);
+    guilds.forEach((guild) => {
+      if (rank === "I" || rank === "H" || rank === "G") {
+        if (guild.rssGtoIid) {
+          channels.push(...guild.rssGtoIid);
         }
-      });
+        if (guild.rssDtoFid) {
+          channels.push(...guild.rssDtoFid);
+        }
+      } else if (rank !== "I" && rank !== "H" && rank !== "G") {
+        if (guild.rssGtoIid) {
+          channels.push(...guild.rssGtoIid);
+        }
+      }
     });
+  
+    return channels;
   }
   
   function constructInviteButton() {

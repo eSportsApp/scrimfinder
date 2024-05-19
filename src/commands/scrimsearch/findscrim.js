@@ -175,15 +175,18 @@ module.exports = {
               );
 
               for (const c of channels) {
-                const message = await sendMessageToChannel(
-                  client,
-                  c,
-                  scrimsearchEmbed,
-                  contactRow
-                );
-                sentMessageIds.push(message.id);
-                sentChannelIds.push(c);
-                sentGuildIds.push(interaction.guild.id);
+                try {
+                  const message = await sendMessageToChannel(client, c, scrimsearchEmbed, contactRow);
+                  if (message) {
+                    sentMessageIds.push(message.id);
+                    sentChannelIds.push(c);
+                    if (interaction.guild) { // Check if interaction.guild exists before accessing its id
+                      sentGuildIds.push(interaction.guild.id);
+                    }
+                  }
+                } catch (err) {
+                  console.log(`Failed to send message to channel: ${c}. Error: ${err.message}`);
+                }
               }
             }
           }
@@ -260,8 +263,4 @@ module.exports = {
         .setDescription("Share the scrim in every channel you have access to.")
     )
     .setDMPermission(false),
-    "integration_types": [
-      0,
-      1
-    ]
 };
