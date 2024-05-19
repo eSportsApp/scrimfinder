@@ -1,11 +1,23 @@
+const { BANNED_USER_MESSAGE } = require("../../constants/banned");
 module.exports = async (interaction, client) => {
   const { db } = require("../../lib/db");
   if (!interaction.isButton()) return;
-  if (!interaction.message.embeds[0] || !interaction.message.embeds[0].footer) {
-    
-    return;
-  }
   if (interaction.customId == "contact") {
+    if (!interaction.message.embeds[0] || !interaction.message.embeds[0].footer) {
+    
+      return;
+    }
+    const userBanned = await db.bannedUsers.findFirst({
+      where: { userId: interaction.user.id },
+    });
+
+    if (userBanned) {
+      await interaction.reply({
+        embeds: [BANNED_USER_MESSAGE],
+        ephemeral: true,
+      });
+      return;
+    }else{
   const userId = interaction.message.embeds[0].footer.text
     .split("|")
     .slice(1)
@@ -30,7 +42,6 @@ module.exports = async (interaction, client) => {
       userId: interaction.user.id,
     },
   });
-  const Iclass = interactionUserDB.rssclass;
   //mach ich dabeim muss mir überlegen, wie ich das mache
   let content = `__**Contact:**__\n**Ping:** <@${userId}>\n**Username:** ${username}\n**User ID:** ${userId}`;
   if (labels && labels.length > 0) {
@@ -40,7 +51,7 @@ module.exports = async (interaction, client) => {
       content,
       ephemeral: true,
     });
-  } else if (buttonInteraction.customId === 'delete_scrims') {
+  }} else if (buttonInteraction.customId === 'delete_scrims') {
       if (buttonInteraction.user.id !== interaction.user.id) {
         return buttonInteraction.reply({ content: 'You cannot delete someone else\'s scrims!', ephemeral: true });
       }

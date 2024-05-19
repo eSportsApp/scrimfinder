@@ -43,6 +43,10 @@ module.exports = {
             const draftNumber = interaction.options.getString('draft');
             let time, maps;
             let userInDB = await getUserFromDB(interaction.user.id);
+            const userBanned = await db.bannedUsers.findFirst({
+              where: { userId: interaction.user.id },
+            });
+      
             
             if (!userInDB) {
                 await interaction.reply({content:'You are not yet registered on the bot. Search at least one Scrim to create drafts', ephemeral: true});
