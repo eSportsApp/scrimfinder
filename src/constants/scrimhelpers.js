@@ -1,7 +1,7 @@
 const {SlashCommandBuilder,EmbedBuilder,ButtonBuilder,ButtonStyle,ActionRowBuilder,} = require("discord.js");
-const { db } = require("../../lib/db");
-const { BANNED_USER_MESSAGE } = require("../../constants/banned");
-const redis = require("../../lib/redis");
+const { db } = require("../lib/db");
+const { BANNED_USER_MESSAGE } = require("../constants/banned");
+const redis = require("../lib/redis");
 
 async function sendMessageToChannel(client, channelId, embed, components) {
     const channelToSend = client.channels.cache.get(channelId);
@@ -15,9 +15,11 @@ async function sendMessageToChannel(client, channelId, embed, components) {
         console.log(
           `Failed to send message to channel: ${channelId}. Error: ${err.message}`
         );
+        await removeChannelIfNotFoundOrNoAccess(client, channelId);
       }
     } else {
       console.log(`Channel ${channelId} not found`);
+      await removeChannelIfNotFoundOrNoAccess(client, channelId);
     }
   }
   
@@ -149,6 +151,45 @@ async function sendMessageToChannel(client, channelId, embed, components) {
     });
   
     return channels;
+  }
+
+  //todo: fix it so it works
+  async function removeChannelIfNotFoundOrNoAccess(client, channelId) {
+    const channel = client.channels.cache.get(channelId);
+    if (!channel) {
+      try {
+        const guildsToUpdate = await db.guilds.findMany({
+          where: {
+            OR: [
+              { rssGtoIid: { has: channelId } },
+              { rssDtoFid: { has: channelId } },
+            ],
+          },
+        });
+  
+        for (const guild of guildsToUpdate) {
+          if (guild.rssGtoIid.includes(channelId)) {
+            const updatedArray = guild.rssGtoIid.filter(id => id !== channelId);
+            await db.guilds.update({
+              where: { id: guild.id },
+              data: { rssGtoIid: { set: updatedArray } },
+            });
+          }
+  
+          if (guild.rssDtoFid.includes(channelId)) {
+            const updatedArray = guild.rssDtoFid.filter(id => id !== channelId);
+            await db.guilds.update({
+              where: { id: guild.id },
+              data: { rssDtoFid: { set: updatedArray } },
+            });
+          }
+        }
+  
+        console.log(`Channel ${channelId} was removed from the database.`);
+      } catch (err) {
+        console.log(`Failed to remove channel ${channelId} from the database. Error: ${err.message}`);
+      }
+    }
   }
 module.exports = {
     sendMessageToChannel: sendMessageToChannel,

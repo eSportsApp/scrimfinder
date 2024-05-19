@@ -265,4 +265,3 @@ module.exports = {
       1
     ]
 };
-
