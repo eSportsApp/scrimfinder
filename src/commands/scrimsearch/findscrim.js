@@ -162,8 +162,11 @@ module.exports = {
           }
 
           if (shareranges === "yes") {
-            const channels = await getChannelsForSharedScrim(rank);
+            if (rank === "I" || rank === "H" || rank === "G") {
 
+            }else{
+            const channels = await getChannelsForSharedScrim(rank);
+            
             if (channels.length) {
               const scrimsearchEmbed = constructScrimsearchEmbed(
                 interaction.user,
@@ -188,6 +191,7 @@ module.exports = {
                   console.log(`Failed to send message to channel: ${c}. Error: ${err.message}`);
                 }
               }
+            }
             }
           }
         }
