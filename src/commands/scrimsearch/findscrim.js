@@ -110,7 +110,6 @@ module.exports = {
       if (extrainfo === null) {
         extrainfo = "";
       }
-
       try {
         if (game === "rss") {
           if (rank === "I" || rank === "H" || rank === "G") {
@@ -125,7 +124,50 @@ module.exports = {
                 extrainfo,
                 rank
               );
-
+              //! rn search has to be implemented in scrimhelpers.js
+              if (date.toLowerCase() === "today" || date.toLowerCase() === "rn" || date.toLowerCase() === "now") {
+                const channelId = '719933814054584391'; // replace with your channel ID
+                const guildId = '637333042301632535'; // replace with your guild ID
+                const specificChannel = await client.channels.fetch(channelId);
+                console.log(`Found channel: ${specificChannel.name}`);
+                rnscrim = new EmbedBuilder()
+                .setAuthor({
+                  name: `${interaction.user.displayName} is LFS`,
+                  iconURL: `http://cdn.discordapp.com/avatars/${interaction.user.id}/${interaction.user.avatar}`,
+                  url: `https://discordapp.com/users/${interaction.user.id}/`,
+                })
+                .setDescription(
+                  ` **${time}** |     **Class ${rank}** |     **${bestof} Maps**`
+                )
+                .setColor("#ff7700")
+                .setFooter({
+                  text: `Scrimfinder.gg  | ${interaction.user.id}`,
+                  iconURL: "https://maierfabian.de/images/happypingu.png",
+                })
+                .setTimestamp();
+            
+              // Only add the 'Extra Informations' field if extrainfo is not null
+              if (extrainfo) {
+                rnscrim.addFields({
+                  name: "Extra Informations",
+                  value: `${extrainfo}`,
+                  inline: false,
+                });
+              }
+                try{
+                  if (specificChannel.guild.id === guildId) { // check if the channel is in the specific guild
+                  const message = await specificChannel.send({embeds: [rnscrim],
+                    components: [contactRow], }); // replace with your message
+                  sentMessageIds.push(message.id);
+                  sentChannelIds.push(channelId);
+                  sentGuildIds.push(guildId);
+                  console.log(`Sent message rn to channel: ${channelId}`);
+                }
+              }catch(err){
+                  console.log(err);
+                }
+              }
+              //*end of rn search
               for (const c of channels) {
                 const message = await sendMessageToChannel(
                   client,
@@ -176,7 +218,7 @@ module.exports = {
                 extrainfo,
                 rank
               );
-
+              
               for (const c of channels) {
                 try {
                   const message = await sendMessageToChannel(client, c, scrimsearchEmbed, contactRow);

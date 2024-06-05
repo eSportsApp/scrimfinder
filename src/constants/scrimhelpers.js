@@ -49,12 +49,7 @@ async function sendMessageToChannel(client, channelId, embed, components) {
   
     guilds.forEach((guild) => {
       if (rank === "I" || rank === "H" || rank === "G") {
-        if (guild.rssGtoIid) {
-          channels.push(...guild.rssGtoIid);
-        }
-        if (guild.rssDtoFid) {
-          channels.push(...guild.rssDtoFid);
-        }
+        
       } else if (rank !== "I" && rank !== "H" && rank !== "G") {
         if (guild.rssGtoIid) {
           channels.push(...guild.rssGtoIid);
