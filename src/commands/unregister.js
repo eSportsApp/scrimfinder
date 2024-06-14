@@ -27,7 +27,7 @@ module.exports = {
   const notfound = new EmbedBuilder()
   .setTitle("Channel is not registered!")
   .setURL("https://scrimfinder.gg")
-  .setDescription("This channel seems not to be registered.!\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)\n\nTo get started just try /findscrim")
+  .setDescription("This channel seems not to be registered.!\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/Ud42T9qPKw)\n\nTo get started just try /findscrim")
   .setColor("#ff7700")
   .setTimestamp();
   
@@ -35,7 +35,7 @@ module.exports = {
   const success = new EmbedBuilder()
   .setTitle("You have successfully unregistered the channel!")
   .setURL("https://scrimfinder.gg")
-  .setDescription("You have successfully unregistered the channel for the game.\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)\n\nTo get started just try /findscrim")
+  .setDescription("You have successfully unregistered the channel for the game.\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/Ud42T9qPKw)\n\nTo get started just try /findscrim")
   .setColor("#ff7700")
   .setTimestamp();
   
@@ -47,7 +47,7 @@ module.exports = {
           .setLabel('Test me out')
           .setStyle(ButtonStyle.Link),
     new ButtonBuilder()
-          .setURL('https://discord.gg/division-league-833783529506078781')
+          .setURL('https://discord.gg/Ud42T9qPKw')
           .setLabel('Join the Support Server')
           .setStyle(ButtonStyle.Link),
   )

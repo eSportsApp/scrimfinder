@@ -19,8 +19,10 @@ members = client.guilds.cache.reduce((a,b) => a+b.memberCount, 0);
 guilds = client.guilds.cache.size;
 }
 setInterval(stats, 60 * 60 * 1000);
- const states = [`Searching Scrims for ${members} Members.`, `Searching Scrims on ${guilds} Guilds.`,`scrimfinder.gg`, `Find Scrims easier with /findscrim`]; // Define the predefined states
- let currentStateIndex = 0; // Initialize the index of the current state
+//const states = [`Searching Scrims for ${members} Members.`, `Searching Scrims on ${guilds} Guilds.`,`scrimfinder.gg`, `Find Scrims easier with /findscrim`]; // Define the predefined states
+
+ const states = [`loading esportsapp.gg`]; 
+ let currentStateIndex = 0; 
  
  setInterval(() => {
      client.user.setPresence({

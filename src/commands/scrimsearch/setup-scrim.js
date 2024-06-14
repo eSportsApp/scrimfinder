@@ -45,7 +45,7 @@ const banned = new EmbedBuilder()
 const alreadyregistered = new EmbedBuilder()
 .setTitle("This Channel is already set up!")
 .setURL("https://scrimfinder.gg")
-.setDescription("It seems like this channel is already set up. Please try another one!\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)\n\nTo get started just try /findscrim")
+.setDescription("It seems like this channel is already set up. Please try another one!\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/Ud42T9qPKw)\n\nTo get started just try /findscrim")
 .setColor("#ff7700")
 .setTimestamp();
 
@@ -53,7 +53,7 @@ const alreadyregistered = new EmbedBuilder()
 const success = new EmbedBuilder()
 .setTitle("Successfully set up the channel!")
 .setURL("https://scrimfinder.gg")
-.setDescription("Successfully set up the channel for the game. You are ready to use me now.\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)\n\nTo get started just try /findscrim")
+.setDescription("Successfully set up the channel for the game. You are ready to use me now.\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/Ud42T9qPKw)\n\nTo get started just try /findscrim")
 .setColor("#ff7700")
 .setTimestamp();
 
@@ -61,7 +61,7 @@ const success = new EmbedBuilder()
 const setchannel = new EmbedBuilder()
 .setTitle("Successfully set up the channel!")
 .setURL("https://scrimfinder.gg")
-.setDescription("You successfully set up the channel. Feel free to serch a scrim using /findscrim\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)")
+.setDescription("You successfully set up the channel. Feel free to serch a scrim using /findscrim\n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/Ud42T9qPKw)")
 .setColor("#ff7700")
 .setTimestamp();
 
@@ -73,7 +73,7 @@ const invite = new ActionRowBuilder()
         .setLabel('Test me out')
         .setStyle(ButtonStyle.Link),
         new ButtonBuilder()
-        .setURL('https://discord.gg/division-league-833783529506078781')
+        .setURL('https://discord.gg/Ud42T9qPKw')
         .setLabel('Join the Support Server')
         .setStyle(ButtonStyle.Link),
 )

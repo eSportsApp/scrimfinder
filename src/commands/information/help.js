@@ -27,7 +27,7 @@ module.exports = {
         .setLabel("Visit the docs")
         .setStyle(ButtonStyle.Link),
       new ButtonBuilder()
-        .setURL("https://discord.gg/division-league-833783529506078781")
+        .setURL("https://discord.gg/Ud42T9qPKw")
         .setLabel("Join the Support Server")
         .setStyle(ButtonStyle.Link)
     );

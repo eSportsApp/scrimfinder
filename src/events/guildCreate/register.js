@@ -16,7 +16,7 @@ module.exports = async (guild) => {
         .setTitle("Hey there!")
         .setURL("https://scrimfinder.gg")
         .setDescription(
-          "Thanks for adding me to your server! \nI autoregisterd your guild so you don't have to use the /register command.\nIf you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)"
+          "Thanks for adding me to your server! \nI autoregisterd your guild so you don't have to use the /register command.\nIf you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/Ud42T9qPKw)"
         )
         .setThumbnail("https://maierfabian.de/images/hipingu.png")
         .setColor("#ff7700")

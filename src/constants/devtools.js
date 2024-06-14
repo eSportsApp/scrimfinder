@@ -44,7 +44,7 @@ async function register(interaction) {
 const registerd = new EmbedBuilder()
     .setTitle("Your Server is now registered!")
     .setURL("https://scrimfinder.gg")
-    .setDescription("Successfully registered your server! Have fun using this bot :). \n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/division-league-833783529506078781)")
+    .setDescription("Successfully registered your server! Have fun using this bot :). \n\n If you need help, visit our [docs](https://docs.scrimfinder.de) or join our [Support Server](https://discord.gg/Ud42T9qPKw)")
     .setColor("#ff7700")
     .setTimestamp();
 //Buttons
@@ -55,7 +55,7 @@ const docs = new ActionRowBuilder()
       .setLabel('Visit the docs')
       .setStyle(ButtonStyle.Link),
       new ButtonBuilder()
-      .setURL('https://discord.gg/division-league-833783529506078781')
+      .setURL('https://discord.gg/Ud42T9qPKw')
       .setLabel('Join the Support Server')
       .setStyle(ButtonStyle.Link),
 )

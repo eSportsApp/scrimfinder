@@ -13,7 +13,7 @@ module.exports = {
   const row = new ActionRowBuilder()
   .addComponents(
       new ButtonBuilder()
-          .setURL('https://discord.gg/division-league-833783529506078781')
+          .setURL('https://discord.gg/Ud42T9qPKw')
           .setLabel('Report Bug')
           .setStyle(ButtonStyle.Link),
           
