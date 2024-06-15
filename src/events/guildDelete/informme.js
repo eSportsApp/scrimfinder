@@ -1,6 +1,6 @@
 const { EmbedBuilder, PermissionsBitField, ChannelType } = require('discord.js');
 module.exports = async (guild, client) => {
-    const channelId = '1241479324868284476'; // Replace with your channel ID
+    const channelId = '1251564697384255500'; // Replace with your channel ID
     const channel = await client.channels.fetch(channelId);
     let serverInfo = `Server Name: ${guild.name}\nServer ID: ${guild.id}\nCreated At: ${guild.createdAt}\nRegion: ${guild.region}`;    
 

@@ -45,8 +45,8 @@ new CommandKit({
     commandsPath: path.join(__dirname, 'commands'),
     eventsPath: path.join(__dirname, 'events'),
     validationsPath: path.join(__dirname, 'validations'),
-    devGuildIds: ['1201205703742869504','1172102069734350899'],
-    devUserIds:['516206348568887316', '394907973484544000'],
+    devGuildIds: ['1201205703742869504','1172102069734350899', '1201205703742869504'],
+    devUserIds:['516206348568887316', '394907973484544000', '1118919281300738058'],
     bulkRegister: true,
 
 });

@@ -9,7 +9,7 @@ const {
 
 module.exports = {
   run: async ({ interaction }) => {
-    const developers = ["516206348568887316"]; // replace with actual developer IDs
+    const developers = [""]; // replace with actual developer IDs
     const userId = "516206348568887316"; // replace with the actual user ID
 
     const embed = new EmbedBuilder()
