@@ -1,7 +1,6 @@
 const {SlashCommandBuilder,EmbedBuilder,ButtonBuilder,ButtonStyle,ActionRowBuilder,} = require("discord.js");
 const { db } = require("../lib/db");
 const { BANNED_USER_MESSAGE } = require("../constants/banned");
-const redis = require("../lib/redis");
 
 async function sendMessageToChannel(client, channelId, embed, components) {
     const channelToSend = client.channels.cache.get(channelId);
