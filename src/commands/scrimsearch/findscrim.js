@@ -257,6 +257,8 @@ module.exports = {
           },
         });
 
+
+    
         await interaction.editReply({
           embeds: [send],
           components: [inv],
