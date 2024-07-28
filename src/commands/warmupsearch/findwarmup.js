@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
 const { db } = require("../../lib/db");
-const { ButtonKit } = require("@commandkit/components");
+//const { ButtonKit } = require("@commandkit/components");
 
 module.exports = {
   
@@ -200,9 +200,14 @@ const banned = new EmbedBuilder()
         .setDMPermission(false),
         integration_types: [
           0, // GUILD
-      ]
+      ],
+      contexts: [
+        0, // GUILD
+        2, // PRIVATE_CHANNEL
+      ],
 };
 
+/** 
 
 async function DeprecatedNotiz(interaction) {
   // Create the embed for the DM
@@ -245,3 +250,4 @@ async function DeprecatedNotiz(interaction) {
 ButtonKit.interaction("get_detailed_infos", async (interaction) => {
   await interaction.reply({ content: "**Due to a planned rework we will temporarily remove the Warmup Search feature.** \n\n You can still find Scrims as normal with the `/findscrim` command. If you have any questions, feel free to join our [Support Server](https://discord.gg/dkfKB6AJs5)." });
 });
+*/

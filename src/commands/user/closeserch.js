@@ -149,4 +149,12 @@ setTimeout(async () => {
                 )
                 .setRequired(true)
         ),
+        integration_types: [
+            1, // USER
+            0, // GUILD
+        ],contexts: [
+            0, // GUILD
+            1, // BOT_DM
+            2, // PRIVATE_CHANNEL
+          ],
 };

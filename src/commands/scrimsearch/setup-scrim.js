@@ -258,5 +258,9 @@ let guildDB = await db.guilds.findFirst({
     ),
     integration_types: [
       0, // GUILD
-    ]
+    ],
+    contexts: [
+      0, // GUILD
+      2, // PRIVATE_CHANNEL
+    ],
 };

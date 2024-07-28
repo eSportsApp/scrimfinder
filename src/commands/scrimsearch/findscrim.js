@@ -310,9 +310,14 @@ module.exports = {
         .addChoices({ name: "no", value: "no" })
         .setDescription("Share the scrim in every channel you have access to.")
     )
-    .setDMPermission(false),
+    .setDMPermission(true),
     integration_types: [
       1, // USER
       0, // GUILD
-  ]
+  ],
+  contexts: [
+    0, // GUILD
+    1, // BOT_DM
+    2, // PRIVATE_CHANNEL
+  ],
 };

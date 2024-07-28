@@ -76,6 +76,15 @@ module.exports = {
     data: new SlashCommandBuilder()
     .setName("myprofile")
     .setDescription("Shows your profile, like your class and more in some comming updates"),
+    integration_types: [
+      1, // USER
+      0, // GUILD
+    ],
+    contexts: [
+      0, // GUILD
+      1, // BOT_DM
+      2, // PRIVATE_CHANNEL
+    ],
     
 };
 //Action row does not work
