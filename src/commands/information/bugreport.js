@@ -29,6 +29,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('bug-report')
         .setDescription('Report a Bug to the Admins!'),
-    
+        integration_types: [
+            1, // USER
+            0, // GUILD
+        ]
 
     }

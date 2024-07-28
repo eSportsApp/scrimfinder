@@ -256,4 +256,7 @@ let guildDB = await db.guilds.findFirst({
         .setRequired(true)
         
     ),
+    integration_types: [
+      0, // GUILD
+    ]
 };

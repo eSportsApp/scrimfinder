@@ -68,4 +68,8 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("help")
     .setDescription("Get Help getting started with the Bot"),
+    integration_types: [
+      1, // USER
+      0, // GUILD
+  ]
 };

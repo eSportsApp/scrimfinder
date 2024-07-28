@@ -49,6 +49,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('whatareclasses')
         .setDescription('What are classes and how do they work?'),
-    
+        integration_types: [
+          1, // USER
+          0, // GUILD
+      ]
 
     }

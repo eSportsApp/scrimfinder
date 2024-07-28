@@ -311,4 +311,8 @@ module.exports = {
         .setDescription("Share the scrim in every channel you have access to.")
     )
     .setDMPermission(false),
+    integration_types: [
+      1, // USER
+      0, // GUILD
+  ]
 };

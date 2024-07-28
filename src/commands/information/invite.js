@@ -45,6 +45,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('invite')
         .setDescription('Get the Invitelink for the Bot!'),
-    
+        integration_types: [
+          1, // USER
+          0, // GUILD
+      ]
 
     }

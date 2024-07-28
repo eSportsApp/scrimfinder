@@ -144,7 +144,10 @@ interaction.reply({content: replyContent, ephemeral: true});
         option
         .setName('userid')
         .setDescription("The Id of the User you want to give the class to")
-        .setRequired(true))
+        .setRequired(true)),
+        integration_types: [
+          0, // GUILD
+        ]
 };
 
 

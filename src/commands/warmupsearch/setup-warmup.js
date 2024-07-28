@@ -270,4 +270,7 @@ const invite = new ActionRowBuilder()
       userPermissions: ['Administrator'],
       deleted: false,
   },
+  integration_types: [
+    0, // GUILD
+]
 };

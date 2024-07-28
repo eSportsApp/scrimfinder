@@ -108,6 +108,10 @@ module.exports = {
         options: {
           devOnly: true, // ✅
         },
+        integration_types: [
+          1, // USER
+          0, // GUILD
+      ]
     };
     
     // Helper functions
