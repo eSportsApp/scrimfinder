@@ -197,8 +197,7 @@ const banned = new EmbedBuilder()
       option
         .setName("extra-info")
         .setDescription("Extra information if needed "))
-        .setDMPermission(false),
-        integration_types: [
+        .setDMPermission(true),        integration_types: [
           0, // GUILD
       ],
       contexts: [

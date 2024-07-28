@@ -32,8 +32,7 @@ module.exports = {
               .addChoices({ name: "no", value: "no" })
               .setDescription("Share the scrim in every channel you have access to.")
           )
-          .setDMPermission(false),
-          run: async ({ interaction, client }) => {
+          .setDMPermission(true),          run: async ({ interaction, client }) => {
             const sentMessageIds = [];
             const sentChannelIds = [];
             const sentGuildIds = [];
