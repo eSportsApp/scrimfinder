@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model guilds {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  guildId String @unique
+  rssChannelId String?
+  rssGtoIid String[]
+  rssDtoFid String[]
+  //Warmup Searches
+  warmuprssChannelId String?
+}
+
+model blGuilds {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  guildId String @unique
+  reason String?
+}
+
+model message {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  content String?
+  messageIds String[]
+  channelIds String[]
+  guildIds String[]
+  createdAt DateTime @default(now())
+  usersId String @map("user_id") @db.ObjectId
+  user Int
+}
+
