@@ -1,9 +1,10 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'discord.js'
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, EmbedBuilder } from 'discord.js'
 import { createCommandConfig } from 'robo.js'
 import type { CommandOptions, CommandResult } from 'robo.js'
 import type { CommandInteraction } from 'discord.js'
 import sclient from '../utils/client'
 import { searchResult } from '../events/ready/messageHandler'
+import { red } from 'robo.js/dist/core/color'
 
 export const config = createCommandConfig({//bestof, date, time, extrainfo, opensearch
 	description: 'find a scrim without any hassle',
@@ -67,32 +68,53 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
 		  guildId: interaction.guild?.id ,
 		  platform: "pc",
 		  region: "emea",
-		  userid: interaction.user.id,
-		  username: interaction.user.username,
+		  user:{
+			  id: interaction.user.id,
+			  displayName: interaction.user.username,
+			  avatar: interaction.user.avatar 
+		  },
 		  best_of: bestof,
 		  date: date,
 		  time: time, 
+		  extrainfo: extrainfo,
+		  opensearch: opensearch
 		}
 
 		//todo: add a request to check if the user is banned
 		sclient.openSearch(searchmessage)
 
-		const send = new EmbedBuilder()
-        .setTitle("Scrimsearch started!")
-        .setURL("https://docs.scrimfinder/invite")
-        .setDescription(
-          "Have fun and make sure that your DM's are open.\nIf you haven't already consider to invite me to your Server!"
-        )
-        .setColor("#ff7700")
-        .setFooter({
-          text: "scrimfinder.gg | Finding Scrims was never that easy",
-          iconURL: "https://maierfabian.de/images/lovepingu.png",
-        })
-        .setTimestamp();
-
-		await interaction.reply(
-		 {embeds: [send], ephemeral: true,}
-		)
+		return {
+			embeds: [
+			  {
+				color: Colors.Red,
+				title: "Scrimsearch started!",
+				url: "https://docs.scrimfinder.gg/",
+				description: "Have fun and make sure that your DM's are open.\nIf you haven't already consider to invite me to your Server!",
+				footer: {
+					text: 'scrimfinder.gg | Finding Scrims was never that easy',
+					icon_url: 'https://maierfabian.de/images/lovepingu.png',	
+				},
+				timestamp: new Date().toISOString(),
+			  }
+			],
+			ephemeral: true,
+			components: [
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.Button,
+							label: 'Invite Me',
+							style: ButtonStyle.Link,
+							url: 'https://docs.scrimfinder.gg/invite'
+						}
+					]
+				}
+			],
+		  }
+	}
+	return {
+		content: "there was an error while trying to find a scrim",
 	}
 }
 

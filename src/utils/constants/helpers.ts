@@ -161,13 +161,13 @@ async function sendMessageToChannel(client: any, channelId: any, embed: any, com
       }
     }
   }
-export default  {
-    sendMessageToChannel: sendMessageToChannel,
-    getChannelsForScrim: getChannelsForScrim,
-    getChannelsForSharedScrim: getChannelsForSharedScrim,
-    constructInviteButton: constructInviteButton,
-    constructContactRow: constructContactRow,
-    constructScrimsearchEmbed: constructScrimsearchEmbed,
-    getChannelsForGSAScrim: getChannelsForGSAScrim,
-};  
+  export {
+    sendMessageToChannel,
+    getChannelsForScrim,
+    getChannelsForSharedScrim,
+    constructInviteButton,
+    constructContactRow,
+    constructScrimsearchEmbed,
+    getChannelsForGSAScrim,
+};
 
