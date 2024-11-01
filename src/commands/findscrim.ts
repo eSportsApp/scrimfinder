@@ -15,6 +15,7 @@ export const config = createCommandConfig({//bestof, date, time, extrainfo, open
 				value: 'rss'
 			}
 		],
+		type: 'string',
 		required: true
 	},
 	{
@@ -50,14 +51,14 @@ export const config = createCommandConfig({//bestof, date, time, extrainfo, open
 ]
 } as const)
 
-export default (interaction: CommandInteraction, options: CommandOptions<typeof config>) => {
-	const game = interaction.options.get('game')?.value as string
-	const bestof = interaction.options.get('best-of')?.value as number
-	const date = interaction.options.get('date')?.value as string
-	const time = interaction.options.get('time')?.value as string
-	const extrainfo = interaction.options.get('extra-info')?.value as string
-	const opensearch = interaction.options.get('open-search')?.value as boolean
-
+export default async (interaction: CommandInteraction, options: CommandOptions<typeof config>) => {
+    const game = options.game
+	const bestof = options['best-of']
+	const date = options.date
+	const time = options.time
+	const extrainfo = options['extra-info']
+	const opensearch = options['open-search']
+console.log('game:', game, 'bestof:', bestof, 'date:', date, 'time:', time, 'extrainfo:', extrainfo, 'opensearch:', opensearch)
 
 	if (game === "rss") {
 		const searchmessage = {
@@ -77,15 +78,16 @@ export default (interaction: CommandInteraction, options: CommandOptions<typeof 
 		  extrainfo: extrainfo,
 		  opensearch: opensearch
 		}
+		console.log('Sending search message:', searchmessage);
 
 		//todo: add a request to check if the user is banned
-		 sclient.openSearch(searchmessage)		
+		await sclient.openSearch(searchmessage)		
 		 console.log("searching for scrims");
 	}
 	return {
 		embeds: [
 		  {
-			color: Colors.Red,
+			color: 16744192,
 			title: "Scrimsearch started!",
 			url: "https://docs.scrimfinder.gg/",
 			description: "Have fun and make sure that your DM's are open.\nIf you haven't already consider to invite me to your Server!",
