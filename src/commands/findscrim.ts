@@ -58,7 +58,6 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
 	const time = options.time
 	const extrainfo = options['extra-info']
 	const opensearch = options['open-search']
-console.log('game:', game, 'bestof:', bestof, 'date:', date, 'time:', time, 'extrainfo:', extrainfo, 'opensearch:', opensearch)
 
 	if (game === "rss") {
 		const searchmessage = {

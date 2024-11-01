@@ -1,6 +1,6 @@
 import {SlashCommandBuilder,EmbedBuilder,ButtonBuilder,ButtonStyle,ActionRowBuilder,} from "discord.js";
 import  db from"../db";
-const { BANNED_USER_MESSAGE } = require("../constants/banned");
+import {  Client, Colors, ComponentType, TextChannel } from 'discord.js'
 
 async function sendMessageToChannel(client: any, channelId: any, embed: any, components: any) {
     const channelToSend = client.channels.cache.get(channelId);
@@ -69,44 +69,44 @@ async function sendMessageToChannel(client: any, channelId: any, embed: any, com
     return new ActionRowBuilder().addComponents(invitebtn);
   }
   
-  function constructContactRow(user: any) {
-    const btn = new ButtonBuilder()
-      .setLabel("📬Contact📬")
-      .setCustomId("contact")
-      .setStyle(ButtonStyle.Primary);
-    const test = new ButtonBuilder()
-      .setLabel("Direct Message")
-      .setStyle(ButtonStyle.Link)
-      .setURL(`discord://-/users/${user.id}`);
   
-    return new ActionRowBuilder().addComponents(btn, test);
-  }
   
   function constructScrimsearchEmbed(user: any, date: string, time: string, bestof: string, extrainfo: string, rank: string) {
-    const embed = new EmbedBuilder()
-      .setAuthor({
-        name: `${user.displayName} is LFS`,
-        iconURL: `http://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`,
-        url: `https://discordapp.com/users/${user.id}/`,
-      })
-      .setDescription(
-        ` **${date} ${time}** |     **Class ${rank}** |     **${bestof} Maps**`
-      )
-      .setColor("#ff7700")
-      .setFooter({
-        text: `Scrimfinder.gg  | ${user.id}`,
-        iconURL: "https://maierfabian.de/images/happypingu.png",
-      })
-      .setTimestamp();
-  
-    // Only add the 'Extra Informations' field if extrainfo is not null
-    if (extrainfo) {
-      embed.addFields({
-        name: "Extra Informations",
-        value: `${extrainfo}`,
-        inline: false,
-      });
-    }
+    const embed = {embeds: [
+      {
+        color: 16744192, //#ff7700
+        author: {
+          name: `${user.displayName} is LFS`,
+          icon_url: user.avatar,
+          url: `https://discordapp.com/users/${user.id}/`,
+          },
+        description: ` **${time}** |     **Class ${rank}** |     **${bestof} Maps**`,
+        footer: {
+            text: `scrimfinder.gg | ${user.id}`,
+            icon_url: 'https://maierfabian.de/images/lovepingu.png',    
+        },
+      }
+    ],
+    components: [
+        {
+            type: ComponentType.ActionRow,
+            components: [
+                {
+                    type: ComponentType.Button,
+                    label: '📬Contact📬',
+                    style: ButtonStyle.Primary,
+                    customId: 'contact', 
+                },
+                {
+                    type: ComponentType.Button,
+                    label: 'Direct Message',
+                    style: ButtonStyle.Link,
+                    url: `discord://-/users/${user.id}`,
+                }
+            ]
+        }
+    ],}
+
   
     return embed;
   }
@@ -166,7 +166,6 @@ async function sendMessageToChannel(client: any, channelId: any, embed: any, com
     getChannelsForScrim,
     getChannelsForSharedScrim,
     constructInviteButton,
-    constructContactRow,
     constructScrimsearchEmbed,
     getChannelsForGSAScrim,
 };

@@ -1,25 +1,19 @@
 {
-	"name": "mrjawesome-dev-toolkit-ts",
-	"description": "An all-in-one toolkit for developers by MrJAwesome.",
+	"name": "scrimfinder",
+	"description": "Scrim Finder is a Discord bot that helps you find scrims for your team.",
 	"version": "1.0.0",
 	"type": "module",
 	"private": true,
-	"keywords": [
-		"bot",
-		"discord",
-		"discord.js",
-		"robo",
-		"robo.js",
-		"typescript"
-	],
+	"keywords": [],
 	"scripts": {
-		"build": "bunx --bun robo build",
-		"deploy": "bunx --bun robo deploy",
-		"dev": "bunx --bun robox dev",
-		"doctor": "bunx --bun sage doctor",
-		"invite": "bunx --bun robo invite",
-		"start": "bunx --bun robo start",
-		"upgrade": "bunx --bun sage upgrade"
+		"build": "robo build",
+		"deploy": "robo deploy",
+		"dev": "robox dev",
+		"doctor": "sage doctor",
+		"invite": "robo invite",
+		"lint:style": "prettier --write .",
+		"start": "robo start",
+		"upgrade": "sage upgrade"
 	},
 	"dependencies": {
 		"@esportsapp/client": "^1.0.10",
