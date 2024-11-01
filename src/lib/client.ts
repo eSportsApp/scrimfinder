@@ -34,7 +34,10 @@ class ScrimFinder {
     constructor(apiKey: string) {
     }
 
-    connect(apiKey: string) {
+    connect(apiKey: string, messageHandler: (message: string) => void) {
+        if (!this.messageHandler) {
+            this.messageHandler = messageHandler;
+        }
         this.ws = new WebSocket(`ws://localhost:3333/ws/network?apikey=${apiKey}`);
 
         this.ws.on('open', () => {
@@ -60,7 +63,7 @@ class ScrimFinder {
             if (this.retries < this.MAX_RETRIES) {
                 this.retries++;
                 console.log(`Reconnecting connection try (${this.retries}/${this.MAX_RETRIES})...`);
-                setTimeout(() => this.connect(apiKey), this.RETRY_INTERVAL);
+                setTimeout(() => this.connect(apiKey, messageHandler), this.RETRY_INTERVAL);
             } else {
                 console.error('You got rate limited. Please check your ApiKey and try again Manually');
             }

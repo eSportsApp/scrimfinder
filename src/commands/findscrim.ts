@@ -1,13 +1,11 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, EmbedBuilder } from 'discord.js'
+import {ButtonStyle, Colors, ComponentType } from 'discord.js'
 import { createCommandConfig } from 'robo.js'
 import type { CommandOptions, CommandResult } from 'robo.js'
 import type { CommandInteraction } from 'discord.js'
 import sclient from '../utils/client'
-import { searchResult } from '../events/ready/messageHandler'
-import { red } from 'robo.js/dist/core/color'
 
 export const config = createCommandConfig({//bestof, date, time, extrainfo, opensearch
-	description: 'find a scrim without any hassle',
+	description: 'send your scrim request to the network',
 	options: [{
 		description: '',
 		name: 'game',
@@ -52,7 +50,7 @@ export const config = createCommandConfig({//bestof, date, time, extrainfo, open
 ]
 } as const)
 
-export default async (interaction: CommandInteraction, options: CommandOptions<typeof config>): Promise<CommandResult> => {
+export default (interaction: CommandInteraction, options: CommandOptions<typeof config>) => {
 	const game = interaction.options.get('game')?.value as string
 	const bestof = interaction.options.get('best-of')?.value as number
 	const date = interaction.options.get('date')?.value as string
@@ -81,40 +79,37 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
 		}
 
 		//todo: add a request to check if the user is banned
-		sclient.openSearch(searchmessage)
-
-		return {
-			embeds: [
-			  {
-				color: Colors.Red,
-				title: "Scrimsearch started!",
-				url: "https://docs.scrimfinder.gg/",
-				description: "Have fun and make sure that your DM's are open.\nIf you haven't already consider to invite me to your Server!",
-				footer: {
-					text: 'scrimfinder.gg | Finding Scrims was never that easy',
-					icon_url: 'https://maierfabian.de/images/lovepingu.png',	
-				},
-				timestamp: new Date().toISOString(),
-			  }
-			],
-			ephemeral: true,
-			components: [
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						{
-							type: ComponentType.Button,
-							label: 'Invite Me',
-							style: ButtonStyle.Link,
-							url: 'https://docs.scrimfinder.gg/invite'
-						}
-					]
-				}
-			],
-		  }
+		 sclient.openSearch(searchmessage)		
+		 console.log("searching for scrims");
 	}
 	return {
-		content: "there was an error while trying to find a scrim",
-	}
+		embeds: [
+		  {
+			color: Colors.Red,
+			title: "Scrimsearch started!",
+			url: "https://docs.scrimfinder.gg/",
+			description: "Have fun and make sure that your DM's are open.\nIf you haven't already consider to invite me to your Server!",
+			footer: {
+				text: 'scrimfinder.gg | Finding Scrims was never that easy',
+				icon_url: 'https://maierfabian.de/images/lovepingu.png',	
+			},
+			timestamp: new Date().toISOString(),
+		  }
+		],
+		ephemeral: true,
+		components: [
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						label: 'Invite Me',
+						style: ButtonStyle.Link,
+						url: 'https://docs.scrimfinder.gg/invite'
+					}
+				]
+			}
+		],
+	  }
 }
 

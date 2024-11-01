@@ -7,5 +7,4 @@ export default async (client: Client) => {
 		type: ActivityType.Custom
 		// url: 'https://www.twitch.tv/discord'
 	})
-	sclient.connect(process.env.ESPORTSAPP_API_KEY)
 }
