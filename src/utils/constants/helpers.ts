@@ -2,13 +2,43 @@ import {SlashCommandBuilder,EmbedBuilder,ButtonBuilder,ButtonStyle,ActionRowBuil
 import  db from"../db";
 import {  Client, Colors, ComponentType, TextChannel } from 'discord.js'
 
-async function sendMessageToChannel(client: any, channelId: any, embed: any, components: any) {
+async function sendMessageToChannel(client: any, channelId: any, message: any) {
     const channelToSend = client.channels.cache.get(channelId);
     if (channelToSend) {
       try {
+        console.log(message)
         return await channelToSend.send({
-          embeds: [embed],
-          components: [components],
+          embeds: [{
+            color: 16744192, //#ff7700
+            author: {
+              name: `${message.user.displayName} is LFS`,
+              icon_url: `http://cdn.discordapp.com/avatars/${message.user.id}/${message.user.avatar}`,
+              url: `https://discordapp.com/users/${message.user.id}/`,
+              },
+            description: ` **${message.time}** |     **Class ${message.class}** |     **${message.best_of} Maps**`,
+            footer: {
+                text: `scrimfinder.gg | ${message.user.id}`,
+                icon_url: 'https://maierfabian.de/images/lovepingu.png',    
+            },
+          }],
+          components: [{
+            type: ComponentType.ActionRow,
+            components: [
+                {
+                    type: ComponentType.Button,
+                    label: '📬Contact📬',
+                    style: ButtonStyle.Primary,
+                    customId: 'contact', 
+                },
+                {
+                    type: ComponentType.Button,
+                    label: 'Direct Message',
+                    style: ButtonStyle.Link,
+                    url: `discord://-/users/${message.user.id}`,
+                }
+            ]
+        }
+          ],
         });
       } catch (err) {
         console.log(
@@ -59,57 +89,11 @@ async function sendMessageToChannel(client: any, channelId: any, embed: any, com
     return channels;
   }
   
-  function constructInviteButton() {
-    const invitebtn = new ButtonBuilder()
-      .setLabel("Invite Me")
-      .setStyle(ButtonStyle.Link)
-      .setURL("https://docs.scrimfinder.de/invite")
-      .setEmoji("1173655743606567035");
-  
-    return new ActionRowBuilder().addComponents(invitebtn);
-  }
   
   
   
-  function constructScrimsearchEmbed(user: any, date: string, time: string, bestof: string, extrainfo: string, rank: string) {
-    const embed = {embeds: [
-      {
-        color: 16744192, //#ff7700
-        author: {
-          name: `${user.displayName} is LFS`,
-          icon_url: user.avatar,
-          url: `https://discordapp.com/users/${user.id}/`,
-          },
-        description: ` **${time}** |     **Class ${rank}** |     **${bestof} Maps**`,
-        footer: {
-            text: `scrimfinder.gg | ${user.id}`,
-            icon_url: 'https://maierfabian.de/images/lovepingu.png',    
-        },
-      }
-    ],
-    components: [
-        {
-            type: ComponentType.ActionRow,
-            components: [
-                {
-                    type: ComponentType.Button,
-                    label: '📬Contact📬',
-                    style: ButtonStyle.Primary,
-                    customId: 'contact', 
-                },
-                {
-                    type: ComponentType.Button,
-                    label: 'Direct Message',
-                    style: ButtonStyle.Link,
-                    url: `discord://-/users/${user.id}`,
-                }
-            ]
-        }
-    ],}
-
   
-    return embed;
-  }
+  
   async function getChannelsForGSAScrim() {
     const guilds = await db.guilds.findMany();
     const channels: any = [];
@@ -165,8 +149,6 @@ async function sendMessageToChannel(client: any, channelId: any, embed: any, com
     sendMessageToChannel,
     getChannelsForScrim,
     getChannelsForSharedScrim,
-    constructInviteButton,
-    constructScrimsearchEmbed,
     getChannelsForGSAScrim,
 };
 

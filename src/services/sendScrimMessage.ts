@@ -1,8 +1,7 @@
-import {sendMessageToChannel, getChannelsForScrim, getChannelsForSharedScrim, constructInviteButton, constructScrimsearchEmbed, getChannelsForGSAScrim} from '../utils/constants/helpers'
+import {sendMessageToChannel, getChannelsForScrim, getChannelsForSharedScrim, getChannelsForGSAScrim} from '../utils/constants/helpers'
 import { ButtonStyle, Client, Colors, ComponentType, EmbedBuilder, TextChannel } from 'discord.js'
 
 export default async function sendScrimMessage(message: Message, Client: Client) {
-    console.log("client",Client)
     const sentMessageIds: string[] = [];
     const sentChannelIds: string[] = [];
     const sentGuildIds: string[] = [];
@@ -21,16 +20,18 @@ console.log("message.game", message.game)
             console.log("class I")
 
             if (channels.length) {
-                const scrimsearchEmbed = constructScrimsearchEmbed(
-                    message.user,
-                    message.date,
-                    message.time,
-                    message.best_of.toString(),
-                    message.extrainfo || "",
-                    message.class
-                );
+                for (const c of channels) {
+                    const sentMessage = await sendMessageToChannel(Client, c, message);
+                    if (sentMessage) {
+                        sentMessageIds.push(sentMessage.id);
+                        sentChannelIds.push(c);
+                        if (sentMessage.guild) {
+                            sentGuildIds.push(sentMessage.guild.id);
+                        }
+                    }
+                }
             }
-        }
+        
 
         //*today search
         if (message.date.toLowerCase() === "today" || message.date.toLowerCase() === "rn" || message.date.toLowerCase() === "now") {
@@ -43,7 +44,7 @@ console.log("message.game", message.game)
                           color: 16744192, //#ff7700
                           author: {
                             name: `${message.user.displayName} is LFS`,
-                            icon_url: message.user.avatar,
+                            icon_url: `http://cdn.discordapp.com/avatars/${message.user.id}/${message.user.avatar}`,
                             url: `https://discordapp.com/users/${message.user.id}/`,
                             },
                           description: ` **${message.time}** |     **Class ${message.class}** |     **${message.best_of} Maps**`,
@@ -83,8 +84,9 @@ console.log("message.game", message.game)
                 }
             }catch(err){
                 console.log(err);
-              }
+            }
             
         }
+    }
     }
 }

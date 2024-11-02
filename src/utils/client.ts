@@ -1,8 +1,10 @@
 import ScrimFinder from '../lib/client';
-const key = process.env.ESPORTSAPP_API_KEY;
+import apikey from './env';
+
+
 let sclient: any;
-if (key) {
-  sclient = new ScrimFinder(key);
+if (apikey) {
+  sclient = new ScrimFinder(apikey);
 } else {
   throw new Error('eSportsApp API Key is required');
 }
