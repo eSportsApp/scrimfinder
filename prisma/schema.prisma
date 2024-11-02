@@ -30,7 +30,6 @@ model message {
   channelIds String[]
   guildIds String[]
   createdAt DateTime @default(now())
-  usersId String @map("user_id") @db.ObjectId
-  user Int
+  usersId String 
 }
 

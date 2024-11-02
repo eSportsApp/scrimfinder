@@ -14,5 +14,5 @@ interface Message {
     time: string;
     class: string;
     extrainfo?: string;
-    openSearch?: boolean;
+    opensearch?: boolean;
 }

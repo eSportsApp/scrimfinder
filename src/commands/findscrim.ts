@@ -46,7 +46,6 @@ export const config = createCommandConfig({//bestof, date, time, extrainfo, open
 		description: '',
 		name: 'open-search',
 		type: 'boolean',
-		required: false,
 	}
 ]
 } as const)
@@ -58,7 +57,7 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
 	const time = options.time
 	const extrainfo = options['extra-info']
 	const opensearch = options['open-search']
-
+console.log('open search', opensearch)
 	if (game === "rss") {
 		const searchmessage = {
 		  type: "search",

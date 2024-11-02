@@ -15,7 +15,7 @@ async function sendMessageToChannel(client: any, channelId: any, message: any) {
               icon_url: `http://cdn.discordapp.com/avatars/${message.user.id}/${message.user.avatar}`,
               url: `https://discordapp.com/users/${message.user.id}/`,
               },
-            description: ` **${message.time}** |     **Class ${message.class}** |     **${message.best_of} Maps**`,
+            description: ` **${message.date}**| **${message.time}** |     **Class ${message.class}** |     **${message.best_of} Maps**`,
             footer: {
                 text: `scrimfinder.gg | ${message.user.id}`,
                 icon_url: 'https://maierfabian.de/images/lovepingu.png',    
@@ -60,15 +60,12 @@ async function sendMessageToChannel(client: any, channelId: any, message: any) {
       if (guild.rssGtoIid && (rank === "I" || rank === "H" || rank === "G")) {
         channels.push(...guild.rssGtoIid);
       } else if (
-        guild.rssDtoFid &&
-        rank !== "I" &&
-        rank !== "H" &&
-        rank !== "G"
+        guild.rssDtoFid
       ) {
         channels.push(...guild.rssDtoFid);
       }
     });
-  
+  console.log(channels)
     return channels;
   }
   
