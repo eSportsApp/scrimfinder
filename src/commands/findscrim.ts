@@ -57,7 +57,6 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
 	const time = options.time
 	const extrainfo = options['extra-info']
 	const opensearch = options['open-search']
-console.log('open search', opensearch)
 	if (game === "rss") {
 		const searchmessage = {
 		  type: "search",
@@ -76,7 +75,6 @@ console.log('open search', opensearch)
 		  extrainfo: extrainfo,
 		  opensearch: opensearch
 		}
-		console.log('Sending search message:', searchmessage);
 
 		//todo: add a request to check if the user is banned
 		await sclient.openSearch(searchmessage)		

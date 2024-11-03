@@ -6,7 +6,7 @@ import db from "../utils/db";
 import { getUser, isBanned } from "../utils/requests";
 
 export const config = createCommandConfig({
-    description: 'send your scrim request to the network',
+    description: 'Setup a scrim channel',
     options: [{
         description: '',
         name: 'type',
@@ -110,7 +110,7 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
                             type: ComponentType.ActionRow,
                             components: [
                                 {
-                                    
+
                                     type: ComponentType.Button,
                                     label: 'Invite Me',
                                     style: ButtonStyle.Link,
@@ -149,7 +149,7 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
                                     type: ComponentType.Button,
                                     label: 'Appeal Ban',
                                     style: ButtonStyle.Link,
-                                    url: 'https://discord.gg/eSJufJn9DB'
+                                    url: 'discord://-/invite/eSJufJn9DB'
                                 }
                             ]
                         }

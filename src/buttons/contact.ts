@@ -27,7 +27,6 @@ export default async (interaction: ChatInputCommandInteraction) => {
 
     try {
         const user = await getUser(userId);
-        console.log(user)
         // Process the response data here
         let labels = '';
         if (user.data.labels && user.data.labels.length > 0) {
