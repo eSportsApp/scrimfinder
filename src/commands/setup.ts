@@ -119,7 +119,9 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
                             ]
                         }
                     ],
+                    abort: true
                   }
+                  
               }
 
               const isbanned = await isBanned(interaction.user.id);
@@ -154,12 +156,10 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
                             ]
                         }
                     ],
+                    abort: true
                   }
             }
-            if(isbanned){
-                // This fully quits the command if the user is banned
-                return
-            }
+            
             if (range == "default") {
                 if(guildDB && guildDB.rssGtoIid && guildDB.rssGtoIid.includes(channel.id)) {
                     console.log('This channel is already set as a scrim channel');
@@ -191,7 +191,6 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
                 
                 const user = await getUser(interaction.user.id);
                 if(user && user.class && user.class !== "I" && user.class !== "H" && user.class !== "G") {
-                    notallowed = true;
                     return { 
                       embeds: [{
                         title: 'Error 403',
@@ -202,14 +201,11 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
                             icon_url: 'https://maierfabian.de/images/lovepingu.png',	
                         },
                       }],
-                        ephemeral: true
+                        ephemeral: true,
+                        abort: true
                     };
-                } else {
-                  notallowed = false; 
-                }
-                if(notallowed){
-                    return
-                }
+                } 
+                
 
                 if(guildDB && guildDB.rssDtoFid && guildDB.rssDtoFid.includes(channel.id)) {
                     return{

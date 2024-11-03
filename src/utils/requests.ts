@@ -29,3 +29,19 @@ export async function isBanned(userId: string) {
         throw error;
     }
 }
+
+export async function getOpenSearches(userId: string) {
+    try {
+        const response = await axios.get(`https://api.esportsapp.gg/network/getuser/${userId}`, {
+            headers: {
+                'api-key': apikey
+            }
+        });
+        const user = response.data;
+        console.log(user);
+        return user.opensearches;
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        throw error;
+    }
+}
