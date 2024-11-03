@@ -8,5 +8,11 @@ export default {
 		intents: ['Guilds', 'GuildMessages']
 	},
 	plugins: [],
-	type: 'robo'
+	type: 'robo',
+	experimental: {
+		buildDirectory: 'dist',
+		incrementalBuilds: true,
+		shard: true,
+		userInstall: true
+	}
 }

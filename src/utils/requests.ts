@@ -2,12 +2,11 @@ import axios from 'axios';
 import apikey from './env';
 export async function getUser(userId: string) {
     try {
-        const response = await axios.get(`http://localhost:3000/network/getuser/${userId}`, {
+        const response = await axios.get(`https://api.esportsapp.gg/network/getuser/${userId}`, {
             headers: {
                 'api-key': apikey
             }
         });
-
         const user = response.data;
         return user;
     } catch (error) {
@@ -18,12 +17,12 @@ export async function getUser(userId: string) {
 
 export async function isBanned(userId: string) {
     try {
-        const response = await axios.get(`http://localhost:3000/network/isbanned/${userId}`, {
+        const response = await axios.get(`https://api.esportsapp.gg/network/isbanned/${userId}`, {
             headers: {
                 'api-key': apikey
             }
         });
-        const banned = response.data;
+        const banned = response.data.banned;
         return banned;
     } catch (error) {
         console.error('Error fetching banned status:', error);
