@@ -40,7 +40,7 @@ export default async function sendScrimMessage(message: CloseRequest, client: Cl
                     const newEmbed = {
                         color: 16744192,
                         author: {
-                            name: `${embed.author?.name} (Closed)`,
+                            name: `${embed.author?.name}`,
                             icon_url: `${embed.author?.iconURL}`,
                             url: `${embed.author?.url}`,
                         },
