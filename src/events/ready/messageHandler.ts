@@ -11,18 +11,14 @@ export default (client: Client) => {
         switch (message.type) {
             case 'search':
                 sendScrimMessage(message, client);
-                console.log("searching for scrims");
                 break;
             case 'closerequest':
-                console.log("closing request");
                 closeScrimMessage(message, client);
                 break;
             case 'banned':
-                console.log("banned user", message);
                 searchResult = { status: 'banned', message };
                 break; 
             case 'success':
-                console.log("success", message);
                 searchResult = { status: 'success', message };
                 break;
             default:
@@ -34,5 +30,5 @@ export default (client: Client) => {
         // Set the message handler
         sclient.setMessageHandler(messageHandler);
         // Connect to the Network
-        sclient.connect(apikey);
+        sclient.connect(apikey, "Scrimfinder");
 };

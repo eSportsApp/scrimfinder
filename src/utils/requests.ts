@@ -38,7 +38,6 @@ export async function getOpenSearches(userId: string) {
             }
         });
         const user = response.data;
-        console.log(user);
         return user.opensearches;
     } catch (error) {
         console.error('Error fetching user:', error);

@@ -12,7 +12,6 @@ export const config = createCommandConfig({
 export default async (interaction: CommandInteraction, options: CommandOptions<typeof config>) => {
 
     const user = await getUser(interaction.user.id);
-    console.log(user);
 
     const openSearchFields = user.openSearches.map((search: any) => ({
         name: `Search ID: ${search.id}`,

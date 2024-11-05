@@ -6,7 +6,6 @@ async function sendMessageToChannel(client: any, channelId: any, message: any) {
     const channelToSend = client.channels.cache.get(channelId);
     if (channelToSend) {
       try {
-        console.log(message)
         return await channelToSend.send({
           embeds: [{
             color: 16744192, //#ff7700
@@ -65,7 +64,6 @@ async function sendMessageToChannel(client: any, channelId: any, message: any) {
         channels.push(...guild.rssDtoFid);
       }
     });
-  console.log(channels)
     return channels;
   }
   

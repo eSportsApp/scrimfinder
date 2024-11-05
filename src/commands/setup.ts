@@ -66,11 +66,8 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
     const channel = options.channel;
     let notallowed: boolean
 
-    console.log(type, game, range, channel.id);
     if(type === 'scrim'){
-        console.log('Scrim command detected');
         if(game === 'r6'){
-            console.log('Rainbow Six Siege game detected');
             let guildDB = await db.guilds.findFirst({
                 where: {
                     guildId: guildId
@@ -89,7 +86,6 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
                   PermissionsBitField.Flags.Administrator
                 ))
               ) {
-                console.log('User does not have permission to use this command');
                 return {
                     embeds: [
                       {
@@ -127,7 +123,6 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
               const isbanned = await isBanned(interaction.user.id);
 
               if(isbanned){
-                console.log('User is banned from using this bot');
                 return {
                     embeds: [
                       {
@@ -162,7 +157,6 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
             
             if (range == "default") {
                 if(guildDB && guildDB.rssGtoIid && guildDB.rssGtoIid.includes(channel.id)) {
-                    console.log('This channel is already set as a scrim channel');
                     return{ 
                       embeds: [{
                         title: 'Error',
@@ -248,7 +242,6 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
                                 },
                             }]
                         });
-                        console.log('Scrimfinder setup completed');
                         return{ 
                             embeds: [{
                                 title: 'Success',
@@ -265,7 +258,6 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
                         throw new Error("Setup channel is undefined.");
                     }
                 } catch (error) {
-                    console.log('Missing permissions to send messages in the specified channel');
                     return[{ 
                         content: "Missing permissions to send messages in the specified channel.",
                         ephemeral: true
@@ -274,7 +266,6 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
 
         }
     }
-    console.log('Invalid game');
     return [{
         embed: {
             title: 'Error',

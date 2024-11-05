@@ -99,7 +99,7 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
 			}
 		}
 		await sclient.openSearch(searchmessage)		
-		 console.log("searching for scrims");
+		
 	}
 	return {
 		embeds: [

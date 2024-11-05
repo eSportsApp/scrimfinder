@@ -33,13 +33,14 @@ class ScrimFinder {
 
 
     constructor(apiKey: string) {
+        
     }
 
     connect(apiKey: string, messageHandler: (message: string) => void) {
         if (!this.messageHandler) {
             this.messageHandler = messageHandler;
         }
-        this.ws = new WebSocket(`ws://localhost:3333/ws/network?apikey=${apiKey}`);
+        this.ws = new WebSocket(`ws://api.esportsapp.gg/ws/network?apikey=${apiKey}`);
 
         this.ws.on('open', () => {
             console.log('Client successfully connected to the Scrimfinder Network 🙂');
@@ -63,7 +64,7 @@ class ScrimFinder {
             console.log('❌ Connection got closed. Reconnecting...');
             if (this.retries < this.MAX_RETRIES) {
                 this.retries++;
-                console.log(`Reconnecting connection try (${this.retries}/${this.MAX_RETRIES})...`);
+                console.log(`⌛ Reconnecting connection try (${this.retries}/${this.MAX_RETRIES})...`);
                 setTimeout(() => this.connect(apiKey, messageHandler), this.RETRY_INTERVAL);
             } else {
                 console.error('You got rate limited. Please check your ApiKey and try again Manually');
