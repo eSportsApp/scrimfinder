@@ -1,7 +1,7 @@
 {
 	"name": "scrimfinder",
 	"description": "Scrim Finder is a Discord bot that helps you find scrims for your team.",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"type": "module",
 	"private": true,
 	"keywords": [],
