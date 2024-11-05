@@ -1,1 +1,1 @@
-- findscrim cmd finished
+# TODO add readme
