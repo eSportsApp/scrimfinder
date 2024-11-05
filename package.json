@@ -3,7 +3,6 @@
 	"description": "Scrim Finder is a Discord bot that helps you find scrims for your team.",
 	"version": "2.0.0",
 	"type": "module",
-	"private": true,
 	"keywords": [],
 	"scripts": {
 		"build": "robo build",
