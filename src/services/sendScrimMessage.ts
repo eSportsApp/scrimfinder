@@ -140,6 +140,7 @@ console.log(channels.length)
             channelIds: sentChannelIds,
             guildIds: sentGuildIds,
             usersId: message.user.id,
+            muuid: message.searchid,
           },
         });
         console.log('Message saved to database');

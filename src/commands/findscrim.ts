@@ -3,6 +3,7 @@ import { createCommandConfig } from 'robo.js'
 import type { CommandOptions, CommandResult } from 'robo.js'
 import type { CommandInteraction } from 'discord.js'
 import sclient from '../utils/client'
+import { isBanned } from '../utils/requests'
 
 export const config = createCommandConfig({//bestof, date, time, extrainfo, opensearch
 	description: 'send your scrim request to the network',
@@ -76,7 +77,27 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
 		  opensearch: opensearch
 		}
 
-		//todo: add a request to check if the user is banned
+		//* Don't remove this code even if you remove it requests of banned users are getting blocked
+		const banned = await isBanned(interaction.user.id)
+		if(banned) {
+			return {
+				embeds: [
+					{
+					  color: 16744192,
+					  title: "You are banned!",
+					  url: "https://docs.scrimfinder.gg/",
+					  description: "You are banned from the network. Please contact the support for more information.",
+					  footer: {
+						  text: 'scrimfinder.gg | Finding Scrims was never that easy',
+						  icon_url: 'https://maierfabian.de/images/lovepingu.png',	
+					  },
+					  timestamp: new Date().toISOString(),
+					}
+				  ],
+				  ephemeral: true,
+				  abort: true
+			}
+		}
 		await sclient.openSearch(searchmessage)		
 		 console.log("searching for scrims");
 	}

@@ -15,6 +15,7 @@ interface SearchMessage {
     time: string;
     extrainfo?: string;
     openSearch?: boolean;
+    searchid?: string;
 }
 interface CloseRequest {
     type: string,

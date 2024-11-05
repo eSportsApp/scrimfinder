@@ -23,7 +23,7 @@ export async function isBanned(userId: string) {
             }
         });
         const banned = response.data.banned;
-        return banned;
+        return banned; //boolean
     } catch (error) {
         console.error('Error fetching banned status:', error);
         throw error;

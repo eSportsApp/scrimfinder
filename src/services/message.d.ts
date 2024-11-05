@@ -15,4 +15,5 @@ interface Message {
     class: string;
     extrainfo?: string;
     opensearch?: boolean;
+    searchid: string;
 }

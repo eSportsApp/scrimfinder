@@ -1,7 +1,9 @@
 import { Client } from 'discord.js';
 import sclient from '../../utils/client';
 import sendScrimMessage from '../../services/sendScrimMessage';
+import closeScrimMessage from '../../services/closeScrimSearch';
 import apikey from '../../utils/env';
+import { close } from 'fs';
 let searchResult: { status: string, message: any } | null = null;
 
 export default (client: Client) => {
@@ -13,6 +15,7 @@ export default (client: Client) => {
                 break;
             case 'closerequest':
                 console.log("closing request");
+                closeScrimMessage(message, client);
                 break;
             case 'banned':
                 console.log("banned user", message);

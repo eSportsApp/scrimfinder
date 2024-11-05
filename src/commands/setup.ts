@@ -190,7 +190,7 @@ export default async (interaction: CommandInteraction, options: CommandOptions<t
             } else if (range == "df") {
                 
                 const user = await getUser(interaction.user.id);
-                if(user && user.class && user.class !== "I" && user.class !== "H" && user.class !== "G") {
+                if(user && user.rssclass && user.rssclass !== "I" && user.rssclass !== "H" && user.rssclass !== "G") {
                     return { 
                       embeds: [{
                         title: 'Error 403',
