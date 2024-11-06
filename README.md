@@ -85,3 +85,13 @@ Tools we used to make the Development process as easy as possible.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+[contributors-shield]: https://img.shields.io/github/contributors/eSportsApp/scrimfinder.svg?style=for-the-badge
+[contributors-url]: https://github.com/eSportsApp/scrimfinder/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/eSportsApp/scrimfinder.svg?style=for-the-badge
+[forks-url]: https://github.com/othneildrew/eSportsApp/scrimfinder/network/members
+[stars-shield]: https://img.shields.io/github/stars/eSportsApp/scrimfinder.svg?style=for-the-badge
+[stars-url]: https://github.com/eSportsApp/scrimfinder/stargazers
+[issues-shield]: https://img.shields.io/github/issues/eSportsApp/scrimfinder.svg?style=for-the-badge
+[issues-url]: https://github.com/eSportsApp/scrimfinder/issues
