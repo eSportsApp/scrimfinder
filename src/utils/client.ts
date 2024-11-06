@@ -1,4 +1,4 @@
-import ScrimFinder from '../lib/client';
+import ScrimFinder from '@esportsapp/client';
 import apikey from './env';
 
 
