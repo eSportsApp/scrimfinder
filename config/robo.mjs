@@ -10,9 +10,8 @@ export default {
 	plugins: [],
 	type: 'robo',
 	experimental: {
-		buildDirectory: 'dist',
+		userInstall: true,
 		incrementalBuilds: true,
 		shard: true,
-		userInstall: true
 	}
 }
