@@ -67,6 +67,7 @@ Don't forget to give the project a star! Thanks again!
 
 ### Top contributors:
 Our Contributers. Want to be here too? Just open a PR with a feature you build.
+<br>
 <a href="https://github.com/eSportsApp/scrimfinder/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=eSportsApp/scrimfinder" alt="contrib.rocks image" />
 </a>
