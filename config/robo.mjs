@@ -11,7 +11,5 @@ export default {
 	type: 'robo',
 	experimental: {
 		userInstall: true,
-		incrementalBuilds: true,
-		shard: true,
 	}
 }
