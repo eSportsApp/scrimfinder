@@ -1,36 +1,50 @@
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x", "linux-musl"]
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model guilds {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  guildId String @unique
-  rssChannelId String?
-  rssGtoIid String[]
-  rssDtoFid String[]
-  //Warmup Searches
-  warmuprssChannelId String?
-}
-
-model blGuilds {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  guildId String @unique
+model rcsbans {
+  id String @id @default(uuid())
+  userId String @unique
   reason String?
+  date DateTime
+  bannedBy String?
+  bannedtil DateTime
+  networkUserId String
+  networkUser networkusers @relation(fields: [networkUserId], references: [id])
 }
 
-model message {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  content String?
-  messageIds String[]
-  channelIds String[]
-  guildIds String[]
-  createdAt DateTime @default(now())
-  muuid String @unique
-  usersId String 
+model networkusers {
+  id String @id @default(uuid())
+  userId String @unique
+  username String?
+  rssClan String?
+  rssclass String?
+  banned Boolean @default(false)
+  bannedReason String?
+  labels String[]
+  probation Boolean @default(false)
+  mena Boolean @default(false)
+  openSearches openSearches[]
+  rcsbans rcsbans[]
 }
 
+model openSearches {
+    id String @id @default(uuid())
+    user     networkusers @relation(fields: [userId], references: [userId])
+    userId   String
+    game String?
+    platform String?
+    region String?
+    userid String?
+    username String?
+    best_of Int?
+    date String?
+    time String?
+    extra_info String?
+}
