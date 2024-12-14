@@ -7,6 +7,7 @@ import { close } from 'fs';
 let searchResult: { status: string, message: any } | null = null;
 
 export default (client: Client) => {
+    /*
     const messageHandler = (message: any) => {
         switch (message.type) {
             case 'search':
@@ -31,4 +32,6 @@ export default (client: Client) => {
         sclient.setMessageHandler(messageHandler);
         // Connect to the Network
         sclient.connect(apikey, "Scrimfinder");
+        */
+       console.log("Message handler Set");
 };
