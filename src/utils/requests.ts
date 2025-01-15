@@ -32,7 +32,7 @@ export async function isBanned(userId: string) {
 
 export async function getOpenSearches(userId: string) {
     try {
-        const response = await axios.get(`https://api.esportsapp.gg/network/getuser/${userId}`, {
+        const response = await axios.get(`https://api.esportsapp.gg/rcs/getuser/${userId}`, {
             headers: {
                 'api-key': apikey
             }
